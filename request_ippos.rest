@@ -256,8 +256,6 @@ Content-Type: application/json
 }
 
 
-####GET AVG GROUP BY 
-GET http://localhost:5000/buildingmetrics-avg
 
 ####GET AVG GROUP BY 
 GET http://localhost:5000/buildingmetrics-geo
@@ -294,23 +292,28 @@ Content-Type: application/json
 GET http://localhost:5000/erga
 
 
+####Get single Erga
+GET http://localhost:5000/erga/3
+
+
 ###
 // Create a erga
 POST http://localhost:5000/erga
 Content-Type: application/json
 
 {
-    "name":"paparapapa",
+    "name":"paparapapa2",
     "sign_ammount_no_tax":"10",
     "sign_date":"01-01-2022",
     "status":"status",
     "estimate_start_date":"02-02-2022",
-    "project_manager":"ZABETAKIS",
+    "project_manager":"MARKESINI",
     "customer_id":"1"
 
 }
 
 ###
+<<<<<<< HEAD:request_ippos.rest
 // Create Timologia
 POST http://localhost:5000/timologia
 Content-Type: application/json
@@ -362,3 +365,120 @@ DELETE http://localhost:5000/timologia/1
 
 GET http://localhost:5000/timologia/2
 
+=======
+// Create a erga
+PATCH http://localhost:5000/erga/3
+Content-Type: application/json
+
+{
+    "name":"paratiritio",
+    "sign_ammount_no_tax":"10333",
+    "sign_date":"01-01-2024",
+    "status":"status2",
+    "estimate_start_date":"02-02-2025",
+    "project_manager":"ZABETAK5IS",
+    "customer_id":"1"
+
+}
+
+###update single metrics
+DELETE  http://localhost:5000/erga/4
+Content-Type: application/json
+
+###
+// Create customer
+POST http://localhost:5000/customer
+Content-Type: application/json
+
+{
+    "name":"CROWD",
+    "afm":"0953558844",
+    "phone":"2107298192",
+    "email":"crowd@gmail.com",
+    "address":"Spyrou merkouri 39",
+    "postal_code":"11111"
+
+}
+
+###
+// Create customer
+POST http://localhost:5000/customer
+Content-Type: application/json
+
+{
+    "name":"EDSNA",
+    "afm":"0953558844",
+    "phone":"2107298192",
+    "email":"edsna@gmail.com",
+    "address":"Spyrou merkouri 39",
+    "postal_code":"11111"
+
+}
+
+
+
+###update single customer
+PATCH http://localhost:5000/customer/1
+Content-Type: application/json
+
+{
+   "name":"CROWD POLICY",
+    "afm":"095888844",
+    "phone":"2107298195",
+    "email":"crowdpolicy@gmail.com",
+    "address":"Spyrou merkouri 38",
+    "postal_code":"1211"
+    
+}
+
+
+
+###update single metrics
+DELETE  http://localhost:5000/customer/2
+Content-Type: application/json
+
+
+####get PARADOTEA
+GET http://localhost:5000/paradotea
+
+###
+//get single metrics
+GET http://localhost:5000/paradotea/1
+###
+
+
+###
+// Create a erga
+POST http://localhost:5000/paradotea
+Content-Type: application/json
+
+{
+    "part_number":"2",
+    "title":"Paradotea A",
+    "delivery_date":"2023-03-01",
+    "percentage":"23",
+    "erga_id":"3",
+    "timologia_id":""
+
+}
+
+###
+// Create a erga
+PATCH http://localhost:5000/paradotea/1
+Content-Type: application/json
+
+{
+    "part_number":"4",
+    "title":"Paradotea A fdfd",
+    "delivery_date":"2023-03-03",
+    "percentage":"233",
+    "erga_id":"3",
+    "timologia_id":""
+
+
+}
+
+###update single metrics
+DELETE  http://localhost:5000/paradotea/1
+Content-Type: application/json
+>>>>>>> cb75e30d89c822a1a40ad8575b3763e333e24826:request.rest
