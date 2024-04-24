@@ -10,6 +10,7 @@ import ErgaRoute from "./routes/ErgaRoute.js";
 import ParadoteaRoute from "./routes/ParadoteaRoute.js";
 
 import AuthRoute from "./routes/AuthRoute.js";
+import Timologia_Route from "./routes/Timologia_Route.js";
 import bodyParser from "body-parser";
 import Paradotea from "./models/ParadoteaModel.js";
 import Daneia from "./models/DaneiaModel.js";
@@ -62,7 +63,11 @@ app.use(UserRoute);
 app.use(AuthRoute);
 app.use(CustomerRoute);
 app.use(ErgaRoute);
+<<<<<<< HEAD
+app.use(Timologia_Route)
+=======
 app.use(ParadoteaRoute);
+>>>>>>> cb75e30d89c822a1a40ad8575b3763e333e24826
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{
