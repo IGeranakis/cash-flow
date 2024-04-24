@@ -7,6 +7,7 @@ import  SequelizeStore  from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
 import ErgaRoute from "./routes/ErgaRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
+import Timologia_Route from "./routes/Timologia_Route.js";
 import bodyParser from "body-parser";
 import Paradotea from "./models/ParadoteaModel.js";
 import Daneia from "./models/DaneiaModel.js";
@@ -58,6 +59,7 @@ app.use(express.json());
 app.use(UserRoute);
 app.use(AuthRoute);
 app.use(ErgaRoute);
+app.use(Timologia_Route)
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{

@@ -309,3 +309,56 @@ Content-Type: application/json
     "customer_id":"1"
 
 }
+
+###
+// Create Timologia
+POST http://localhost:5000/timologia
+Content-Type: application/json
+
+{
+    "invoice_date":"2002-02-02",
+    "estimate_payment_date":"2003-03-03",
+    "estimate_payment_date_2":"2022-01-01",
+    "estimate_payment_date_3":"2023-03-03",
+    "ammount_no_tax": "122",
+    "ammount_tax_incl": "182",
+    "estimate_tax": "225",
+    "actual_payment_date": "2024-04-04",
+    "ammount_of_income_tax_incl": "234",
+    "comments": "abv",
+    "verified": "Waafaafa",
+    "createdAt": "01-01-2001",
+    "updatedAt": "05-05-2005"
+}
+
+### //get Timologia
+GET http://localhost:5000/timologia
+
+### //Update Timologia
+PATCH http://localhost:5000/timologia/1
+Content-Type: application/json
+
+{
+    "invoice_date":"2002-02-02",
+    "estimate_payment_date":"2003-03-03",
+    "estimate_payment_date_2":"2022-01-01",
+    "estimate_payment_date_3":"2023-03-03",
+    "ammount_no_tax": "155",
+    "ammount_tax_incl": "258",
+    "estimate_tax": "555",
+    "actual_payment_date": "2024-04-04",
+    "ammount_of_income_tax_incl": "28",
+    "comments": "abv",
+    "verified": "Waafaafa",
+    "createdAt": "01-01-2001",
+    "updatedAt": "05-05-2005"
+}
+
+### // Delete Timologia
+
+DELETE http://localhost:5000/timologia/1
+
+### // Get Timologio By id
+
+GET http://localhost:5000/timologia/2
+
