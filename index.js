@@ -63,11 +63,8 @@ app.use(UserRoute);
 app.use(AuthRoute);
 app.use(CustomerRoute);
 app.use(ErgaRoute);
-<<<<<<< HEAD
 app.use(Timologia_Route)
-=======
 app.use(ParadoteaRoute);
->>>>>>> cb75e30d89c822a1a40ad8575b3763e333e24826
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{
