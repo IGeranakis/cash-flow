@@ -5,7 +5,10 @@ import db from "./config/Database.js";
 import dotenv from "dotenv";
 import  SequelizeStore  from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js";
+import CustomerRoute from "./routes/CustomerRoute.js"
 import ErgaRoute from "./routes/ErgaRoute.js";
+import ParadoteaRoute from "./routes/ParadoteaRoute.js";
+
 import AuthRoute from "./routes/AuthRoute.js";
 import bodyParser from "body-parser";
 import Paradotea from "./models/ParadoteaModel.js";
@@ -57,7 +60,9 @@ app.use(cors({
 app.use(express.json());
 app.use(UserRoute);
 app.use(AuthRoute);
+app.use(CustomerRoute);
 app.use(ErgaRoute);
+app.use(ParadoteaRoute);
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{
