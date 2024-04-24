@@ -313,7 +313,6 @@ Content-Type: application/json
 }
 
 ###
-<<<<<<< HEAD:request_ippos.rest
 // Create Timologia
 POST http://localhost:5000/timologia
 Content-Type: application/json
@@ -365,7 +364,6 @@ DELETE http://localhost:5000/timologia/1
 
 GET http://localhost:5000/timologia/2
 
-=======
 // Create a erga
 PATCH http://localhost:5000/erga/3
 Content-Type: application/json
@@ -481,4 +479,31 @@ Content-Type: application/json
 ###update single metrics
 DELETE  http://localhost:5000/paradotea/1
 Content-Type: application/json
->>>>>>> cb75e30d89c822a1a40ad8575b3763e333e24826:request.rest
+
+### // Create Daneia
+POST http://localhost:5000/daneia
+Content-Type: application/json
+
+{
+    "loan_type": "Allooooo Pramaaa",
+    "timologia_id": null
+}
+### // Get Daneia
+GET http://localhost:5000/daneia
+
+### // Get Daneia By Id
+GET http://localhost:5000/daneia/1
+
+### // Update Daneia
+
+PATCH http://localhost:5000/daneia/1
+Content-Type: application/json
+
+{
+   "loan_type": "Kanonikos Eimai",
+    "timologia_id": null
+}
+
+### //delete daneio
+
+DELETE  http://localhost:5000/daneia/2
