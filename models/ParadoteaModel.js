@@ -52,6 +52,6 @@ const Paradotea = db.define('paradotea', {
 });
 
 Paradotea.belongsTo(Erga, { foreignKey: 'erga_id' });
-Paradotea.belongsTo(Timologia, { foreignKey: 'timologia_id' });
+Paradotea.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
 
 export default Paradotea;
