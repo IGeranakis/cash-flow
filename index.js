@@ -8,7 +8,7 @@ import UserRoute from "./routes/UserRoute.js";
 import CustomerRoute from "./routes/CustomerRoute.js"
 import ErgaRoute from "./routes/ErgaRoute.js";
 import ParadoteaRoute from "./routes/ParadoteaRoute.js";
-
+import DaneiaRoute from "./routes/DaneiaRoute.js";
 import AuthRoute from "./routes/AuthRoute.js";
 import Timologia_Route from "./routes/Timologia_Route.js";
 import bodyParser from "body-parser";
@@ -65,6 +65,7 @@ app.use(CustomerRoute);
 app.use(ErgaRoute);
 app.use(Timologia_Route)
 app.use(ParadoteaRoute);
+app.use(DaneiaRoute);
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{

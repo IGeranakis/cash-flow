@@ -350,9 +350,8 @@ Content-Type: application/json
     "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "28",
     "comments": "abv",
-    "verified": "Waafaafa",
-    "createdAt": "01-01-2001",
-    "updatedAt": "05-05-2005"
+    "verified": "Waafaafa"
+   
 }
 
 ### // Delete Timologia
@@ -455,7 +454,7 @@ Content-Type: application/json
     "delivery_date":"2023-03-01",
     "percentage":"23",
     "erga_id":"3",
-    "timologia_id":"1"
+    "timologia_id":null
 
 }
 
@@ -478,3 +477,42 @@ Content-Type: application/json
 ###update single metrics
 DELETE  http://localhost:5000/paradotea/2
 Content-Type: application/json
+
+### // Create Daneia
+POST http://localhost:5000/daneia
+Content-Type: application/json
+
+{
+    "loan_type": "Ekxorisi",
+    "timologia_id": "1"
+
+}
+
+### // Create Daneia
+POST http://localhost:5000/daneia
+Content-Type: application/json
+
+{
+    "loan_type": "Kanoniko",
+    "timologia_id": null
+
+}
+### // Get Daneia
+GET http://localhost:5000/daneia
+
+### // Get Daneia By Id
+GET http://localhost:5000/daneia/1
+
+### // Update Daneia
+
+PATCH http://localhost:5000/daneia/1
+Content-Type: application/json
+
+{
+   "loan_type": "Ekxorisi",
+    "timologia_id": "1"
+}
+
+### //delete daneio
+
+DELETE  http://localhost:5000/daneia/2

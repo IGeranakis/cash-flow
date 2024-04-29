@@ -22,5 +22,5 @@ const Daneia = db.define('daneia',{
     freezeTableName: true
 });
 
-Daneia.belongsTo(Timologia, { foreignKey: 'timologia_id' });
+Daneia.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
 export default Daneia;
