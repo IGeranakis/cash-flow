@@ -507,3 +507,18 @@ Content-Type: application/json
 ### //delete daneio
 
 DELETE  http://localhost:5000/daneia/2
+
+
+###
+// Create a useradmin
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name":"admin",
+    "email":"admin@gmail.com",
+    "password":"123456",
+    "confPassword":"123456",
+    "role":"admin"
+
+}
