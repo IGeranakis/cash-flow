@@ -46,7 +46,61 @@ const Paradotea = db.define('paradotea', {
         validate:{
             notEmpty: true
         }
+    },
+
+    ammount: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        validate: {
+            isNumeric: true
+        }
+    },
+
+    ammount_vat: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        validate: {
+            isNumeric: true
+        }
+    },
+
+    ammount_total: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+        validate: {
+            isNumeric: true
+        }
+    },
+
+    estimate_payment_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
+    },
+
+    
+    estimate_payment_date_2: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
+    },
+
+    
+    estimate_payment_date_3: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
     }
+
+
+
+
 },{
     freezeTableName: true
 });

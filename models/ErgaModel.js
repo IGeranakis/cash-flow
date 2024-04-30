@@ -114,7 +114,7 @@ const Erga = db.define('erga',{
         validate: {
             isDate: true
         }
-    },
+    }
 
     
 
