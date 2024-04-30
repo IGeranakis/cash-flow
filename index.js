@@ -18,6 +18,7 @@ import Customer from "./models/CustomerModel.js";
 import Erga from "./models/ErgaModel.js";
 import timologia from "./models/TimologiaModel.js";
 import Users from "./models/UserModel.js";
+import incomes from "./models/incomesModel.js";
 dotenv.config();
 
 const app = express();
@@ -37,6 +38,7 @@ const store = new sessionStore({
     await timologia.sequelize.sync();
     await Paradotea.sequelize.sync();
     await Users.sequelize.sync();
+    await incomes.sequelize.sync();
     
 })();
 

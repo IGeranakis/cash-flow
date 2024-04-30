@@ -318,18 +318,19 @@ POST http://localhost:5000/timologia
 Content-Type: application/json
 
 {
-    "invoice_date":"02-02-2022",
-    "estimate_payment_date":"02-03-2022",
-    "estimate_payment_date_2":"02-04-2024",
-    "estimate_payment_date_3":"02-05-2024",
+    "invoice_date":"2002-02-02",
+    "estimate_payment_date":"2003-03-03",
+    "estimate_payment_date_2":"2022-01-01",
+    "estimate_payment_date_3":"2023-03-03",
     "ammount_no_tax": "122",
     "ammount_tax_incl": "182",
     "estimate_tax": "225",
-    "actual_payment_date": "02-08-2024",
+    "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "234",
     "comments": "abv",
-    "verified": "no_valid"
-
+    "verified": "Waafaafa",
+    "createdAt": "01-01-2001",
+    "updatedAt": "05-05-2005"
 }
 
 ### //get Timologia
@@ -350,8 +351,9 @@ Content-Type: application/json
     "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "28",
     "comments": "abv",
-    "verified": "Waafaafa"
-   
+    "verified": "Waafaafa",
+    "createdAt": "01-01-2001",
+    "updatedAt": "05-05-2005"
 }
 
 ### // Delete Timologia
@@ -444,17 +446,17 @@ GET http://localhost:5000/paradotea/1
 
 
 ###
-// Create a paradoteo
+// Create a erga
 POST http://localhost:5000/paradotea
 Content-Type: application/json
 
 {
-    "part_number":"part_2",
-    "title":"Paradotea B",
+    "part_number":"2",
+    "title":"Paradotea A",
     "delivery_date":"2023-03-01",
     "percentage":"23",
     "erga_id":"3",
-    "timologia_id":null
+    "timologia_id":""
 
 }
 
@@ -464,18 +466,18 @@ PATCH http://localhost:5000/paradotea/1
 Content-Type: application/json
 
 {
-    "part_number":"part_4",
+    "part_number":"4",
     "title":"Paradotea A fdfd",
     "delivery_date":"2023-03-03",
     "percentage":"233",
     "erga_id":"3",
-    "timologia_id":"1"
+    "timologia_id":""
 
 
 }
 
 ###update single metrics
-DELETE  http://localhost:5000/paradotea/2
+DELETE  http://localhost:5000/paradotea/1
 Content-Type: application/json
 
 ### // Create Daneia
@@ -483,19 +485,8 @@ POST http://localhost:5000/daneia
 Content-Type: application/json
 
 {
-    "loan_type": "Ekxorisi",
-    "timologia_id": "1"
-
-}
-
-### // Create Daneia
-POST http://localhost:5000/daneia
-Content-Type: application/json
-
-{
-    "loan_type": "Kanoniko",
+    "loan_type": "Allooooo Pramaaa",
     "timologia_id": null
-
 }
 ### // Get Daneia
 GET http://localhost:5000/daneia
@@ -509,10 +500,25 @@ PATCH http://localhost:5000/daneia/1
 Content-Type: application/json
 
 {
-   "loan_type": "Ekxorisi",
-    "timologia_id": "1"
+   "loan_type": "Kanonikos Eimai",
+    "timologia_id": null
 }
 
 ### //delete daneio
 
 DELETE  http://localhost:5000/daneia/2
+
+
+###
+// Create a useradmin
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name":"admin",
+    "email":"admin@gmail.com",
+    "password":"123456",
+    "confPassword":"123456",
+    "role":"admin"
+
+}
