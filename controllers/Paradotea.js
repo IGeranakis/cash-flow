@@ -11,7 +11,7 @@ export const getParadotea = async(req,res)=>{
     
     try{
         const response = await Paradotea.findAll({
-            attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id']
+            attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id','ammount','ammount_vat','ammount_total','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3']
         });
         res.status(200).json(response);
     } catch(error){
@@ -24,7 +24,7 @@ export const getParadotea = async(req,res)=>{
 export const getParadoteaById = async(req,res)=>{
     try{
         const response = await Paradotea.findOne({
-            attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id'],
+            attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id','ammount','ammount_vat','ammount_total','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3'],
             where:{
                 id:req.params.id
             }
@@ -40,7 +40,7 @@ export const getParadoteaById = async(req,res)=>{
 
 export const createParadotea = async(req,res)=>{
     
-    const {part_number,title,delivery_date,percentage,erga_id,timologia_id} = req.body;
+    const {part_number,title,delivery_date,percentage,erga_id,timologia_id,ammount,ammount_vat,ammount_total,estimate_payment_date,estimate_payment_date_2,estimate_payment_date_3} = req.body;
 
     try{
         await Paradotea.create({
@@ -49,7 +49,13 @@ export const createParadotea = async(req,res)=>{
             delivery_date:delivery_date,
             percentage:percentage,
             erga_id:erga_id,
-            timologia_id:timologia_id
+            timologia_id:timologia_id,
+            ammount:ammount,
+            ammount_vat:ammount_vat,
+            ammount_total:ammount_total,
+            estimate_payment_date:estimate_payment_date,
+            estimate_payment_date_2:estimate_payment_date_2,
+            estimate_payment_date_3:estimate_payment_date_3
 
         });
         res.status(201).json({msg:"Paradotea create successfully"});
@@ -71,7 +77,7 @@ export const updateParadotea= async(req,res)=>{
     });
 
     if (!paradotea) return res.status(404).json({msg:"paradotea not  found"});
-    const {part_number,title,delivery_date,percentage,erga_id,timologia_id} = req.body;
+    const {part_number,title,delivery_date,percentage,erga_id,timologia_id,ammount,ammount_vat,ammount_total,estimate_payment_date,estimate_payment_date_2,estimate_payment_date_3} = req.body;
     
     try{
         await Paradotea.update({
@@ -80,13 +86,19 @@ export const updateParadotea= async(req,res)=>{
             delivery_date:delivery_date,
             percentage:percentage,
             erga_id:erga_id,
-            timologia_id:timologia_id
+            timologia_id:timologia_id,
+            ammount:ammount,
+            ammount_vat:ammount_vat,
+            ammount_total:ammount_total,
+            estimate_payment_date:estimate_payment_date,
+            estimate_payment_date_2:estimate_payment_date_2,
+            estimate_payment_date_3:estimate_payment_date_3
         },{
             where:{
                 id:paradotea.id
             }
         });
-        res.status(200).json({msg:"Paradotea  update Succesfykky"});
+        res.status(200).json({msg:"Paradotea update successfully"});
     
     } catch(error){
         res.status(400).json({msg:error.message});
