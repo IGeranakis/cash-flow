@@ -13,7 +13,6 @@ import AuthRoute from "./routes/AuthRoute.js";
 import Timologia_Route from "./routes/Timologia_Route.js";
 import bodyParser from "body-parser";
 import Paradotea from "./models/ParadoteaModel.js";
-import Daneia from "./models/DaneiaModel.js";
 import Customer from "./models/CustomerModel.js";
 import Erga from "./models/ErgaModel.js";
 import timologia from "./models/TimologiaModel.js";
