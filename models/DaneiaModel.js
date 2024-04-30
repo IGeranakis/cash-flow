@@ -11,7 +11,7 @@ const Daneia = db.define('daneia',{
     },
     name:
     {
-        type: DataTypes.STRING[100],
+        type: DataTypes.STRING(100),
         allowNull: false,
     },
     ammount:
