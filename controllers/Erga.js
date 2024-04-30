@@ -11,7 +11,13 @@ export const getErga = async(req,res)=>{
     
     try{
         const response = await Erga.findAll({
-            attributes:['id','name','sign_date','sign_ammount_no_tax','status','estimate_start_date','project_manager','customer_id']
+            attributes:['id','name','sign_date',
+            'sign_ammount_no_tax','status','estimate_start_date',
+            'project_manager','customer_id',
+            'shortname','ammount','ammount_vat',
+            'ammount_total',
+            'estimate_payment_date',
+            'estimate_payment_date_2','estimate_payment_date_3']
         });
         res.status(200).json(response);
     } catch(error){
@@ -24,7 +30,13 @@ export const getErga = async(req,res)=>{
 export const getErgaById = async(req,res)=>{
     try{
         const response = await Erga.findOne({
-            attributes:['id','name','sign_date','sign_ammount_no_tax','status','estimate_start_date','project_manager','customer_id'],
+            attributes:['id','name','sign_date',
+            'sign_ammount_no_tax','status','estimate_start_date',
+            'project_manager','customer_id',
+            'shortname','ammount','ammount_vat',
+            'ammount_total',
+            'estimate_payment_date',
+            'estimate_payment_date_2','estimate_payment_date_3'],
             where:{
                 id:req.params.id
             }
@@ -40,7 +52,14 @@ export const getErgaById = async(req,res)=>{
 
 export const createErga = async(req,res)=>{
     
-    const {name,sign_ammount_no_tax,sign_date,status,estimate_start_date,project_manager,customer_id} = req.body;
+    const {name,sign_ammount_no_tax,sign_date,
+        status,estimate_start_date,
+        project_manager,customer_id,
+        shortname,ammount,ammount_vat,
+        ammount_total,
+        estimate_payment_date,
+        estimate_payment_date_2,estimate_payment_date_3
+    } = req.body;
 
     try{
         await Erga.create({
@@ -50,7 +69,15 @@ export const createErga = async(req,res)=>{
             status:status,
             estimate_start_date:estimate_start_date,
             project_manager:project_manager,
-            customer_id:customer_id
+            customer_id:customer_id,
+            shortname: shortname,
+            ammount:ammount,
+            ammount_vat:ammount_vat,
+            ammount_total:ammount_total,
+            estimate_payment_date:estimate_payment_date,
+            estimate_payment_date_2:estimate_payment_date_2,
+            estimate_payment_date_3:estimate_payment_date_3
+
 
         });
         res.status(201).json({msg:"erga complete"});
@@ -72,8 +99,15 @@ export const updateErga= async(req,res)=>{
     });
 
     if (!erga) return res.status(404).json({msg:"erga not  found"});
-    const {name,sign_ammount_no_tax,sign_date,status,estimate_start_date,project_manager,customer_id} = req.body;
-    
+    const {name,sign_ammount_no_tax,sign_date,
+        status,estimate_start_date,
+        project_manager,customer_id,
+        shortname,ammount,ammount_vat,
+        ammount_total,
+        estimate_payment_date,
+        estimate_payment_date_2,estimate_payment_date_3
+    } = req.body;
+
     try{
         await Erga.update({
             name:name,
@@ -82,7 +116,14 @@ export const updateErga= async(req,res)=>{
             status:status,
             estimate_start_date:estimate_start_date,
             project_manager:project_manager,
-            customer_id:customer_id
+            customer_id:customer_id,
+            shortname: shortname,
+            ammount:ammount,
+            ammount_vat:ammount_vat,
+            ammount_total:ammount_total,
+            estimate_payment_date:estimate_payment_date,
+            estimate_payment_date_2:estimate_payment_date_2,
+            estimate_payment_date_3:estimate_payment_date_3
         },{
             where:{
                 id:erga.id
