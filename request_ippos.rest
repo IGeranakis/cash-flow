@@ -278,7 +278,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/logout
 
 ###
-//Login user
+//Login user 
 POST http://localhost:5000/login
 Content-Type: application/json
 
@@ -308,8 +308,15 @@ Content-Type: application/json
     "status":"status",
     "estimate_start_date":"02-02-2022",
     "project_manager":"MARKESINI",
-    "customer_id":"1"
-
+    "customer_id":"1",
+    "shortname":"papa2",
+    "ammount":10000,
+    "ammount_vat":2400,
+    "ammount_total":10000,
+    "estimate_payment_date":"2000-01-01",
+    "estimate_payment_date_2":"2001-01-01",
+    "estimate_payment_date_3":"2002-01-01"
+    
 }
 
 ###
@@ -319,18 +326,12 @@ Content-Type: application/json
 
 {
     "invoice_date":"2002-02-02",
-    "estimate_payment_date":"2003-03-03",
-    "estimate_payment_date_2":"2022-01-01",
-    "estimate_payment_date_3":"2023-03-03",
     "ammount_no_tax": "122",
     "ammount_tax_incl": "182",
-    "estimate_tax": "225",
     "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "234",
     "comments": "abv",
-    "verified": "Waafaafa",
-    "createdAt": "01-01-2001",
-    "updatedAt": "05-05-2005"
+    "invoice_number":"12345#"
 }
 
 ### //get Timologia
@@ -446,34 +447,46 @@ GET http://localhost:5000/paradotea/1
 
 
 ###
-// Create a erga
+// Create a paradotea
 POST http://localhost:5000/paradotea
 Content-Type: application/json
 
 {
-    "part_number":"part_23",
+    "part_number":"part_28",
     "title":"Paradotea B",
-    "part_number":"2",
-    "title":"Paradotea A",
     "delivery_date":"2023-03-01",
     "percentage":"23",
-    "erga_id":"3",
-    "timologia_id":""
+    "erga_id":"1",
+    "timologia_id":"1",
+    "ammount":10000,
+    "ammount_vat":2400,
+    "ammount_total":12400,
+    "estimate_payment_date":"2000-01-01",
+    "estimate_payment_date_2":"2001-01-01",
+    "estimate_payment_date_3":"2002-01-01"
+
 
 }
 
 ###
 // Create a erga
-PATCH http://localhost:5000/paradotea/1
+PATCH http://localhost:5000/paradotea/6
 Content-Type: application/json
 
 {
-    "part_number":"4",
-    "title":"Paradotea A fdfd",
-    "delivery_date":"2023-03-03",
-    "percentage":"233",
-    "erga_id":"3",
-    "timologia_id":""
+    "part_number":"test19",
+    "title":"ParadoteaAB",
+    "delivery_date":"2023-03-01",
+    "percentage":"23",
+    "erga_id":"1",
+    "timologia_id":"1",
+    "ammount":10000,
+    "ammount_vat":2400,
+    "ammount_total":12400,
+    "estimate_payment_date":"2000-01-01",
+    "estimate_payment_date_2":"2001-01-01",
+    "estimate_payment_date_3":"2002-01-01"
+
 
 
 }
@@ -487,8 +500,9 @@ POST http://localhost:5000/daneia
 Content-Type: application/json
 
 {
-    "loan_type": "Allooooo Pramaaa",
-    "timologia_id": null
+    "name":"daneio",
+    "ammount":2000,
+    "status":"blabla"
 }
 ### // Get Daneia
 GET http://localhost:5000/daneia
@@ -524,3 +538,17 @@ Content-Type: application/json
     "role":"admin"
 
 }
+
+###
+// Create Timologia
+POST http://localhost:5000/ek_tim
+Content-Type: application/json
+
+{
+    "timologia_id":"1",
+    "bank_ammount":8000,
+    "bank_date":"2000-01-01",
+    "customer_ammount":2000,
+    "customer_date":"2000-01-01"
+}
+
