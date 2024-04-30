@@ -41,7 +41,7 @@ const store = new sessionStore({
     await Users.sequelize.sync();
     await incomes.sequelize.sync();
     await Ekxorimena_Timologia.sequelize.sync();
-
+    
     
 })();
 
