@@ -18,33 +18,6 @@ const timologia = db.define('timologia', {
             notEmpty: true
         }
     },
-    estimate_payment_date:
-    {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
-    estimate_payment_date_2:
-    {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
-    estimate_payment_date_3:
-    {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
     ammount_no_tax:
     {
         type: DataTypes.FLOAT,
@@ -55,15 +28,6 @@ const timologia = db.define('timologia', {
         }
     },
     ammount_tax_incl:
-    {
-        type: DataTypes.FLOAT,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        validate:{
-            notEmpty: true
-        }
-    },
-    estimate_tax:
     {
         type: DataTypes.FLOAT,
         defaultValue: DataTypes.UUIDV4,
@@ -99,7 +63,7 @@ const timologia = db.define('timologia', {
             len: [3, 100]
         }
     },
-    verified:
+    invoice_number:
     {
         type: DataTypes.STRING,
         allowNull: false,
