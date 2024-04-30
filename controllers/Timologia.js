@@ -7,7 +7,7 @@ import timologia from "../models/TimologiaModel.js";
 export const getTimologia = async(req,res)=>{
     try{
         const response = await timologia.findAll({
-            attributes:['id','invoice_date','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3','ammount_no_tax','ammount_tax_incl','estimate_tax', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'verified', 'createdAt', 'updatedAt']
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number']
         });
         res.status(200).json(response);
     } catch(error){
@@ -18,24 +18,18 @@ export const getTimologia = async(req,res)=>{
 }
 export const CreateTimologia = async(req,res)=>
 {
-    const {invoice_date, estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3, ammount_no_tax, ammount_tax_incl, estimate_tax, actual_payment_date, ammount_of_income_tax_incl, comments, verified, createdAt, updatedAt} = req.body
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number} = req.body
 
     try
     {
         await timologia.create({
          invoice_date:invoice_date,
-         estimate_payment_date:estimate_payment_date,
-         estimate_payment_date_2: estimate_payment_date_2,
-         estimate_payment_date_3:estimate_payment_date_3,
          ammount_no_tax: ammount_no_tax,
          ammount_tax_incl: ammount_tax_incl,
-         estimate_tax: estimate_tax,
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
          comments: comments,
-         verified:verified,
-         createdAt: createdAt,
-         updatedAt: updatedAt
+         invoice_number:invoice_number
         });
         res.status(201).json({msg:"Timologia complete"});
     }
@@ -51,23 +45,17 @@ export const UpdateTimologia = async(req,res)=>{
         }
     });
     if (!Timologia) return res.status(404).json({msg:"Timologia tideak ditek"});
-    const {invoice_date, estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3, ammount_no_tax, ammount_tax_incl, estimate_tax, actual_payment_date, ammount_of_income_tax_incl, comments, verified, createdAt, updatedAt} = req.body;
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number} = req.body;
     try
     {
         await timologia.update({
          invoice_date:invoice_date,
-         estimate_payment_date:estimate_payment_date,
-         estimate_payment_date_2: estimate_payment_date_2,
-         estimate_payment_date_3:estimate_payment_date_3,
          ammount_no_tax: ammount_no_tax,
          ammount_tax_incl: ammount_tax_incl,
-         estimate_tax: estimate_tax,
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
          comments: comments,
-         verified:verified,
-         createdAt: createdAt,
-         updatedAt: updatedAt
+         invoice_number: invoice_number
         },{
             where:{
                 id:Timologia.id
@@ -107,7 +95,7 @@ export const getTimologioById = async(req,res) =>
     try
     {
         const response = await timologia.findOne({
-            attributes:['id','invoice_date','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3','ammount_no_tax','ammount_tax_incl','estimate_tax', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'verified', 'createdAt', 'updatedAt'],
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number'],
             where:{
                 id:req.params.id
             }
