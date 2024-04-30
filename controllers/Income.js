@@ -5,7 +5,8 @@ import db from "../config/Database.js";
 import { Sequelize } from "sequelize";
 import Erga from "../models/ErgaModel.js";
 import Customer from "../models/CustomerModel.js";
-import incomes from "../models/incomesModel.js";
+import incomes from "../models/incomesModel.js"
+
 
 export const getIncome = async(req,res)=>{
 
@@ -46,10 +47,10 @@ export const createIncome = async(req,res)=>{
     const {type,income_id,name} = req.body;
 
     try{
-        await Customer.create({
+        await incomes.create({
             type:type,
             income_id:income_id,
-            name:name,
+            name:name
 
         });
         res.status(201).json({msg:"Income created Succesfully"});
@@ -58,13 +59,13 @@ export const createIncome = async(req,res)=>{
         res.status(400).json({msg:error.message});
 
     }
-
+    
 
 }
 
 
 export const updateIncome= async(req,res)=>{
-    const income = await Customer.findOne({
+    const income = await incomes.findOne({
         where:{
             id:req.params.id
         }
@@ -94,7 +95,7 @@ export const updateIncome= async(req,res)=>{
 }
 
 export const deleteIncome = async(req,res)=>{
-    const income = await Customer.findOne({
+    const income = await incomes.findOne({
         where:{
             id:req.params.id
         }

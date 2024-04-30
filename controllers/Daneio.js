@@ -12,7 +12,7 @@ export const getDaneia = async(req,res)=>{
     
     try{
         const response = await Daneia.findAll({
-            attributes:['name','ammount']
+            attributes:['name','ammount','status']
         });
         res.status(200).json(response);
     } catch(error){
@@ -25,7 +25,7 @@ export const getDaneia = async(req,res)=>{
 export const getDaneiaById = async(req,res)=>{
     try{
         const response = await Daneia.findOne({
-            attributes:['name','ammount'],
+            attributes:['name','ammount','status'],
             where:{
                 id:req.params.id
             }
@@ -43,12 +43,13 @@ export const getDaneiaById = async(req,res)=>{
 
 export const createDaneia = async(req,res)=>{
     
-    const {name,ammount} = req.body;
+    const {name,ammount,status} = req.body;
 
     try{
         await Daneia.create({
             name:name,
-            ammount:ammount
+            ammount:ammount,
+            status:status
 
         });
         res.status(201).json({msg:"Daneia created Succesfully"});
@@ -70,12 +71,13 @@ export const updateDaneia= async(req,res)=>{
     });
 
     if (!daneio) return res.status(404).json({msg:"Daneio not  found"});
-    const {name,ammount} = req.body;
+    const {name,ammount,status} = req.body;
     
     try{
         await Daneia.update({
             name:name,
-            ammount:ammount
+            ammount:ammount,
+            status:status
         },{
             where:{
                 id:daneio.id
