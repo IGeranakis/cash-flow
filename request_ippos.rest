@@ -451,6 +451,8 @@ POST http://localhost:5000/paradotea
 Content-Type: application/json
 
 {
+    "part_number":"part_23",
+    "title":"Paradotea B",
     "part_number":"2",
     "title":"Paradotea A",
     "delivery_date":"2023-03-01",
