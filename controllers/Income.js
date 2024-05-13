@@ -6,14 +6,14 @@ import { Sequelize } from "sequelize";
 import Erga from "../models/ErgaModel.js";
 import Customer from "../models/CustomerModel.js";
 import incomes from "../models/incomesModel.js"
-
+import Ekxorimena_Timologia from "../models/Ekxorimena_TimologiaModel.js";
 
 export const getIncome = async(req,res)=>{
 
     
     try{
         const response = await incomes.findAll({
-            attributes:['id','type','income_id','name']
+            attributes:['id','paradotea_erga_id','paradotea_timologia_id','paradotea_id','timologia_id','ekxorimena_timologia_id']
         });
         res.status(200).json(response);
     } catch(error){
@@ -26,7 +26,7 @@ export const getIncome = async(req,res)=>{
 export const getIncomeById = async(req,res)=>{
     try{
         const response = await incomes.findOne({
-            attributes:['id','type','income_id','name'],
+            attributes:['id','paradotea_erga_id','paradotea_timologia_id','paradotea_id','timologia_id','ekxorimena_timologia_id'],
             where:{
                 id:req.params.id
             }
@@ -42,15 +42,31 @@ export const getIncomeById = async(req,res)=>{
 
 
 
-export const createIncome = async(req,res)=>{
+export const createIncome = async(paradotea_erga_id,paradotea_timologia_id,paradotea_id,timologia_id,ekxorimena_timologia_id,res)=>{
     
-    const {type,income_id,name} = req.body;
+    //CHECK IF EKXORIMENA TIMOLOGIA EXISTS WITH THE TIMOLOGIA ID WE UPDATE FROM PARADOTEA, IF NOT...NULL
+    if(timologia_id!=null){
+        const check_exk=await Ekxorimena_Timologia.findOne({
+            where:{
+                timologia_id:timologia_id
+            }
+        })
+    
+        if(check_exk){
+            ekxorimena_timologia_id=check_exk.id
+        }
+        else{
+            ekxorimena_timologia_id=null
+        }
+    }
 
     try{
         await incomes.create({
-            type:type,
-            income_id:income_id,
-            name:name
+            paradotea_erga_id:paradotea_erga_id,
+            paradotea_timologia_id:paradotea_timologia_id,
+            paradotea_id:paradotea_id,
+            timologia_id:timologia_id,
+            ekxorimena_timologia_id:ekxorimena_timologia_id
 
         });
         res.status(201).json({msg:"Income created Succesfully"});
@@ -64,21 +80,37 @@ export const createIncome = async(req,res)=>{
 }
 
 
-export const updateIncome= async(req,res)=>{
+export const updateIncome= async(paradotea_erga_id,paradotea_timologia_id,paradotea_id,timologia_id,ekxorimena_timologia_id,res)=>{
     const income = await incomes.findOne({
         where:{
-            id:req.params.id
+            paradotea_id:paradotea_id
         }
     });
 
-    if (!income) return res.status(404).json({msg:"Customer not  found"});
-    const {type,income_id,name} = req.body;
+    if (!income) return res.status(404).json({msg:"Income not found with this paradotea ID"});
     
+    //CHECK IF EKXORIMENA TIMOLOGIA EXISTS WITH THE TIMOLOGIA ID WE UPDATE FROM PARADOTEA, IF NOT...NULL 
+    if(timologia_id!=null){ 
+        const check_exk=await Ekxorimena_Timologia.findOne({
+            where:{
+                timologia_id:timologia_id
+            }
+        })
+
+        if(check_exk){
+            ekxorimena_timologia_id=check_exk.id
+        }
+        else{
+            ekxorimena_timologia_id=null
+        }
+    }
     try{
         await incomes.update({
-            type:type,
-            income_id:income_id,
-            name:name,
+            paradotea_erga_id:paradotea_erga_id,
+            paradotea_timologia_id:paradotea_timologia_id,
+            paradotea_id:paradotea_id,
+            timologia_id:timologia_id,
+            ekxorimena_timologia_id:ekxorimena_timologia_id
 
         },{
             where:{
