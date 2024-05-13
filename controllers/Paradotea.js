@@ -67,7 +67,7 @@ export const createParadotea = async(req,res)=>{
             
         });
         const paradoteaId=newParadotea.id
-        createIncome(erga_id,timologia_id,paradoteaId,null,null,res)
+        createIncome(erga_id,timologia_id,paradoteaId,timologia_id,null,res)
         
         // if(timologia_id!=null){
         //     await incomes.create({
@@ -128,6 +128,9 @@ export const updateParadotea= async(req,res)=>{
             }
         });
         
+        const paradoteaId=paradotea.id
+       console.log("PARADOTEA ID !!!!---->",paradoteaId);
+        updateIncome(erga_id,timologia_id,paradoteaId,timologia_id,null,res)
 
         // if(timologia_id!=null){
         //     const paradoteaId=newParadotea.id
@@ -154,7 +157,6 @@ export const updateParadotea= async(req,res)=>{
     
         //     });
         //}
-        res.status(200).json({msg:"Paradotea update successfully"});
     
     } catch(error){
         res.status(400).json({msg:error.message});

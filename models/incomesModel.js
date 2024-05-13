@@ -19,7 +19,9 @@ const incomes = db.define('incomes', {
             model: "paradotea",
             key: "erga_id"
         },
-        allowNull: true
+        allowNull: true,
+        onDelete: 'CASCADE' // Cascade on delete
+
     },
     paradotea_timologia_id: {
         type: DataTypes.INTEGER,
