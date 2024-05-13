@@ -63,8 +63,11 @@ export const createParadotea = async(req,res)=>{
             estimate_payment_date:estimate_payment_date,
             estimate_payment_date_2:estimate_payment_date_2,
             estimate_payment_date_3:estimate_payment_date_3
-
+            
+            
         });
+        const paradoteaId=newParadotea.id
+        createIncome(erga_id,timologia_id,paradoteaId,null,null,res)
         
         // if(timologia_id!=null){
         //     await incomes.create({
@@ -83,7 +86,7 @@ export const createParadotea = async(req,res)=>{
         //     });
         // }
         
-        res.status(201).json({msg:"Paradotea create successfully"});
+        //res.status(201).json({msg:"Paradotea create successfully"});
         
 
     } catch(error){
