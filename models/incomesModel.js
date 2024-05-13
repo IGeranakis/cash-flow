@@ -1,5 +1,9 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
+import Paradotea from "./ParadoteaModel.js";
+import Timologia from "./TimologiaModel.js";
+import Ekxorimena_Timologia from "./Ekxorimena_TimologiaModel.js";
+import Erga from "./ErgaModel.js";
 
 const {DataTypes} = Sequelize;
 
@@ -9,20 +13,36 @@ const incomes = db.define('incomes', {
         primaryKey: true,
         autoIncrement: true
     },
-    type: {
-        type: DataTypes.STRING(150),
-        allowNull: false // Assuming name can be nullable
-    },
-    income_id: {
+    paradotea_erga_id: {
         type: DataTypes.INTEGER,
-        allowNull: false // Assuming afm can be nullable
+        references: {
+            model: "paradotea",
+            key: "erga_id"
+        },
+        allowNull: true
     },
-    name: {
-        type: DataTypes.STRING(45),
-        allowNull: true // Assuming phone can be nullable
+    paradotea_timologia_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: "paradotea",
+            key: "timologia_id"
+        },
+        allowNull: true
     }
+
+
+
+
 },{
     freezeTableName: true
 });
+
+incomes.belongsTo(Paradotea, { foreignKey: 'paradotea_id', allowNull: true });
+incomes.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
+incomes.belongsTo(Ekxorimena_Timologia, { foreignKey: 'ekxorimena_timologia_id', allowNull: true });
+
+// incomes.belongsTo(Paradotea, { foreignKey: 'timologia_id', allowNull: true });
+// incomes.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
+
 
 export default incomes;
