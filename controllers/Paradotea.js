@@ -9,6 +9,7 @@ import {
     createIncome,
     updateIncome,
     deleteIncome
+    
 } from "../controllers/Income.js";
 import { getErgaById } from "./Erga.js";
 import { Op } from "sequelize";
@@ -67,7 +68,7 @@ export const createParadotea = async(req,res)=>{
             
         });
         const paradoteaId=newParadotea.id
-        createIncome(erga_id,timologia_id,paradoteaId,timologia_id,null,res)
+        createIncome(paradoteaId,timologia_id,null,res)
         
         // if(timologia_id!=null){
         //     await incomes.create({
@@ -130,7 +131,7 @@ export const updateParadotea= async(req,res)=>{
         
         const paradoteaId=paradotea.id
        console.log("PARADOTEA ID !!!!---->",paradoteaId);
-        updateIncome(erga_id,timologia_id,paradoteaId,timologia_id,null,res)
+        updateIncome(paradoteaId,timologia_id,null,res)
 
         // if(timologia_id!=null){
         //     const paradoteaId=newParadotea.id
@@ -174,14 +175,16 @@ export const deleteParadotea = async(req,res)=>{
     });
     if (!paradotea) return res.status(404).json({msg:"paradotea not found"});
  try{
-        await Paradotea.destroy({
+        const newpar=await Paradotea.destroy({
             
       
             where:{
                 id:paradotea.id
             }
         });
-        res.status(200).json({msg:"Paradotea deleted"});
+
+        
+
     
     } catch(error){
         res.status(400).json({msg:error.message});
