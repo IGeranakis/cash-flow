@@ -13,24 +13,24 @@ const incomes = db.define('incomes', {
         primaryKey: true,
         autoIncrement: true
     },
-    paradotea_erga_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: "paradotea",
-            key: "erga_id"
-        },
-        allowNull: true,
-        onDelete: 'CASCADE' // Cascade on delete
+    // paradotea_erga_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //         model: "paradotea",
+    //         key: "erga_id"
+    //     },
+    //     allowNull: true,
+    //     onDelete: 'CASCADE' // Cascade on delete
 
-    },
-    paradotea_timologia_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: "paradotea",
-            key: "timologia_id"
-        },
-        allowNull: true
-    }
+    // },
+    // paradotea_timologia_id: {
+    //     type: DataTypes.INTEGER,
+    //     references: {
+    //         model: "paradotea",
+    //         key: "timologia_id"
+    //     },
+    //     allowNull: true
+    // }
 
 
 
@@ -39,7 +39,7 @@ const incomes = db.define('incomes', {
     freezeTableName: true
 });
 
-incomes.belongsTo(Paradotea, { foreignKey: 'paradotea_id', allowNull: true });
+incomes.belongsTo(Paradotea, { foreignKey: 'paradotea_id', allowNull: true,onDelete: 'CASCADE' });
 incomes.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
 incomes.belongsTo(Ekxorimena_Timologia, { foreignKey: 'ekxorimena_timologia_id', allowNull: true });
 
