@@ -62,8 +62,8 @@ export const createIncome = async(paradotea_erga_id,paradotea_timologia_id,parad
 
     try{
         await incomes.create({
-            paradotea_erga_id:paradotea_erga_id,
-            paradotea_timologia_id:paradotea_timologia_id,
+            //paradotea_erga_id:paradotea_erga_id,
+            //paradotea_timologia_id:paradotea_timologia_id,
             paradotea_id:paradotea_id,
             timologia_id:timologia_id,
             ekxorimena_timologia_id:ekxorimena_timologia_id
@@ -106,8 +106,8 @@ export const updateIncome= async(paradotea_erga_id,paradotea_timologia_id,parado
     }
     try{
         await incomes.update({
-            paradotea_erga_id:paradotea_erga_id,
-            paradotea_timologia_id:paradotea_timologia_id,
+            //paradotea_erga_id:paradotea_erga_id,
+            //paradotea_timologia_id:paradotea_timologia_id,
             paradotea_id:paradotea_id,
             timologia_id:timologia_id,
             ekxorimena_timologia_id:ekxorimena_timologia_id
