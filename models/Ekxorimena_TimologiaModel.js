@@ -40,10 +40,20 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
         validate: {
             isDate: true
         }
+    },
+    timologia_id: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        unique:true
     }
 },{
     freezeTableName: true
 });
+Ekxorimena_Timologia.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true,onDelete:"CASCADE" ,unique: true  });
 
-Ekxorimena_Timologia.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
+// // Define a unique constraint separately
+// Ekxorimena_Timologia.addIndex(['timologia_id'], {
+//     unique: true
+// });
+
 export default Ekxorimena_Timologia;

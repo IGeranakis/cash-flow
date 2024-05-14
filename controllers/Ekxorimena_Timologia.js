@@ -3,13 +3,16 @@ import argon2 from "argon2";
 import db from "../config/Database.js";
 import { Sequelize } from "sequelize";
 import Ekxorimena_Timologia from "../models/Ekxorimena_TimologiaModel.js";
+import {
+    updateIncomeEkTimo,
+} from "../controllers/Income.js";
 
 export const CreateEkxorimena_Timologia = async(req,res)=>
 {
     const {timologia_id, bank_ammount, bank_date, customer_ammount, customer_date} = req.body;
     try
     {
-        await Ekxorimena_Timologia.create({
+        const new_ek_timo=await Ekxorimena_Timologia.create({
             
             timologia_id:timologia_id,
             bank_ammount:bank_ammount,
@@ -17,13 +20,18 @@ export const CreateEkxorimena_Timologia = async(req,res)=>
             customer_ammount:customer_ammount,
             customer_date:customer_date
         });
-        res.status(201).json({msg:"Ekxorimeno timologio create successfully"});
+        const new_ek_timoId=new_ek_timo.id
+        console.log("ektimo ID !!!!---->",new_ek_timoId);
+
+        updateIncomeEkTimo(timologia_id,new_ek_timoId,res)
+
     }
     catch(error)
     {
         res.status(400).json({msg:error.message});
     }
 }
+
 export const getEkxorimena_Timologia = async(req,res)=>
 {
     try
@@ -38,6 +46,8 @@ export const getEkxorimena_Timologia = async(req,res)=>
         res.status(500).json({msg:error.message});
     }
 }
+
+
 export const getEkxorimena_TimologiaById = async(req,res)=>
 {
     try
@@ -55,6 +65,10 @@ export const getEkxorimena_TimologiaById = async(req,res)=>
         res.status(500).json({msg:error.message})
     }
 }
+
+
+
+
 export const updateEkxorimena_Timologia = async(req,res)=>
 {
     const Ekxorimeno_Timologio = await Ekxorimena_Timologia.findOne({
@@ -85,6 +99,8 @@ export const updateEkxorimena_Timologia = async(req,res)=>
         res.status(400).json({msg:error.message});
     }
 }
+
+
 export const DeleteEkxorimena_Timologia = async(req,res)=>
 {
     const Ekxorimeno_Timologio = await Ekxorimena_Timologia.findOne({
@@ -93,14 +109,22 @@ export const DeleteEkxorimena_Timologia = async(req,res)=>
         }
     });
     if(!Ekxorimeno_Timologio) return res.status(404).json({msg:"Ekxorimeno timologio tideak ditek"});
+
+   
+
+    
     try
     {
-        await daneia.destroy({
+        await Ekxorimena_Timologia.destroy({
             where:{
                 id:Ekxorimeno_Timologio.id
             }
         });
-        res.status(200).json({msg:"Timologio deleted"});
+
+
+        res.status(200).json({msg:"delete succesfull for ekxorisi"});
+
+
     }
     catch(error)
     {

@@ -40,7 +40,7 @@ const incomes = db.define('incomes', {
 });
 
 incomes.belongsTo(Paradotea, { foreignKey: 'paradotea_id', allowNull: true,onDelete: 'CASCADE' });
-incomes.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true });
+incomes.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true,onDelete:"SET NULL" });
 incomes.belongsTo(Ekxorimena_Timologia, { foreignKey: 'ekxorimena_timologia_id', allowNull: true });
 
 // incomes.belongsTo(Paradotea, { foreignKey: 'timologia_id', allowNull: true });

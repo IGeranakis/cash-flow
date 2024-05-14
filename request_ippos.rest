@@ -278,7 +278,7 @@ Content-Type: application/json
 DELETE http://localhost:5000/logout
 
 ### 
-//Login user  
+//Login user   
 POST http://localhost:5000/login
 Content-Type: application/json
 
@@ -326,7 +326,7 @@ Content-Type: application/json
 
 {
     "invoice_date":"2002-02-02",
-    "ammount_no_tax": "122",
+    "ammount_no_tax": "1223",
     "ammount_tax_incl": "182",
     "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "234",
@@ -452,11 +452,11 @@ POST http://localhost:5000/paradotea
 Content-Type: application/json
 
 {
-    "part_number":"part_75",
+    "part_number":"part_4",
     "title":"Paradotea v",
     "delivery_date":"2023-03-01",
     "percentage":"23",
-    "erga_id":"1",
+    "erga_id":"2",
     "timologia_id":"1",
     "ammount":10000,
     "ammount_vat":2400,
@@ -470,16 +470,16 @@ Content-Type: application/json
 
 ###
 // update paradoteo 
-PATCH http://localhost:5000/paradotea/13
+PATCH http://localhost:5000/paradotea/4
 Content-Type: application/json
 
 {
-    "part_number":"part_78",
+    "part_number":"part_128",
     "title":"ParadoteaAB",
     "delivery_date":"2023-03-01",
     "percentage":"23",
     "erga_id":"1",
-    "timologia_id":"1",
+    "timologia_id":"3",
     "ammount":10000,
     "ammount_vat":2400,
     "ammount_total":12400,
@@ -492,7 +492,7 @@ Content-Type: application/json
 }
 
 ###update single metrics
-DELETE  http://localhost:5000/paradotea/1
+DELETE  http://localhost:5000/paradotea/26
 Content-Type: application/json
 
 ### // Create Daneia
@@ -522,7 +522,7 @@ Content-Type: application/json
 
 ### //delete daneio
 
-DELETE  http://localhost:5000/daneia/2
+DELETE  http://localhost:5000/ek_tim/3
 
 
 ###
@@ -545,8 +545,8 @@ POST http://localhost:5000/ek_tim
 Content-Type: application/json
 
 {
-    "timologia_id":"1",
-    "bank_ammount":8000,
+    "timologia_id":"2",
+    "bank_ammount":4000,
     "bank_date":"2000-01-01",
     "customer_ammount":2000,
     "customer_date":"2000-01-01"
