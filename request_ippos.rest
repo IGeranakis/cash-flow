@@ -549,6 +549,8 @@ Content-Type: application/json
     "bank_ammount":4000,
     "bank_date":"2000-01-01",
     "customer_ammount":2000,
-    "customer_date":"2000-01-01"
+    "cust_date":"2000-01-01"
 }
 
+### // Get ekxorimena
+GET http://localhost:5000/ek_tim
