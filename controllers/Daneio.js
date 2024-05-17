@@ -12,7 +12,7 @@ export const getDaneia = async(req,res)=>{
     
     try{
         const response = await Daneia.findAll({
-            attributes:['name','ammount','status']
+            attributes:['id','name','ammount','status']
         });
         res.status(200).json(response);
     } catch(error){
@@ -25,7 +25,7 @@ export const getDaneia = async(req,res)=>{
 export const getDaneiaById = async(req,res)=>{
     try{
         const response = await Daneia.findOne({
-            attributes:['name','ammount','status'],
+            attributes:['id','name','ammount','status'],
             where:{
                 id:req.params.id
             }
