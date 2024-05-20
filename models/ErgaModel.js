@@ -16,6 +16,10 @@ const Erga = db.define('erga',{
             len: [3, 100]
         }
     },
+    color:{
+        type: DataTypes.STRING,
+        allowNull: false, // Allow empty values
+    },
     sign_date: {
         type: DataTypes.DATE,
         allowNull: true,
