@@ -11,7 +11,7 @@ export const getErga = async(req,res)=>{
     
     try{
         const response = await Erga.findAll({
-            attributes:['id','name','sign_date',
+            attributes:['id','name','color','sign_date',
             'sign_ammount_no_tax','status','estimate_start_date',
             'project_manager','customer_id',
             'shortname','ammount','ammount_vat',
@@ -30,7 +30,7 @@ export const getErga = async(req,res)=>{
 export const getErgaById = async(req,res)=>{
     try{
         const response = await Erga.findOne({
-            attributes:['id','name','sign_date',
+            attributes:['id','name','color','sign_date',
             'sign_ammount_no_tax','status','estimate_start_date',
             'project_manager','customer_id',
             'shortname','ammount','ammount_vat',
@@ -52,7 +52,7 @@ export const getErgaById = async(req,res)=>{
 
 export const createErga = async(req,res)=>{
     
-    const {name,sign_ammount_no_tax,sign_date,
+    const {name,color,sign_ammount_no_tax,sign_date,
         status,estimate_start_date,
         project_manager,customer_id,
         shortname,ammount,ammount_vat,
@@ -64,6 +64,7 @@ export const createErga = async(req,res)=>{
     try{
         await Erga.create({
             name:name,
+            color:color,
             sign_ammount_no_tax:sign_ammount_no_tax,
             sign_date:sign_date,
             status:status,
@@ -99,7 +100,7 @@ export const updateErga= async(req,res)=>{
     });
 
     if (!erga) return res.status(404).json({msg:"erga not  found"});
-    const {name,sign_ammount_no_tax,sign_date,
+    const {name,color,sign_ammount_no_tax,sign_date,
         status,estimate_start_date,
         project_manager,customer_id,
         shortname,ammount,ammount_vat,
@@ -111,6 +112,7 @@ export const updateErga= async(req,res)=>{
     try{
         await Erga.update({
             name:name,
+            color:color,
             sign_ammount_no_tax:sign_ammount_no_tax,
             sign_date:sign_date,
             status:status,

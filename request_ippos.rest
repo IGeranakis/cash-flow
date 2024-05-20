@@ -303,6 +303,7 @@ Content-Type: application/json
 
 {
     "name":"paparapapa3",
+    "color":"yellow",
     "sign_ammount_no_tax":"10",
     "sign_date":"01-01-2022",
     "status":"status",
@@ -370,13 +371,21 @@ PATCH http://localhost:5000/erga/3
 Content-Type: application/json
 
 {
-    "name":"paratiritio",
-    "sign_ammount_no_tax":"10333",
-    "sign_date":"01-01-2024",
-    "status":"status2",
-    "estimate_start_date":"02-02-2025",
-    "project_manager":"ZABETAK5IS",
-    "customer_id":"1"
+    "name":"REVERT",
+    "color":"yellow",
+    "sign_ammount_no_tax":"10",
+    "sign_date":"01-01-2022",
+    "status":"status",
+    "estimate_start_date":"02-02-2022",
+    "project_manager":"zaBETAK",
+    "customer_id":"1",
+    "shortname":"papa3",
+    "ammount":10000,
+    "ammount_vat":2400,
+    "ammount_total":10000,
+    "estimate_payment_date":"2000-01-01",
+    "estimate_payment_date_2":"2001-01-01",
+    "estimate_payment_date_3":"2002-01-01"
 
 }
 
@@ -452,16 +461,16 @@ POST http://localhost:5000/paradotea
 Content-Type: application/json
 
 {
-    "part_number":"part_4",
+    "part_number":"part_15",
     "title":"Paradotea v",
-    "delivery_date":"2023-03-01",
+    "delivery_date":"2024-05-24",
     "percentage":"23",
     "erga_id":"2",
-    "timologia_id":"1",
+    "timologia_id":"2",
     "ammount":10000,
-    "ammount_vat":2400,
+    "ammount_vat":2040,
     "ammount_total":12400,
-    "estimate_payment_date":"2000-01-01",
+    "estimate_payment_date":"2024-05-24",
     "estimate_payment_date_2":"2001-01-01",
     "estimate_payment_date_3":"2002-01-01"
 
@@ -470,7 +479,7 @@ Content-Type: application/json
 
 ###
 // update paradoteo 
-PATCH http://localhost:5000/paradotea/4
+PATCH http://localhost:5000/paradotea/7
 Content-Type: application/json
 
 {
@@ -482,8 +491,8 @@ Content-Type: application/json
     "timologia_id":"3",
     "ammount":10000,
     "ammount_vat":2400,
-    "ammount_total":12400,
-    "estimate_payment_date":"2000-01-01",
+    "ammount_total":15400,
+    "estimate_payment_date":"2024-05-24",
     "estimate_payment_date_2":"2001-01-01",
     "estimate_payment_date_3":"2002-01-01"
 
@@ -554,3 +563,7 @@ Content-Type: application/json
 
 ### // Get ekxorimena
 GET http://localhost:5000/ek_tim
+
+
+### //get list of erga names
+GET http://localhost:5000/getlistErgaNames
