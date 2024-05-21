@@ -4,7 +4,7 @@ import {
     getErgaById,
     createErga,
     updateErga,
-    deleteErga
+    deleteErga,
 } from "../controllers/Erga.js"
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
 
