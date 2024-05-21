@@ -17,7 +17,7 @@ export const getErga = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3']
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id']
         });
         res.status(200).json(response);
     } catch(error){
@@ -36,7 +36,7 @@ export const getErgaById = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3'],
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id'],
             where:{
                 id:req.params.id
             }
@@ -58,7 +58,7 @@ export const createErga = async(req,res)=>{
         shortname,ammount,ammount_vat,
         ammount_total,
         estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3
+        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
     } = req.body;
 
     try{
@@ -77,7 +77,8 @@ export const createErga = async(req,res)=>{
             ammount_total:ammount_total,
             estimate_payment_date:estimate_payment_date,
             estimate_payment_date_2:estimate_payment_date_2,
-            estimate_payment_date_3:estimate_payment_date_3
+            estimate_payment_date_3:estimate_payment_date_3,
+            erga_cat_id
 
 
         });
@@ -106,7 +107,7 @@ export const updateErga= async(req,res)=>{
         shortname,ammount,ammount_vat,
         ammount_total,
         estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3
+        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
     } = req.body;
 
     try{
@@ -125,7 +126,8 @@ export const updateErga= async(req,res)=>{
             ammount_total:ammount_total,
             estimate_payment_date:estimate_payment_date,
             estimate_payment_date_2:estimate_payment_date_2,
-            estimate_payment_date_3:estimate_payment_date_3
+            estimate_payment_date_3:estimate_payment_date_3,
+            erga_cat_id
         },{
             where:{
                 id:erga.id
