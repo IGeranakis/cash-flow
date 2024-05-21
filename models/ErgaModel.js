@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Customer from "./CustomerModel.js";
+import ErgaCategories from "./ErgaCategoriesModel.js";
 const {DataTypes} = Sequelize;
 
 const Erga = db.define('erga',{
@@ -133,5 +134,7 @@ const Erga = db.define('erga',{
     freezeTableName: true
 });
 Erga.belongsTo(Customer, { foreignKey: 'customer_id' });
+Erga.belongsTo(ErgaCategories, { foreignKey: 'erga_cat_id' });
+
 
 export default Erga;
