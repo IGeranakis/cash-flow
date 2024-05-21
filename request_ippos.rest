@@ -567,3 +567,13 @@ GET http://localhost:5000/ek_tim
 
 ### //get list of erga names
 GET http://localhost:5000/getlistErgaNames
+
+### //create erga cat
+POST http://localhost:5000/ergacat
+Content-Type: application/json
+
+{
+    "name":"public"
+}
+### //get erga cat
+GET http://localhost:5000/ergacat

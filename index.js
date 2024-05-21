@@ -9,6 +9,7 @@ import CustomerRoute from "./routes/CustomerRoute.js"
 import ErgaRoute from "./routes/ErgaRoute.js";
 import ParadoteaRoute from "./routes/ParadoteaRoute.js";
 import DaneiaRoute from "./routes/DaneiaRoute.js";
+import ErgaCatRoute from "./routes/ErgaCatRoute.js"
 
 import Ek_timologiaRoute from "./routes/Ek_timologiaRoute.js"
 import IncomeRoute from "./routes/IncomeRoute.js"
@@ -25,6 +26,7 @@ import Users from "./models/UserModel.js";
 import incomes from "./models/incomesModel.js";
 import Daneia from "./models/DaneiaModel.js";
 import Ekxorimena_Timologia from "./models/Ekxorimena_TimologiaModel.js"
+import ErgaCategories from "./models/ErgaCategoriesModel.js";
 
 dotenv.config();
 
@@ -47,6 +49,7 @@ const store = new sessionStore({
     await Users.sequelize.sync();
     await incomes.sequelize.sync();
     await Ekxorimena_Timologia.sequelize.sync();
+    await ErgaCategories.sequelize.sync();
     
     
 })();
@@ -79,6 +82,7 @@ app.use(ParadoteaRoute);
 app.use(DaneiaRoute);
 app.use(Ek_timologiaRoute);
 app.use(IncomeRoute);
+app.use(ErgaCatRoute);
 app.use(Queries);
 // store.sync();
 
