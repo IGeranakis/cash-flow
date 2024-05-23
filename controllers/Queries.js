@@ -84,7 +84,7 @@ export const getErgaforTimologia = async (req, res) => {
             where: {
                 timologia_id: null
             },
-            group: ['Erga.name', 'Erga.id', 'Paradotea.title'] // Group by the attributes you select
+            group: ['erga.name'] // Group by the attributes you select
         });
 
         res.status(200).json(response);
