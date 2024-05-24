@@ -4,7 +4,9 @@ import {
     getParErgColor,
     getSumofChoosenTimologioById,
     getErgaforTimologia,
-    getParadoteaByErgoId
+    getParadoteaByErgoId,
+    getErgaforParadotea,
+    UpdateTimologia_idFromParadotea
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -16,6 +18,10 @@ router.get('/getlistParErgColors',verifyUser,adminOnly, getParErgColor);
 router.get('/getSumofchosenTim/:id',verifyUser,adminOnly,getSumofChoosenTimologioById)
 router.get('/getErgaforTimologia',verifyUser,adminOnly,getErgaforTimologia)
 router.get('/getParadoteaByErgoId/:id',verifyUser,adminOnly,getParadoteaByErgoId)
+router.get('/getErgaforParadotea/',verifyUser,adminOnly,getErgaforParadotea)
+router.patch('/UpdateTimologia_idFromParadotea/:id', verifyUser,adminOnly,UpdateTimologia_idFromParadotea)
+
+
 
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);
 // router.post('/timologia',verifyUser,adminOnly,CreateTimologia);

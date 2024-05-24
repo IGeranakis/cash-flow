@@ -175,6 +175,18 @@ export const deleteParadotea = async(req,res)=>{
     });
     if (!paradotea) return res.status(404).json({msg:"paradotea not found"});
  try{
+    if(paradotea.timologia_id != null && paradotea.erga_id != null)
+        {
+            await paradotea.update(
+                { timologia_id: null,
+                  erga_id: null
+                 }
+                );
+        }
+    
+        
+        
+   
         const newpar=await Paradotea.destroy({
             
       
@@ -183,7 +195,7 @@ export const deleteParadotea = async(req,res)=>{
             }
         });
 
-        
+        return res.status(200).json({msg:"Paradoteo deleted"})        
 
     
     } catch(error){
