@@ -17,6 +17,7 @@ import {
     deleteIncome
     
 } from "../controllers/Income.js";
+import incomes from "../models/incomesModel.js";
 
 //Get a unique name list of Erga  that have paradotea
 export const getUniqueNameErgaOfPar = async (req, res) => {
@@ -187,6 +188,25 @@ export const UpdateTimologia_idFromParadotea = async (req, res) => {
     console.error(error);
     res.status(500).json({ msg: 'Internal server error' });
   }
+}
+
+export const CheckParadotea = async (req, res) => {
+    try {
+        const response = await incomes.findAll({
+            attributes: ['paradotea_id'],
+            include: [{
+                model: Paradotea,
+                required: true // Ensures INNER JOIN
+            }],
+            where: {
+                ekxorimena_timologia_id: null
+            }
+        });
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
 }
 
 
