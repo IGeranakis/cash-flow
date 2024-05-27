@@ -199,7 +199,7 @@ export const CheckParadotea = async (req, res) => {
                 required: true, // Ensures INNER JOIN
                 include: [{
                     model: Erga, // Include the Erga model inside Paradotea
-                    attributes: ['name', 'id'],
+                    attributes: ['name', 'id', 'color'],
                     required: true // Ensures INNER JOIN
                 }]
             }],
