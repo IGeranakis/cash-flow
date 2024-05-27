@@ -196,7 +196,12 @@ export const CheckParadotea = async (req, res) => {
             attributes: ['paradotea_id'],
             include: [{
                 model: Paradotea,
-                required: true // Ensures INNER JOIN
+                required: true, // Ensures INNER JOIN
+                include: [{
+                    model: Erga, // Include the Erga model inside Paradotea
+                    attributes: ['name', 'id'],
+                    required: true // Ensures INNER JOIN
+                }]
             }],
             where: {
                 ekxorimena_timologia_id: null
@@ -215,7 +220,12 @@ export const ParadoteaNotEk = async (req, res) => {
             attributes: ['paradotea_id'],
             include: [{
                 model: Paradotea,
-                required: true // Ensures INNER JOIN
+                required: true, // Ensures INNER JOIN
+                include: [{
+                    model: Erga, // Include the Erga model inside Paradotea
+                    attributes: ['name', 'id'],
+                    required: true // Ensures INNER JOIN
+                }]
             }],
             where: {
                 ekxorimena_timologia_id: {
