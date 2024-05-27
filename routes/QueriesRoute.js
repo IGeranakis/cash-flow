@@ -7,7 +7,8 @@ import {
     getParadoteaByErgoId,
     getErgaforParadotea,
     UpdateTimologia_idFromParadotea,
-    CheckParadotea
+    CheckParadotea,
+    ParadoteaNotEk
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -22,6 +23,7 @@ router.get('/getParadoteaByErgoId/:id',verifyUser,adminOnly,getParadoteaByErgoId
 router.get('/getErgaforParadotea/',verifyUser,adminOnly,getErgaforParadotea)
 router.patch('/UpdateTimologia_idFromParadotea/:id', verifyUser,adminOnly,UpdateTimologia_idFromParadotea)
 router.get('/CheckParadotea', verifyUser,adminOnly,CheckParadotea)
+router.get('/ParadoteaNotEk', verifyUser,adminOnly,ParadoteaNotEk)
 
 
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);

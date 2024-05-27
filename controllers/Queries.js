@@ -209,6 +209,27 @@ export const CheckParadotea = async (req, res) => {
     }
 }
 
+export const ParadoteaNotEk = async (req, res) => {
+    try {
+        const response = await incomes.findAll({
+            attributes: ['paradotea_id'],
+            include: [{
+                model: Paradotea,
+                required: true // Ensures INNER JOIN
+            }],
+            where: {
+                ekxorimena_timologia_id: {
+                    [Op.not]: null
+                }
+            }
+        });
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
 
 
 
