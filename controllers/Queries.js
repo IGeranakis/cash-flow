@@ -199,7 +199,7 @@ export const CheckParadotea = async (req, res) => {
                 required: true, // Ensures INNER JOIN
                 include: [{
                     model: Erga, // Include the Erga model inside Paradotea
-                    attributes: ['name', 'id', 'color'],
+                    attributes: ['name', 'id'],
                     required: true // Ensures INNER JOIN
                 }]
             }],
@@ -217,16 +217,19 @@ export const CheckParadotea = async (req, res) => {
 export const ParadoteaNotEk = async (req, res) => {
     try {
         const response = await incomes.findAll({
-            attributes: ['paradotea_id'],
+            attributes: ['ekxorimena_timologia_id'],
             include: [{
-                model: Paradotea,
+                model: Ekxorimena_Timologia,
                 required: true, // Ensures INNER JOIN
-                include: [{
-                    model: Erga, // Include the Erga model inside Paradotea
-                    attributes: ['name', 'id', 'color'],
-                    required: true // Ensures INNER JOIN
-                }]
-            }],
+            },
+        {
+            model: Paradotea, // Include the Paradotea model inside Timologia
+            include: [{
+                model: Erga, // Include the Erga model inside Paradotea
+                attributes: ['id', 'name', 'color'] // Specify the attributes from Erga
+            }]
+        }],
+            
             where: {
                 ekxorimena_timologia_id: {
                     [Op.not]: null
