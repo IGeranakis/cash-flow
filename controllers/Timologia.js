@@ -22,7 +22,7 @@ export const CreateTimologia = async(req,res)=>
 
     try
     {
-        await timologia.create({
+        const newtimologio = await timologia.create({
          invoice_date:invoice_date,
          ammount_no_tax: ammount_no_tax,
          ammount_tax_incl: ammount_tax_incl,
@@ -31,7 +31,7 @@ export const CreateTimologia = async(req,res)=>
          comments: comments,
          invoice_number:invoice_number
         });
-        res.status(201).json({msg:"Timologia complete"});
+        res.status(201).json({id: newtimologio.id ,msg:"Timologia complete"});
     }
     catch(error)
     {
