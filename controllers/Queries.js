@@ -214,7 +214,7 @@ export const CheckParadotea = async (req, res) => {
     }
 }
 
-export const ParadoteaNotEk = async (req, res) => {
+export const ParadoteaBank_Date = async (req, res) => {
     try {
         const response = await incomes.findAll({
             attributes: ['ekxorimena_timologia_id'],
@@ -222,10 +222,40 @@ export const ParadoteaNotEk = async (req, res) => {
                 model: Ekxorimena_Timologia,
                 required: true, // Ensures INNER JOIN
                 where: {
-                    [Op.and]: [
-                        { bank_date: { [Op.not]: null } },
-                        { cust_date: { [Op.not]: null } }
-                    ]
+                         bank_date: { [Op.not]: null } 
+                }
+            },
+        {
+            model: Paradotea, // Include the Paradotea model inside Timologia
+            include: [{
+                model: Erga, // Include the Erga model inside Paradotea
+                attributes: ['id', 'name', 'color'] // Specify the attributes from Erga
+            }]
+        }],
+            
+            where: {
+                ekxorimena_timologia_id: {
+                    [Op.not]: null
+                }
+            }
+        });
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+
+export const ParadoteaCust_Date = async (req, res) => {
+    try {
+        const response = await incomes.findAll({
+            attributes: ['ekxorimena_timologia_id'],
+            include: [{
+                model: Ekxorimena_Timologia,
+                required: true, // Ensures INNER JOIN
+                where: {
+                         cust_date: { [Op.not]: null } 
                 }
             },
         {
