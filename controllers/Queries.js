@@ -280,6 +280,69 @@ export const ParadoteaCust_Date = async (req, res) => {
 }
 
 
+export const getTim_From_Income = async(req,res) =>
+{
+    try {
+        // Step 1: Find unique timologia_id from the incomes table
+        const uniqueTimologiaIds = await incomes.findAll({
+            attributes: ['timologia_id'],
+            where: {
+                timologia_id: { [Op.not]: null },
+                ekxorimena_timologia_id: null
+            },
+            group: ['timologia_id']
+        });
+
+        // Extract the unique timologia_id values
+        const timologiaIds = uniqueTimologiaIds.map(item => item.timologia_id);
+
+        if (timologiaIds.length === 0) {
+            return res.status(200).json([]); // No records found
+        }
+
+        // Step 2: Fetch Timologia records using the unique timologia_id values
+        const timologiaRecords = await timologia.findAll({
+            where: {
+                id: timologiaIds
+            },
+            attributes: ['invoice_number', 'id']
+        });
+
+        res.status(200).json(timologiaRecords);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+export const getParadoteoAndErgoByTimologio = async (req,res) =>
+    {
+        const { timologia_id } = req.params;
+    try {
+        const ParadoteoAndErgo = await Paradotea.findAll({
+            // attributes: [],
+            where: {
+                [Op.or]: [
+                    { timologia_id: timologia_id },
+                    { timologia_id: null }
+                ]
+            },
+            include: [
+                {
+                    model: Erga,
+                    attributes: ['id', 'name']
+                }
+            ]
+        });
+
+        res.json(ParadoteoAndErgo); // Assuming you want to send the data back as JSON
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+    }
+
+
+
+
 
 
 

@@ -81,7 +81,7 @@ export const updateEkxorimena_Timologia = async(req,res)=>
     const {timologia_id, bank_ammount, bank_date, customer_ammount, cust_date} = req.body;
     try
     {
-        await Ekxorimena_Timologia.update({
+        const new_ek_timo = await Ekxorimena_Timologia.update({
             timologia_id: timologia_id,
             bank_ammount:bank_ammount,
             bank_date: bank_date,
@@ -92,7 +92,11 @@ export const updateEkxorimena_Timologia = async(req,res)=>
                 id:Ekxorimeno_Timologio.id
             }
         });
-        res.status(200).json({msg:"Ekxorimeno Timologio  update Successfylly"});
+        const new_ek_timoId = Ekxorimeno_Timologio.id
+        console.log(new_ek_timo)
+        // console.log("Timologisaa: ",new_ek_timoId)
+        // res.status(200).json({msg:"Ekxorimeno Timologio  update Successfylly"});
+        updateIncomeEkTimo(timologia_id,new_ek_timoId,res)
     }
     catch(error)
     {
