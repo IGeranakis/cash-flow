@@ -9,7 +9,9 @@ import {
     UpdateTimologia_idFromParadotea,
     CheckParadotea,
     ParadoteaBank_Date,
-    ParadoteaCust_Date
+    ParadoteaCust_Date,
+    getTim_From_Income,
+    getParadoteoAndErgoByTimologio,
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -26,8 +28,11 @@ router.patch('/UpdateTimologia_idFromParadotea/:id', verifyUser,adminOnly,Update
 router.get('/CheckParadotea', verifyUser,adminOnly,CheckParadotea)
 router.get('/ParadoteaBank_Date', verifyUser,adminOnly,ParadoteaBank_Date)
 router.get('/ParadoteaCust_Date', verifyUser,adminOnly,ParadoteaCust_Date)
+router.get('/getTim_From_Income', verifyUser,adminOnly, getTim_From_Income)
 
+router.get('/getParadoteoAndErgoByTimologio/:timologia_id',verifyUser,adminOnly, getParadoteoAndErgoByTimologio)
 
+// router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
 
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);
 // router.post('/timologia',verifyUser,adminOnly,CreateTimologia);

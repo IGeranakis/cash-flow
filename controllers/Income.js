@@ -132,36 +132,65 @@ export const updateIncome= async(paradotea_id,timologia_id,ekxorimena_timologia_
 
 
 
-export const updateIncomeEkTimo= async(timologia_id,ekxorimena_timologia_id,res)=>{
-    const income = await incomes.findOne({
-        where:{
-            timologia_id:timologia_id
-        }
-    });
+// export const updateIncomeEkTimo= async(timologia_id,ekxorimena_timologia_id,res)=>{
+//     const income = await incomes.findOne({
+//         where:{
+//             timologia_id:timologia_id
+//         }
+//     });
 
-    if (!income) return res.status(404).json({msg:"Income not found with this timologia ID"});
+//     if (!income) return res.status(404).json({msg:"Income not found with this timologia ID"});
     
-    //CHECK IF EKXORIMENA TIMOLOGIA EXISTS WITH THE TIMOLOGIA ID WE UPDATE FROM PARADOTEA, IF NOT...NULL 
+//     //CHECK IF EKXORIMENA TIMOLOGIA EXISTS WITH THE TIMOLOGIA ID WE UPDATE FROM PARADOTEA, IF NOT...NULL 
    
-    try{
-        await incomes.update({
-            //paradotea_erga_id:paradotea_erga_id,
-            //paradotea_timologia_id:paradotea_timologia_id,
-            ekxorimena_timologia_id:ekxorimena_timologia_id
+//     try{
+//         await incomes.update({
+//             //paradotea_erga_id:paradotea_erga_id,
+//             //paradotea_timologia_id:paradotea_timologia_id,
+//             ekxorimena_timologia_id:ekxorimena_timologia_id
 
-        },{
-            where:{
-                timologia_id:timologia_id
+//         },{
+//             where:{
+//                 timologia_id:timologia_id
+//             }
+//         });
+//         res.status(200).json({msg:"Income  update Succesfully"});
+    
+//     } catch(error){
+//         res.status(400).json({msg:error.message});
+    
+//     }
+
+// }
+
+export const updateIncomeEkTimo = async (timologia_id, ekxorimena_timologia_id, res) => {
+    try {
+        // Find the income with the given timologia_id
+        const income = await incomes.findOne({
+            where: {
+                timologia_id: timologia_id
             }
         });
-        res.status(200).json({msg:"Income  update Succesfully"});
-    
-    } catch(error){
-        res.status(400).json({msg:error.message});
-    
-    }
 
-}
+        if (!income) return res.status(404).json({ msg: "Income not found with this timologia ID" });
+
+        // Find and update incomes with the same ekxorimena_timologia_id, setting it to null
+        await incomes.update(
+            { ekxorimena_timologia_id: null },
+            { where: { ekxorimena_timologia_id: ekxorimena_timologia_id } }
+        );
+
+        // Proceed to update the current income
+        await incomes.update(
+            { ekxorimena_timologia_id: ekxorimena_timologia_id },
+            { where: { timologia_id: timologia_id } }
+        );
+
+        res.status(200).json({ msg: "Income updated successfully" });
+    } catch (error) {
+        res.status(400).json({ msg: error.message });
+    }
+};
 
 
 
