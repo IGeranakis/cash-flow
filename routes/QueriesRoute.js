@@ -12,7 +12,6 @@ import {
     ParadoteaCust_Date,
     getTim_From_Income,
     getParadoteoAndErgoByTimologio,
-    getTimologiaFromEk
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -33,7 +32,7 @@ router.get('/getTim_From_Income', verifyUser,adminOnly, getTim_From_Income)
 
 router.get('/getParadoteoAndErgoByTimologio/:timologia_id',verifyUser,adminOnly, getParadoteoAndErgoByTimologio)
 
-router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
+// router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
 
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);
 // router.post('/timologia',verifyUser,adminOnly,CreateTimologia);
