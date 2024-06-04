@@ -27,6 +27,11 @@ import incomes from "./models/incomesModel.js";
 import Daneia from "./models/DaneiaModel.js";
 import Ekxorimena_Timologia from "./models/Ekxorimena_TimologiaModel.js"
 import ErgaCategories from "./models/ErgaCategoriesModel.js";
+import Ypoxreoseis from "./models/YpoxreoseisModel.js";
+import Doseis from "./models/DoseisModel.js";
+import Tags from "./models/TagsModel.js";
+import tags_has_ypoxreoseis from "./models/tags_has_ypoxreoseisModel.js";
+
 
 dotenv.config();
 
@@ -50,7 +55,10 @@ const store = new sessionStore({
     await incomes.sequelize.sync();
     await Ekxorimena_Timologia.sequelize.sync();
     await ErgaCategories.sequelize.sync();
-    
+    await Ypoxreoseis.sequelize.sync();
+    await Doseis.sequelize.sync();
+    await Tags.sequelize.sync();
+    await tags_has_ypoxreoseis.sequelize.sync();
     
 })();
 
