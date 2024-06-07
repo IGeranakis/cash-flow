@@ -577,3 +577,174 @@ Content-Type: application/json
 }
 ### //get erga cat
 GET http://localhost:5000/ergacat
+
+
+### //create Ypo
+POST http://localhost:5000/ypo
+Content-Type: application/json
+
+{
+    "provider": "hiiiiuiiii",
+    "invoice_date": "2000-02-02",
+    "total_owed_ammount": 25,
+    "ammount_vat": 23,
+    "erga_id": null
+}
+### // GET YPO
+GET http://localhost:5000/ypo
+
+### // GET YPO
+GET http://localhost:5000/ypo/1
+
+### // PATCH YPO
+PATCH http://localhost:5000/ypo/1
+Content-Type: application/json
+
+{
+   "provider": "ikafjfaiijaf",
+    "invoice_date": "2004-04-04",
+    "total_owed_ammount": 252,
+    "ammount_vat": 232,
+    "erga_id": null
+}
+
+### // Delete Ypo
+DELETE http://localhost:5000/ypo/1
+
+### //get Tags
+GET http://localhost:5000/tags
+
+### //create Tags
+POST http://localhost:5000/tags
+Content-Type: application/json
+
+{
+    "name": "JFJFJJJFJFJF"
+}
+
+
+
+### //get Tags
+GET http://localhost:5000/tags/1
+
+
+### // PATCH TAGS
+PATCH http://localhost:5000/tags/1
+Content-Type: application/json
+
+{
+   "name": "AAAAAAAAAAAAAAAAAA"
+}
+
+### // Delete tags
+DELETE http://localhost:5000/tags/1
+
+### // GET DOSEIS
+GET http://localhost:5000/doseis
+
+
+### //create Doseis
+POST http://localhost:5000/doseis
+Content-Type: application/json
+
+{
+    "ammount": 24,
+    "actual_payment_date": "2005-06-03",
+    "estimate_payment_date": "2006-05-06",
+    "status": "hskjfhaalha",
+    "ypoxreoseis_id":2
+}
+
+
+
+### // GET DOSEIS
+GET http://localhost:5000/doseis/1
+
+
+### // PATCH doseis
+PATCH http://localhost:5000/doseis/1
+Content-Type: application/json
+
+{
+   "ammount": 255,
+    "actual_payment_date": "2007-08-07",
+    "estimate_payment_date": "2016-06-06",
+    "status": "HHHHHHHHHHHHHHHHHHHHHH",
+    "ypoxreoseis_id":2
+}
+
+### // Delete Doseis
+DELETE http://localhost:5000/doseis/1
+
+### // GET thy
+GET http://localhost:5000/thy
+
+### // GET thy
+GET http://localhost:5000/thy/1
+
+### //create THY
+POST http://localhost:5000/thy
+Content-Type: application/json
+
+{
+    "ypoxreoseis_id":2,
+    "tags_id": 2
+}
+
+### //update thy
+PATCH http://localhost:5000/thy/1
+Content-Type: application/json
+
+{
+    "ypoxreoseis_id":2,
+    "tags_id": 1
+}
+
+
+### // Delete thy
+DELETE http://localhost:5000/thy/1
+
+### // Create Ypo
+POST http://localhost:5000/ypoquery
+Content-Type: application/json
+
+{
+    "provider": "aaaaaaaaaaaaaaa",
+    "erga_id": null,
+    "invoice_date": "2008-08-08",
+    "total_owed_ammount": 221,
+    "ammount_vat": 251,
+    "tags_id": [2,4]
+}
+
+### // Get Ypo
+GET http://localhost:5000/ypoquery
+
+
+
+### // Get Ypo By Id
+GET http://localhost:5000/ypoquery/48
+
+### //Update Ypo by Id
+PATCH http://localhost:5000/ypoquery/22
+Content-Type: application/json
+
+{
+    "provider": "aaaaaaaaaa",
+    "erga_id": null,
+    "invoice_date": "2010-06-04",
+    "total_owed_ammount": 5,
+    "ammount_vat": 5,
+    "tags_id": [2,4]
+}
+
+
+### //Delete Ypo by Id
+DELETE  http://localhost:5000/ypoquery/23
+
+
+### //GET YPO by Id
+GET http://localhost:5000/ypotags/51
+
+
+

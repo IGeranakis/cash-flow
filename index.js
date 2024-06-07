@@ -9,7 +9,12 @@ import CustomerRoute from "./routes/CustomerRoute.js"
 import ErgaRoute from "./routes/ErgaRoute.js";
 import ParadoteaRoute from "./routes/ParadoteaRoute.js";
 import DaneiaRoute from "./routes/DaneiaRoute.js";
-import ErgaCatRoute from "./routes/ErgaCatRoute.js"
+import ErgaCatRoute from "./routes/ErgaCatRoute.js";
+import TagsRoute from "./routes/TagsRoute.js";
+import YpoxreoseisRoute from "./routes/YpoxreoseisRoute.js";
+
+import DoseisRoute from "./routes/DoseisRoute.js";
+import Tags_Has_YpoxreoseisRoute from "./routes/Tags_Has_YpoxreoseisRoute.js"
 
 import Ek_timologiaRoute from "./routes/Ek_timologiaRoute.js"
 import IncomeRoute from "./routes/IncomeRoute.js"
@@ -32,7 +37,7 @@ import Doseis from "./models/DoseisModel.js";
 import Tags from "./models/TagsModel.js";
 import tags_has_ypoxreoseis from "./models/tags_has_ypoxreoseisModel.js";
 
-
+console.log("hey")
 dotenv.config();
 
 const app = express();
@@ -92,6 +97,10 @@ app.use(Ek_timologiaRoute);
 app.use(IncomeRoute);
 app.use(ErgaCatRoute);
 app.use(Queries);
+app.use(YpoxreoseisRoute);
+app.use(TagsRoute);
+app.use(DoseisRoute);
+app.use(Tags_Has_YpoxreoseisRoute)
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{
