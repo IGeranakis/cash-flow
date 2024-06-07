@@ -10,6 +10,9 @@ import Ekxorimena_Timologia from "../models/Ekxorimena_TimologiaModel.js";
 import timologia from "../models/TimologiaModel.js";
 import Daneia from "../models/DaneiaModel.js";
 import income from "../models/incomesModel.js";
+import Tags from "../models/TagsModel.js";
+import Ypoxreoseis from "../models/YpoxreoseisModel.js"
+import tags_has_ypoxreoseis from "../models/tags_has_ypoxreoseisModel.js";
 
 import {
     createIncome,
@@ -340,7 +343,263 @@ export const getParadoteoAndErgoByTimologio = async (req,res) =>
     }
     }
 
+export const YpoxreoseisAndTagsQuery = async(req,res)=>
+{
+    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id } = req.body;
 
+    console.log('Received data:', req.body);
+
+    try {
+        // Insert into ypoxreoseis table
+        const ypoxreoseis = await Ypoxreoseis.create({
+            provider:provider,
+            erga_id:erga_id,
+            invoice_date:invoice_date,
+            total_owed_ammount:total_owed_ammount,
+            ammount_vat:ammount_vat
+        });
+
+        // console.log(provider)
+
+
+        // Insert into tags_has_ypoxreoseis table
+        const tagsToInsert = tags_id.map(tagId => ({
+            tags_id: tagId,
+            ypoxreoseis_id: ypoxreoseis.id,
+        }));
+
+
+        await tags_has_ypoxreoseis.bulkCreate(tagsToInsert);
+
+        res.status(201).json({ message: 'Data inserted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to insert data', error: error.message });
+    }
+};
+
+
+
+export const findYpoxreoseisWithTags = async (req, res) => {
+
+    try {
+        console.log("Fetching ypoxreoseis with tags...");
+
+        // Fetch all distinct Ypoxreoseis records along with associated tags
+        const ypoxreoseisWithTags = await tags_has_ypoxreoseis.findAll({
+            include: [
+                {
+                    model: Ypoxreoseis,
+                },
+                {
+                    model: Tags,
+                    as: 'tag' // Alias for the Tags model to avoid confusion
+                }
+            ],
+        });
+
+        console.log("Ypoxreoseis with tags fetched successfully.");
+
+        // Combine the data from ypoxreoseisWithTags
+        const combinedData = {};
+        ypoxreoseisWithTags.forEach(item => {
+            const ypoxreoseisId = item.ypoxreosei.id;
+            if (!combinedData[ypoxreoseisId]) {
+                combinedData[ypoxreoseisId] = {
+                    ypoxreoseis: {
+                        id: item.ypoxreosei.id,
+                        provider: item.ypoxreosei.provider,
+                        invoice_date: item.ypoxreosei.invoice_date,
+                        total_owed_ammount: item.ypoxreosei.total_owed_ammount,
+                        ammount_vat: item.ypoxreosei.ammount_vat,
+                        createdAt: item.ypoxreosei.createdAt,
+                        updatedAt: item.ypoxreosei.updatedAt,
+                        erga_id: item.ypoxreosei.erga_id
+                    },
+                    tags: [] // Initialize an empty array for tags
+                };
+            }
+            combinedData[ypoxreoseisId].tags.push(item.tag.name);
+        });
+
+        const combinedArray = Object.values(combinedData);
+
+        res.status(200).json(combinedArray); // Change status code to 200 for a successful fetch
+    } catch (error) {
+        console.error("Error fetching ypoxreoseis with tags:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const findYpoxreoseisWithTagsId = async (req, res) => {
+    try {
+        const { id } = req.params; // Assuming the ID is passed as a URL parameter
+
+        console.log(`Fetching ypoxreoseis with tags for ID ${id}...`);
+
+        // Fetch all distinct Ypoxreoseis records along with associated tags
+        const ypoxreoseisWithTags = await tags_has_ypoxreoseis.findAll({
+            include: [
+                {
+                    model: Ypoxreoseis,
+                },
+                {
+                    model: Tags,
+                    as: 'tag' // Alias for the Tags model to avoid confusion
+                }
+            ],
+        });
+
+        console.log("Ypoxreoseis with tags fetched successfully.");
+
+        // Combine the data from ypoxreoseisWithTags
+        const combinedData = {};
+        ypoxreoseisWithTags.forEach(item => {
+            const ypoxreoseisId = item.ypoxreosei.id;
+            if (!combinedData[ypoxreoseisId]) {
+                combinedData[ypoxreoseisId] = {
+                    ypoxreoseis: {
+                        id: item.ypoxreosei.id,
+                        provider: item.ypoxreosei.provider,
+                        invoice_date: item.ypoxreosei.invoice_date,
+                        total_owed_ammount: item.ypoxreosei.total_owed_ammount,
+                        ammount_vat: item.ypoxreosei.ammount_vat,
+                        createdAt: item.ypoxreosei.createdAt,
+                        updatedAt: item.ypoxreosei.updatedAt,
+                        erga_id: item.ypoxreosei.erga_id
+                    },
+                    tags: [] // Initialize an empty array for tags
+                };
+            }
+            combinedData[ypoxreoseisId].tags.push(item.tag.name);
+        });
+
+        const ypoxreoseisById = combinedData[id];
+
+        if (!ypoxreoseisById) {
+            return res.status(404).json({ message: "Ypoxreoseis not found" });
+        }
+
+        res.status(200).json(ypoxreoseisById); // Change status code to 200 for a successful fetch
+    } catch (error) {
+        console.error("Error fetching ypoxreoseis with tags:", error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+export const updateYpoxreoseisWithTags = async(req,res)=>
+{
+    
+    const { id } = req.params; // Retrieve the id from route parameters
+    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id } = req.body;
+
+    try {
+        // Check if the record with the specified id exists
+        let ypoxreoseis = await Ypoxreoseis.findByPk(id);
+
+        if (ypoxreoseis) {
+            // Update the existing record
+            ypoxreoseis.provider = provider;
+            ypoxreoseis.erga_id = erga_id;
+            ypoxreoseis.invoice_date = invoice_date;
+            ypoxreoseis.total_owed_ammount = total_owed_ammount;
+            ypoxreoseis.ammount_vat = ammount_vat;
+
+            await ypoxreoseis.save();
+
+            // Delete existing tags associated with the ypoxreoseis_id
+            await tags_has_ypoxreoseis.destroy({
+                where: {
+                    ypoxreoseis_id: ypoxreoseis.id
+                }
+            });
+
+            // Insert new tags
+            const tagsToInsert = tags_id.map(tagId => ({
+                tags_id: tagId,
+                ypoxreoseis_id: ypoxreoseis.id,
+            }));
+
+            await tags_has_ypoxreoseis.bulkCreate(tagsToInsert);
+        } else {
+            // If the record doesn't exist, return an error
+            return res.status(404).json({ message: 'Record not found' });
+        }
+
+        res.status(200).json({ message: 'Data updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update data', error: error.message });
+    }
+}
+
+
+
+export const deleteYpoxreoseisWithTags = async(req,res)=>
+{
+    const { id } = req.params; // Retrieve the id from route parameters
+
+    try {
+        // Check if the record with the specified id exists
+        let ypoxreoseis = await Ypoxreoseis.findByPk(id);
+
+        if (ypoxreoseis) {
+            // Delete associated records from tags_has_ypoxreoseis table where ypoxreoseis_id matches
+            await tags_has_ypoxreoseis.destroy({
+                where: {
+                    ypoxreoseis_id: ypoxreoseis.id
+                }
+            });
+
+            // Delete the record from Ypoxreoseis table
+            await ypoxreoseis.destroy();
+
+            res.status(200).json({ message: 'Data deleted successfully' });
+        } else {
+            // If the record doesn't exist, return an error
+            return res.status(404).json({ message: 'Record not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to delete data', error: error.message });
+    }
+}
+
+
+export const getTags_Has_YpoxreoseisByYpoxreoseisId = async (req, res) => {
+    const { ypoxreoseis_id } = req.params;
+
+    // Basic validation
+    if (!ypoxreoseis_id) {
+        return res.status(400).json({ msg: "ypoxreoseis_id parameter is missing" });
+    }
+
+    try {
+        const response = await tags_has_ypoxreoseis.findAll({
+            attributes: ['tags_id'],
+            where: {
+                ypoxreoseis_id: ypoxreoseis_id
+            }
+        });
+
+        if (response.length === 0) {
+            return res.status(404).json({ msg: "No tags found for the given ypoxreoseis_id" });
+        }
+
+        // Extracting all tags_id from the response
+        const tagsIds = response.map(item => item.tags_id);
+
+        const response2 = await Tags.findAll({
+            attributes: ['id','name'],
+            where: {
+                id: tagsIds
+            }
+        });
+
+        res.status(200).json(response2);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: error.message });
+    }
+};
 
 
 

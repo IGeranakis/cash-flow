@@ -12,6 +12,12 @@ import {
     ParadoteaCust_Date,
     getTim_From_Income,
     getParadoteoAndErgoByTimologio,
+    YpoxreoseisAndTagsQuery,
+    findYpoxreoseisWithTags,
+    findYpoxreoseisWithTagsId,
+    updateYpoxreoseisWithTags,
+    deleteYpoxreoseisWithTags,
+    getTags_Has_YpoxreoseisByYpoxreoseisId
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -32,6 +38,16 @@ router.get('/getTim_From_Income', verifyUser,adminOnly, getTim_From_Income)
 
 router.get('/getParadoteoAndErgoByTimologio/:timologia_id',verifyUser,adminOnly, getParadoteoAndErgoByTimologio)
 
+router.get('/ypoquery',verifyUser,adminOnly,findYpoxreoseisWithTags)
+router.get('/ypoquery/:id', verifyUser,adminOnly,findYpoxreoseisWithTagsId)
+
+router.patch('/ypoquery/:id',verifyUser,adminOnly,updateYpoxreoseisWithTags)
+
+router.delete('/ypoquery/:id',verifyUser,adminOnly,deleteYpoxreoseisWithTags)
+
+router.post('/ypoquery', verifyUser,adminOnly,YpoxreoseisAndTagsQuery)
+
+router.get('/ypotags/:ypoxreoseis_id', verifyUser,adminOnly, getTags_Has_YpoxreoseisByYpoxreoseisId )
 // router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
 
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);

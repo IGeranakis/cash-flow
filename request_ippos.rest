@@ -652,7 +652,7 @@ Content-Type: application/json
     "actual_payment_date": "2005-06-03",
     "estimate_payment_date": "2006-05-06",
     "status": "hskjfhaalha",
-    "ypoxreoseis_id":1
+    "ypoxreoseis_id":2
 }
 
 
@@ -703,6 +703,48 @@ Content-Type: application/json
 
 ### // Delete thy
 DELETE http://localhost:5000/thy/1
+
+### // Create Ypo
+POST http://localhost:5000/ypoquery
+Content-Type: application/json
+
+{
+    "provider": "aaaaaaaaaaaaaaa",
+    "erga_id": null,
+    "invoice_date": "2008-08-08",
+    "total_owed_ammount": 221,
+    "ammount_vat": 251,
+    "tags_id": [2,4]
+}
+
+### // Get Ypo
+GET http://localhost:5000/ypoquery
+
+
+
+### // Get Ypo By Id
+GET http://localhost:5000/ypoquery/48
+
+### //Update Ypo by Id
+PATCH http://localhost:5000/ypoquery/22
+Content-Type: application/json
+
+{
+    "provider": "aaaaaaaaaa",
+    "erga_id": null,
+    "invoice_date": "2010-06-04",
+    "total_owed_ammount": 5,
+    "ammount_vat": 5,
+    "tags_id": [2,4]
+}
+
+
+### //Delete Ypo by Id
+DELETE  http://localhost:5000/ypoquery/23
+
+
+### //GET YPO by Id
+GET http://localhost:5000/ypotags/51
 
 
 

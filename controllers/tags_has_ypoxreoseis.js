@@ -96,3 +96,30 @@ export const delete_Tags_Has_Ypoxreoseis = async(req,res)=>
         
         }
     }
+
+    export const getTags_Has_YpoxreoseisByYpoxreoseisId = async (req, res) => {
+        const { ypoxreoseis_id } = req.params;
+        console.log("jjddkafk")
+        // Basic validation
+        if (!ypoxreoseis_id) {
+            return res.status(400).json({ msg: "ypoxreoseis_id parameter is missing" });
+        }
+    
+        try {
+            const response = await tags_has_ypoxreoseis.findAll({
+                attributes: ['tags_id'],
+                where: {
+                    ypoxreoseis_id: ypoxreoseis_id
+                }
+            });
+    
+            if (response.length === 0) {
+                return res.status(404).json({ msg: "No tags found for the given ypoxreoseis_id" });
+            }
+    
+            res.status(200).json(response);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ msg: error.message });
+        }
+    };
