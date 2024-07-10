@@ -9,7 +9,7 @@ import {
 
 export const CreateEkxorimena_Timologia = async(req,res)=>
 {
-    const {timologia_id, bank_ammount, bank_date, customer_ammount, cust_date} = req.body;
+    const {timologia_id, bank_ammount, bank_date,cust_date,bank_estimated_date, customer_ammount, cust_estimated_date} = req.body;
     try
     {
         const new_ek_timo=await Ekxorimena_Timologia.create({
@@ -17,8 +17,10 @@ export const CreateEkxorimena_Timologia = async(req,res)=>
             timologia_id:timologia_id,
             bank_ammount:bank_ammount,
             bank_date: bank_date,
+            bank_estimated_date:bank_estimated_date,
             customer_ammount:customer_ammount,
-            cust_date:cust_date
+            cust_date:cust_date,
+            cust_estimated_date:cust_estimated_date
         });
         const new_ek_timoId=new_ek_timo.id
         console.log("ektimo ID !!!!---->",new_ek_timoId);
@@ -37,7 +39,7 @@ export const getEkxorimena_Timologia = async(req,res)=>
     try
     {
         const response = await Ekxorimena_Timologia.findAll({
-            attributes:['id','timologia_id', 'bank_ammount', 'bank_date', 'customer_ammount', 'cust_date']
+            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date', 'customer_ammount', 'cust_date','cust_estimated_date']
         });
         res.status(200).json(response);
     }
@@ -53,7 +55,7 @@ export const getEkxorimena_TimologiaById = async(req,res)=>
     try
     {
         const response = await Ekxorimena_Timologia.findOne({
-            attributes:['id','timologia_id', 'bank_ammount', 'bank_date', 'customer_ammount', 'cust_date'],
+            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date', 'customer_ammount', 'cust_date','cust_estimated_date'],
             where:{
                 id:req.params.id
             }
@@ -78,15 +80,17 @@ export const updateEkxorimena_Timologia = async(req,res)=>
         }
     });
     if (!Ekxorimeno_Timologio) return res.status(404).json({msg:"Ekxorimeno Timologio tideak ditek"});
-    const {timologia_id, bank_ammount, bank_date, customer_ammount, cust_date} = req.body;
+    const {timologia_id, bank_ammount, bank_date,bank_estimated_date, customer_ammount, cust_date,cust_estimated_date} = req.body;
     try
     {
         const new_ek_timo = await Ekxorimena_Timologia.update({
             timologia_id: timologia_id,
             bank_ammount:bank_ammount,
             bank_date: bank_date,
+            bank_estimated_date:bank_estimated_date,
             customer_ammount:customer_ammount,
-            cust_date:cust_date
+            cust_date:cust_date,
+            cust_estimated_date:cust_estimated_date
         },{
             where:{
                 id:Ekxorimeno_Timologio.id

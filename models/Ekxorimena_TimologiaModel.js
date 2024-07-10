@@ -33,7 +33,23 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
             isDate: true
         }
     },
+    bank_estimated_date:
+    {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
+    },
     cust_date:
+    {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
+    },
+    cust_estimated_date:
     {
         type: DataTypes.DATE,
         allowNull: true,
