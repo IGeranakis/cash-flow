@@ -4,7 +4,8 @@ import argon2 from "argon2";
 import db from "../config/Database.js";
 import { Sequelize } from "sequelize";
 import Erga from "../models/ErgaModel.js";
-
+import Customer from "../models/CustomerModel.js";
+import ErgaCategories from "../models/ErgaCategoriesModel.js";
 
 export const getErga = async(req,res)=>{
 
@@ -17,7 +18,17 @@ export const getErga = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id']
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id'],
+            include: [{
+                model: Customer,
+                attributes: ['name'],
+                // required: true // This acts as the INNER JOIN condition
+            },{
+                model: ErgaCategories,
+                attributes: ['name'],
+            }],
+
+
         });
         res.status(200).json(response);
     } catch(error){
