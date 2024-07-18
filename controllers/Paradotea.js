@@ -30,9 +30,12 @@ export const getParadotea = async(req,res)=>{
                     model: Erga,
                     attributes: ['name'],
                     // required: true // This acts as the INNER JOIN condition
-                },{
+                },
+                {
                     model: timologia,
                     attributes: ['invoice_number'],
+                    as: 'timologia'
+
                 }]
         });
         res.status(200).json(response);
