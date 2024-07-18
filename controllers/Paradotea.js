@@ -5,6 +5,8 @@ import db from "../config/Database.js";
 import { Sequelize } from "sequelize";
 import Paradotea from "../models/ParadoteaModel.js";
 import incomes from "../models/incomesModel.js";
+import Erga from "../models/ErgaModel.js";
+import timologia from "../models/TimologiaModel.js";
 import {
     createIncome,
     updateIncome,
@@ -19,7 +21,19 @@ export const getParadotea = async(req,res)=>{
     
     try{
         const response = await Paradotea.findAll({
-            attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id','ammount','ammount_vat','ammount_total','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3']
+            attributes:['id','part_number','title',
+                'delivery_date','percentage',
+                'erga_id','timologia_id','ammount',
+                'ammount_vat','ammount_total','estimate_payment_date',
+                'estimate_payment_date_2','estimate_payment_date_3'],
+                include: [{
+                    model: Erga,
+                    attributes: ['name'],
+                    // required: true // This acts as the INNER JOIN condition
+                },{
+                    model: timologia,
+                    attributes: ['invoice_number'],
+                }]
         });
         res.status(200).json(response);
     } catch(error){
