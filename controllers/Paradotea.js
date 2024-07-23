@@ -50,6 +50,17 @@ export const getParadoteaById = async(req,res)=>{
     try{
         const response = await Paradotea.findOne({
             attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id','ammount','ammount_vat','ammount_total','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3'],
+            include: [{
+                model: Erga,
+                attributes: ['name'],
+                // required: true // This acts as the INNER JOIN condition
+            },
+            {
+                model: timologia,
+                attributes: ['invoice_number'],
+                as: 'timologia'
+
+            }],
             where:{
                 id:req.params.id
             }
