@@ -21,6 +21,7 @@ import {
     
 } from "../controllers/Income.js";
 import incomes from "../models/incomesModel.js";
+import { GREEK_GENERAL_CI } from "mysql/lib/protocol/constants/charsets.js";
 
 //Get a unique name list of Erga  that have paradotea
 export const getUniqueNameErgaOfPar = async (req, res) => {
@@ -600,6 +601,59 @@ export const getTags_Has_YpoxreoseisByYpoxreoseisId = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 };
+
+export const getIncomeParadotea = async (req, res) => {
+
+    try {
+        const response = await income.findAll({
+            where: {
+                ekxorimena_timologia_id: { [Op.is]: null },
+                timologia_id: { [Op.is]: null },
+                paradotea_id:{[Op.not]:null}
+            },
+            include: [{
+                model: Paradotea,
+                
+                required: true, // Ensures INNER JOIN
+                
+                
+            }]
+        });
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+    
+
+};
+
+export const getIncomeTimogia = async (req, res) => {
+    try {
+        const response = await income.findAll({
+            where: {
+                ekxorimena_timologia_id: { [Op.is]: null },
+                timologia_id: { [Op.not]: null }
+            },
+            include: [{
+                model: timologia,
+               as:"timologia",
+                required: true, // Ensures INNER JOIN
+                
+                
+            }]
+        });
+
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+};
+
+
+
+
+
 
 
 
