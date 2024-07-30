@@ -41,6 +41,14 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
             isDate: true
         }
     },
+    status_bank_paid:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+        }
+    },
     cust_date:
     {
         type: DataTypes.DATE,
@@ -55,6 +63,14 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
         allowNull: true,
         validate: {
             isDate: true
+        }
+    },
+    status_customer_paid:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
         }
     },
     timologia_id: {

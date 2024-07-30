@@ -332,7 +332,8 @@ Content-Type: application/json
     "actual_payment_date": "2024-04-04",
     "ammount_of_income_tax_incl": "234",
     "comments": "abv",
-    "invoice_number":"12345#"
+    "invoice_number":"12345#",
+    "status_paid":"yes"
 }
 
 ### //get Timologia
@@ -465,8 +466,8 @@ Content-Type: application/json
     "title":"Paradotea v",
     "delivery_date":"2024-05-24",
     "percentage":"23",
-    "erga_id":"2",
-    "timologia_id":"2",
+    "erga_id":"1",
+    "timologia_id":null,
     "ammount":10000,
     "ammount_vat":2040,
     "ammount_total":12400,

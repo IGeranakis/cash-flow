@@ -21,7 +21,7 @@ import {
     
 } from "../controllers/Income.js";
 import incomes from "../models/incomesModel.js";
-import { GREEK_GENERAL_CI } from "mysql/lib/protocol/constants/charsets.js";
+// import { GREEK_GENERAL_CI } from "mysql/lib/protocol/constants/charsets.js";
 
 //Get a unique name list of Erga  that have paradotea
 export const getUniqueNameErgaOfPar = async (req, res) => {
@@ -632,6 +632,7 @@ export const getIncomeTimogia = async (req, res) => {
     try {
         const response = await income.findAll({
             where: {
+               
                 ekxorimena_timologia_id: { [Op.is]: null },
                 timologia_id: { [Op.not]: null }
             },
@@ -639,7 +640,9 @@ export const getIncomeTimogia = async (req, res) => {
                 model: timologia,
                as:"timologia",
                 required: true, // Ensures INNER JOIN
-                
+                where:{
+                    status_paid:"no"
+                }
                 
             }]
         });

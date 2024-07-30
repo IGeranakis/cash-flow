@@ -7,7 +7,7 @@ import timologia from "../models/TimologiaModel.js";
 export const getTimologia = async(req,res)=>{
     try{
         const response = await timologia.findAll({
-            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number']
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number','status_paid']
         });
         res.status(200).json(response);
     } catch(error){
@@ -18,7 +18,7 @@ export const getTimologia = async(req,res)=>{
 }
 export const CreateTimologia = async(req,res)=>
 {
-    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number} = req.body
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number,status_paid} = req.body
 
     try
     {
@@ -29,7 +29,8 @@ export const CreateTimologia = async(req,res)=>
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
          comments: comments,
-         invoice_number:invoice_number
+         invoice_number:invoice_number,
+         status_paid:status_paid
         });
         res.status(201).json({id: newtimologio.id ,msg:"Timologia complete"});
     }
@@ -45,7 +46,7 @@ export const UpdateTimologia = async(req,res)=>{
         }
     });
     if (!Timologia) return res.status(404).json({msg:"Timologia tideak ditek"});
-    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number} = req.body;
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number,status_paid} = req.body;
     try
     {
         await timologia.update({
@@ -55,7 +56,8 @@ export const UpdateTimologia = async(req,res)=>{
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
          comments: comments,
-         invoice_number: invoice_number
+         invoice_number: invoice_number,
+         status_paid:status_paid,
         },{
             where:{
                 id:Timologia.id
@@ -95,7 +97,7 @@ export const getTimologioById = async(req,res) =>
     try
     {
         const response = await timologia.findOne({
-            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number'],
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number','status_paid'],
             where:{
                 id:req.params.id
             }
