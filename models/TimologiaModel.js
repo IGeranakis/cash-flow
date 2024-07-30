@@ -71,6 +71,14 @@ const timologia = db.define('timologia', {
             notEmpty: true,
             len: [3, 100]
         }
+    },
+    status_paid:
+    {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate:{
+            notEmpty: true
+        }
     }
 },{
     freezeTableName: true
