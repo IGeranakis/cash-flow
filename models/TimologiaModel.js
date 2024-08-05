@@ -11,7 +11,7 @@ const timologia = db.define('timologia', {
     },
     invoice_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
@@ -38,7 +38,7 @@ const timologia = db.define('timologia', {
     },
     actual_payment_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
