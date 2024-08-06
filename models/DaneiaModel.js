@@ -26,7 +26,7 @@ const Daneia = db.define('daneia',{
     },
     payment_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true

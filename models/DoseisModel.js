@@ -18,14 +18,14 @@ const Doseis = db.define('doseis',{
         }
     },
     actual_payment_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
         }
     },
     estimate_payment_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true

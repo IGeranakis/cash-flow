@@ -17,7 +17,7 @@ const Erganew = db.define('erganew',{
         }
     },
     sign_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -38,7 +38,7 @@ const Erganew = db.define('erganew',{
         }
     },
     estimate_start_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true

@@ -27,7 +27,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     bank_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -35,7 +35,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     bank_estimated_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -51,7 +51,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     cust_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -59,7 +59,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     cust_estimated_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
