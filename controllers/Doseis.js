@@ -1,10 +1,18 @@
 import Doseis from "../models/DoseisModel.js";
+import Ypoxreoseis from "../models/YpoxreoseisModel.js";
 
 export const getDoseis = async(req,res)=>
     {
         try{
             const response = await Doseis.findAll({
-                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id']
+                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id'],
+                include: [{
+                    model: Ypoxreoseis,
+                    attributes: ['provider']
+                   
+
+                    // required: true // This acts as the INNER JOIN condition
+                }]
             });
             res.status(200).json(response);
         } catch(error){
@@ -18,6 +26,12 @@ export const getDoseisById = async(req,res)=>
         try{
             const response = await Doseis.findOne({
                 attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id'],
+                include: [{
+                    model: Ypoxreoseis,
+                    attributes: ['provider']
+
+                    // required: true // This acts as the INNER JOIN condition
+                }],
                 where:{
                     id:req.params.id
                 }
