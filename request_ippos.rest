@@ -480,7 +480,7 @@ Content-Type: application/json
 
 ###
 // update paradoteo 
-PATCH http://localhost:5000/paradotea/7
+PATCH http://localhost:5000/paradotea/3
 Content-Type: application/json
 
 {
@@ -489,7 +489,7 @@ Content-Type: application/json
     "delivery_date":"2023-03-01",
     "percentage":"23",
     "erga_id":"1",
-    "timologia_id":"3",
+    "timologia_id":"1",
     "ammount":10000,
     "ammount_vat":2400,
     "ammount_total":15400,
