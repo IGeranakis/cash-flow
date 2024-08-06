@@ -31,7 +31,7 @@ const Paradotea = db.define('paradotea', {
     },
     delivery_date:
     {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
@@ -73,7 +73,7 @@ const Paradotea = db.define('paradotea', {
     },
 
     estimate_payment_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -82,7 +82,7 @@ const Paradotea = db.define('paradotea', {
 
     
     estimate_payment_date_2: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -91,7 +91,7 @@ const Paradotea = db.define('paradotea', {
 
     
     estimate_payment_date_3: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true

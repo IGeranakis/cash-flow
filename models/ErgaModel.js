@@ -22,7 +22,7 @@ const Erga = db.define('erga',{
         allowNull: false, // Allow empty values
     },
     sign_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -43,7 +43,7 @@ const Erga = db.define('erga',{
         }
     },
     estimate_start_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -96,7 +96,7 @@ const Erga = db.define('erga',{
     },
 
     estimate_payment_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -105,7 +105,7 @@ const Erga = db.define('erga',{
 
     
     estimate_payment_date_2: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
@@ -114,7 +114,7 @@ const Erga = db.define('erga',{
 
     
     estimate_payment_date_3: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true

@@ -17,7 +17,7 @@ const Ypoxreoseis = db.define('ypoxreoseis',{
         }
     },
     invoice_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         validate: {
             isDate: true
