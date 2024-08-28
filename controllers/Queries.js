@@ -224,7 +224,10 @@ export const ParadoteaBank_Date = async (req, res) => {
             attributes: ['ekxorimena_timologia_id'],
             include: [{
                 model: Ekxorimena_Timologia,
-                required: true // Ensures INNER JOIN
+                required: true, // Ensures INNER JOIN
+                where: {
+                         bank_date: { [Op.not]: null } 
+                }
             },
         {
             model: Paradotea, // Include the Paradotea model inside Timologia
@@ -254,7 +257,10 @@ export const ParadoteaCust_Date = async (req, res) => {
             attributes: ['ekxorimena_timologia_id'],
             include: [{
                 model: Ekxorimena_Timologia,
-                required: true // Ensures INNER JOIN
+                required: true, // Ensures INNER JOIN
+                where: {
+                         cust_date: { [Op.not]: null } 
+                }
             },
         {
             model: Paradotea, // Include the Paradotea model inside Timologia
