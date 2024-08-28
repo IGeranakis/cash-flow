@@ -235,6 +235,12 @@ export const ParadoteaBank_Date = async (req, res) => {
                 model: Erga, // Include the Erga model inside Paradotea
                 attributes: ['id', 'name', 'color'] // Specify the attributes from Erga
             }]
+        },
+        {
+            model: timologia, // Include the Timologia model
+            as: 'timologia',
+            attributes: ['invoice_number'], // Specify the attributes from Timologia
+            required: false // Optional INNER JOIN or LEFT JOIN based on your use case
         }],
             
             where: {
@@ -268,6 +274,12 @@ export const ParadoteaCust_Date = async (req, res) => {
                 model: Erga, // Include the Erga model inside Paradotea
                 attributes: ['id', 'name', 'color'] // Specify the attributes from Erga
             }]
+        },
+        {
+            model: timologia, // Include the Timologia model
+            as: 'timologia',
+            attributes: ['invoice_number'], // Specify the attributes from Timologia
+            required: true // Optional INNER JOIN or LEFT JOIN based on your use case
         }],
             
             where: {
