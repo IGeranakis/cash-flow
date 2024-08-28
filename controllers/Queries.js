@@ -254,6 +254,8 @@ export const ParadoteaBank_Date = async (req, res) => {
 }
 
 
+
+
 export const ParadoteaCust_Date = async (req, res) => {
     try {
         const response = await incomes.findAll({
