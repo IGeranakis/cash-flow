@@ -239,23 +239,23 @@ export const ParadoteaBank_Date = async (req, res) => {
             attributes: ['invoice_number'], // Specify the attributes from Timologia
             required: false // Optional INNER JOIN or LEFT JOIN based on your use case
         }],
-            
+           
             where: {
                 ekxorimena_timologia_id: {
                     [Op.not]: null
                 }
             }
         });
-
+ 
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }
 }
-
-
-
-
+ 
+ 
+ 
+ 
 export const ParadoteaCust_Date = async (req, res) => {
     try {
         const response = await incomes.findAll({
@@ -277,14 +277,14 @@ export const ParadoteaCust_Date = async (req, res) => {
             attributes: ['invoice_number'], // Specify the attributes from Timologia
             required: true // Optional INNER JOIN or LEFT JOIN based on your use case
         }],
-            
+           
             where: {
                 ekxorimena_timologia_id: {
                     [Op.not]: null
                 }
             }
         });
-
+ 
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ msg: error.message });
@@ -317,7 +317,7 @@ export const getTim_From_Income = async(req,res) =>
             where: {
                 id: timologiaIds
             },
-            attributes: ['invoice_number', 'id']
+            attributes: ['invoice_number','status_paid' ,'id']
         });
 
         res.status(200).json(timologiaRecords);
