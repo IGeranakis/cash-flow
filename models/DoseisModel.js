@@ -11,7 +11,7 @@ const Doseis = db.define('doseis',{
         autoIncrement: true
     },
     ammount: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true

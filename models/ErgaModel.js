@@ -29,7 +29,7 @@ const Erga = db.define('erga',{
         }
     },
     sign_ammount_no_tax: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
@@ -72,7 +72,7 @@ const Erga = db.define('erga',{
         }
     },
     ammount: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
@@ -80,7 +80,7 @@ const Erga = db.define('erga',{
     },
 
     ammount_vat: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
@@ -88,7 +88,7 @@ const Erga = db.define('erga',{
     },
 
     ammount_total: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
