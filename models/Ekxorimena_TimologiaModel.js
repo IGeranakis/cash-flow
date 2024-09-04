@@ -11,7 +11,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     bank_ammount:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: false,
         validate: {
             isNumeric: true
@@ -19,7 +19,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
     },
     customer_ammount:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: false,
         validate: {
             isNumeric: true

@@ -16,7 +16,7 @@ const Daneia = db.define('daneia',{
     },
     ammount:
     {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: false,
     },
     status:{

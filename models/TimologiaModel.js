@@ -20,7 +20,7 @@ const timologia = db.define('timologia', {
     },
     ammount_no_tax:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
@@ -29,7 +29,7 @@ const timologia = db.define('timologia', {
     },
     ammount_tax_incl:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
@@ -47,7 +47,7 @@ const timologia = db.define('timologia', {
     },
     ammount_of_income_tax_incl:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{

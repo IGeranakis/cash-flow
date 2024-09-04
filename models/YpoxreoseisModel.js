@@ -24,14 +24,14 @@ const Ypoxreoseis = db.define('ypoxreoseis',{
         }
     },
     total_owed_ammount: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
         }
     },
     ammount_vat: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true

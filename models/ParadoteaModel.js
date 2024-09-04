@@ -40,7 +40,7 @@ const Paradotea = db.define('paradotea', {
     },
     percentage:
     {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(10, 2),
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         validate:{
@@ -49,7 +49,7 @@ const Paradotea = db.define('paradotea', {
     },
 
     ammount: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
@@ -57,7 +57,7 @@ const Paradotea = db.define('paradotea', {
     },
 
     ammount_vat: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
@@ -65,7 +65,7 @@ const Paradotea = db.define('paradotea', {
     },
 
     ammount_total: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL(15, 2),
         allowNull: true,
         validate: {
             isNumeric: true
