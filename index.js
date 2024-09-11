@@ -19,6 +19,7 @@ import Tags_Has_YpoxreoseisRoute from "./routes/Tags_Has_YpoxreoseisRoute.js"
 import Ek_timologiaRoute from "./routes/Ek_timologiaRoute.js"
 import IncomeRoute from "./routes/IncomeRoute.js"
 import Queries from "./routes/QueriesRoute.js"
+import BudgetRoute from "./routes/BudgetRoute.js"
 
 import AuthRoute from "./routes/AuthRoute.js";
 import Timologia_Route from "./routes/Timologia_Route.js";
@@ -36,6 +37,7 @@ import Ypoxreoseis from "./models/YpoxreoseisModel.js";
 import Doseis from "./models/DoseisModel.js";
 import Tags from "./models/TagsModel.js";
 import tags_has_ypoxreoseis from "./models/tags_has_ypoxreoseisModel.js";
+import Budget from "./models/BudgetModel.js";
 
 console.log("hey")
 dotenv.config();
@@ -64,6 +66,7 @@ const store = new sessionStore({
     await Doseis.sequelize.sync();
     await Tags.sequelize.sync();
     await tags_has_ypoxreoseis.sequelize.sync();
+    await Budget.sequelize.sync();
     
 })();
 
@@ -100,7 +103,8 @@ app.use(Queries);
 app.use(YpoxreoseisRoute);
 app.use(TagsRoute);
 app.use(DoseisRoute);
-app.use(Tags_Has_YpoxreoseisRoute)
+app.use(Tags_Has_YpoxreoseisRoute);
+app.use(BudgetRoute)
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{
