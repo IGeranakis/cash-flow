@@ -41,7 +41,13 @@ const Users = db.define('users',{
         validate:{
             notEmpty: true
         }
+    },
+    profileImage: {  // New column for profile image
+        type: DataTypes.STRING,
+        allowNull: true // It can be null if the user hasn't uploaded an image yet
+       
     }
+
 },{
     freezeTableName: true
 });
