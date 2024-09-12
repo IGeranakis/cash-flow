@@ -10,6 +10,11 @@ const Erga = db.define('erga',{
         primaryKey: true,
         autoIncrement: true
     },
+    logoImage: {  // New column for profile image
+        type: DataTypes.STRING,
+        allowNull: true // It can be null if the user hasn't uploaded an image yet
+       
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: true, // Allow empty values

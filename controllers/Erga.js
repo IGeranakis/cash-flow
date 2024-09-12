@@ -12,7 +12,7 @@ export const getErga = async(req,res)=>{
     
     try{
         const response = await Erga.findAll({
-            attributes:['id','name','color','sign_date',
+            attributes:['id','logoImage','name','color','sign_date',
             'sign_ammount_no_tax','status','estimate_start_date',
             'project_manager','customer_id',
             'shortname','ammount','ammount_vat',
@@ -41,7 +41,7 @@ export const getErga = async(req,res)=>{
 export const getErgaById = async(req,res)=>{
     try{
         const response = await Erga.findOne({
-            attributes:['id','name','color','sign_date',
+            attributes:['id','logoImage','name','color','sign_date',
             'sign_ammount_no_tax','status','estimate_start_date',
             'project_manager','customer_id',
             'shortname','ammount','ammount_vat',
@@ -72,8 +72,16 @@ export const createErga = async(req,res)=>{
         estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
     } = req.body;
 
+    // Handle the file upload if it exists
+    let logoImage = null;
+    if (req.file) {
+        logoImage = req.file.path;  // Save the path of the uploaded image
+    }
+
+
     try{
         await Erga.create({
+            logoImage:logoImage,
             name:name,
             color:color,
             sign_ammount_no_tax:sign_ammount_no_tax,
@@ -121,8 +129,15 @@ export const updateErga= async(req,res)=>{
         estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
     } = req.body;
 
+    // Handle the file upload if a new image is provided
+    let logoImage = erga.logoImage;  // Keep existing image if not updated
+    if (req.file) {
+        logoImage = req.file.path;  // Update the path with the new file
+    }
+
     try{
         await Erga.update({
+            logoImage: logoImage,
             name:name,
             color:color,
             sign_ammount_no_tax:sign_ammount_no_tax,

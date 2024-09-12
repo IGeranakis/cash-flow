@@ -50,6 +50,7 @@ const sessionStore=SequelizeStore(session.Store);
 const store = new sessionStore({
     db:db
 });
+app.use('/uploads', express.static('uploads'));
 
 (async()=>{
     //await db.sync();
@@ -105,6 +106,7 @@ app.use(TagsRoute);
 app.use(DoseisRoute);
 app.use(Tags_Has_YpoxreoseisRoute);
 app.use(BudgetRoute)
+
 // store.sync();
 
 app.listen(process.env.APP_PORT,()=>{

@@ -74,7 +74,7 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email":"john@gmail.com",
+    "email":"eliaszabetakis@hotmail.com",
     "password":"123456"
   
 }
@@ -270,6 +270,7 @@ Content-Type: application/json
     "email":"admin@gmail.com",
     "password":"123456",
     "confPassword":"123456",
+    "profileImage":null,
     "role":"admin"
 
 }
@@ -301,7 +302,7 @@ GET http://localhost:5000/erga/3
 POST http://localhost:5000/erga
 Content-Type: application/json
 
-{
+{   "logoImage":null,
     "name":"paparapapa3",
     "color":"yellow",
     "sign_ammount_no_tax":"10",
