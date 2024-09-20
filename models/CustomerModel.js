@@ -17,6 +17,14 @@ const Customer = db.define('customers', {
         type: DataTypes.STRING(45),
         allowNull: true // Assuming afm can be nullable
     },
+    doy: {
+        type: DataTypes.STRING(45),
+        allowNull: true // Assuming afm can be nullable
+    },
+    epagelma: {
+        type: DataTypes.STRING(200),
+        allowNull: true // Assuming afm can be nullable
+    },
     phone: {
         type: DataTypes.STRING(45),
         allowNull: true // Assuming phone can be nullable

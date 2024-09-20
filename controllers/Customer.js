@@ -11,7 +11,7 @@ export const getCustomer = async(req,res)=>{
     
     try{
         const response = await Customer.findAll({
-            attributes:['id','name','afm','phone','email','address','postal_code']
+            attributes:['id','name','afm','doy','epagelma','phone','email','address','postal_code']
         });
         res.status(200).json(response);
     } catch(error){
@@ -24,7 +24,7 @@ export const getCustomer = async(req,res)=>{
 export const getCustomerById = async(req,res)=>{
     try{
         const response = await Customer.findOne({
-            attributes:['id','name','afm','phone','email','address','postal_code'],
+            attributes:['id','name','afm','doy','epagelma','phone','email','address','postal_code'],
             where:{
                 id:req.params.id
             }
@@ -42,13 +42,15 @@ export const getCustomerById = async(req,res)=>{
 
 export const createCustomer = async(req,res)=>{
     
-    const {name,afm,phone,email,address,postal_code} = req.body;
+    const {name,afm,doy,epagelma,phone,email,address,postal_code} = req.body;
 
     try{
         await Customer.create({
             name:name,
             afm:afm,
             phone:phone,
+            doy:doy,
+            epagelma:epagelma,
             email:email,
             address:address,
             postal_code:postal_code
@@ -73,12 +75,14 @@ export const updateCustomer= async(req,res)=>{
     });
 
     if (!customer) return res.status(404).json({msg:"Customer not  found"});
-    const {name,afm,phone,email,address,postal_code} = req.body;
+    const {name,afm,doy,epagelma,phone,email,address,postal_code} = req.body;
     
     try{
         await Customer.update({
             name:name,
             afm:afm,
+            doy:doy,
+            epagelma:epagelma,
             phone:phone,
             email:email,
             address:address,
