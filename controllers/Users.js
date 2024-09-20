@@ -42,9 +42,10 @@ export const createUser = async (req, res) => {
     const hashPassword = await argon2.hash(password);
 
     // Handle the file upload if it exists
-    let profileImage = null;
+    let profileImage = 'uploads\\default.png';
     if (req.file) {
         profileImage = req.file.path;  // Save the path of the uploaded image
+
     }
 
     try {

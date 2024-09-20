@@ -73,7 +73,7 @@ export const createErga = async(req,res)=>{
     } = req.body;
 
     // Handle the file upload if it exists
-    let logoImage = null;
+    let logoImage = 'uploads\\nologo.png';
     if (req.file) {
         logoImage = req.file.path;  // Save the path of the uploaded image
     }
