@@ -9,6 +9,11 @@ const Customer = db.define('customers', {
         primaryKey: true,
         autoIncrement: true
     },
+    logoImage: {  // New column for profile image
+        type: DataTypes.STRING,
+        allowNull: true // It can be null if the user hasn't uploaded an image yet
+       
+    },
     name: {
         type: DataTypes.STRING(150),
         allowNull: true // Assuming name can be nullable
@@ -37,10 +42,32 @@ const Customer = db.define('customers', {
         type: DataTypes.STRING(45),
         allowNull: true // Assuming address can be nullable
     },
+    website: {
+        type: DataTypes.STRING(200),
+        allowNull: true // Assuming email can be nullable
+    },
+    facebookUrl: {
+        type: DataTypes.STRING(5000),
+        allowNull: true // Assuming email can be nullable
+    },
+    twitterUrl: {
+        type: DataTypes.STRING(2048),
+        allowNull: true // Assuming email can be nullable
+    },
+    linkedInUrl: {
+        type: DataTypes.STRING(3000),
+        allowNull: true // Assuming email can be nullable
+    },
+    instagramUrl: {
+        type: DataTypes.STRING(2000),
+        allowNull: true // Assuming email can be nullable
+    },
+
     postal_code: {
         type: DataTypes.INTEGER,
         allowNull: true // Assuming postal_code can be nullable
     }
+    
 },{
     freezeTableName: true
 });
