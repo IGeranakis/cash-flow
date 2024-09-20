@@ -96,7 +96,7 @@ export const updateCustomer= async(req,res)=>{
     if (!customer) return res.status(404).json({msg:"Customer not  found"});
     const {name,afm,doy,epagelma,phone,email,address,postal_code,website,facebookUrl,twitterUrl,linkedInUrl,instagramUrl} = req.body;
      // Handle the file upload if a new image is provided
-     let logoImage = erga.logoImage;  // Keep existing image if not updated
+     let logoImage = customer.logoImage;  // Keep existing image if not updated
      if (req.file) {
          logoImage = req.file.path;  // Update the path with the new file
      }
