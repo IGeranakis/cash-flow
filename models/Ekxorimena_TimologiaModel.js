@@ -73,6 +73,15 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
             notEmpty: true
         }
     },
+    comments:
+    {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false,
+            len: [0, 100]
+        }
+    },
     timologia_id: {
         type: DataTypes.INTEGER,
         allowNull: true,

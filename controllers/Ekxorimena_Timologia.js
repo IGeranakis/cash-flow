@@ -9,7 +9,7 @@ import {
 
 export const CreateEkxorimena_Timologia = async(req,res)=>
 {
-    const {timologia_id, bank_ammount, bank_date,status_bank_paid,cust_date,bank_estimated_date, customer_ammount, cust_estimated_date,status_customer_paid} = req.body;
+    const {timologia_id, bank_ammount, bank_date,status_bank_paid,cust_date,bank_estimated_date, customer_ammount, cust_estimated_date,status_customer_paid,comments} = req.body;
     try
     {
         const new_ek_timo=await Ekxorimena_Timologia.create({
@@ -22,7 +22,8 @@ export const CreateEkxorimena_Timologia = async(req,res)=>
             customer_ammount:customer_ammount,
             cust_date:cust_date,
             cust_estimated_date:cust_estimated_date,
-            status_customer_paid:status_customer_paid
+            status_customer_paid:status_customer_paid,
+            comments:comments,
         });
         const new_ek_timoId=new_ek_timo.id
         console.log("ektimo ID !!!!---->",new_ek_timoId);
@@ -41,7 +42,7 @@ export const getEkxorimena_Timologia = async(req,res)=>
     try
     {
         const response = await Ekxorimena_Timologia.findAll({
-            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date','status_bank_paid', 'customer_ammount', 'cust_date','cust_estimated_date','status_customer_paid']
+            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date','status_bank_paid', 'customer_ammount', 'cust_date','cust_estimated_date','status_customer_paid','comments']
         });
         res.status(200).json(response);
     }
@@ -57,7 +58,7 @@ export const getEkxorimena_TimologiaById = async(req,res)=>
     try
     {
         const response = await Ekxorimena_Timologia.findOne({
-            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date', 'status_bank_paid','customer_ammount', 'cust_date','cust_estimated_date','status_customer_paid'],
+            attributes:['id','timologia_id', 'bank_ammount', 'bank_date','bank_estimated_date', 'status_bank_paid','customer_ammount', 'cust_date','cust_estimated_date','status_customer_paid','comments'],
             where:{
                 id:req.params.id
             }
@@ -82,7 +83,7 @@ export const updateEkxorimena_Timologia = async(req,res)=>
         }
     });
     if (!Ekxorimeno_Timologio) return res.status(404).json({msg:"Ekxorimeno Timologio tideak ditek"});
-    const {timologia_id, bank_ammount, bank_date,bank_estimated_date,status_bank_paid, customer_ammount, cust_date,cust_estimated_date,status_customer_paid} = req.body;
+    const {timologia_id, bank_ammount, bank_date,bank_estimated_date,status_bank_paid, customer_ammount, cust_date,cust_estimated_date,status_customer_paid,comments} = req.body;
     try
     {
         const new_ek_timo = await Ekxorimena_Timologia.update({
@@ -94,7 +95,8 @@ export const updateEkxorimena_Timologia = async(req,res)=>
             customer_ammount:customer_ammount,
             cust_date:cust_date,
             cust_estimated_date:cust_estimated_date,
-            status_customer_paid:status_customer_paid
+            status_customer_paid:status_customer_paid,
+            comments:comments
         },{
             where:{
                 id:Ekxorimeno_Timologio.id
