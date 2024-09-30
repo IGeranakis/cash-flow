@@ -57,10 +57,10 @@ const timologia = db.define('timologia', {
     comments:
     {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate:{
-            notEmpty: true,
-            len: [3, 100]
+            notEmpty: false,
+            len: [0, 100]
         }
     },
     invoice_number:

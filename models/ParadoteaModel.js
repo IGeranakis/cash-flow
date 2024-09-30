@@ -96,7 +96,16 @@ const Paradotea = db.define('paradotea', {
         validate: {
             isDate: true
         }
-    }
+    },
+    comments:
+    {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate:{
+            notEmpty: false,
+            len: [0, 100]
+        }
+    },
 
 
 
