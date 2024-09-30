@@ -28,7 +28,7 @@ export const getParadotea = async(req,res)=>{
                 'estimate_payment_date_2','estimate_payment_date_3'],
                 include: [{
                     model: Erga,
-                    attributes: ['name'],
+                    attributes: ['name','shortname'],
                     // required: true // This acts as the INNER JOIN condition
                 },
                 {
@@ -52,7 +52,7 @@ export const getParadoteaById = async(req,res)=>{
             attributes:['id','part_number','title','delivery_date','percentage','erga_id','timologia_id','ammount','ammount_vat','ammount_total','estimate_payment_date','estimate_payment_date_2','estimate_payment_date_3'],
             include: [{
                 model: Erga,
-                attributes: ['name'],
+                attributes: ['name','shortname'],
                 // required: true // This acts as the INNER JOIN condition
             },
             {
