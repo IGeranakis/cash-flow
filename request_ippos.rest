@@ -52,11 +52,11 @@ DELETE http://localhost:5000/users/9cfa3afb-cbf8-43be-bf98-4d7d0d6c816f
 
 ###
 //Login user
-POST http://backend.paratiritirio-edsna.gr:5000/login
+POST https://api.cashflow.cmtprooptiki.gr:5000/login
 Content-Type: application/json
 
 {
-    "email":"elias3@gmail.com",
+    "email":"admin@gmail.com",
     "password":"123456"
   
 }
@@ -757,8 +757,8 @@ GET http://localhost:5000/income_tim
 GET http://localhost:5000/getTim_From_Income
 
 ### 
-//Login user   
-POST http://localhost:5000/login
+//Login user
+POST https://api.cashflow.cmtprooptiki.gr:4001/login
 Content-Type: application/json
 
 {
@@ -768,4 +768,20 @@ Content-Type: application/json
 }
 
 ### //GET YPO by Id
-GET http://localhost:5000/income_par
+GET https://api.cashflow.cmtprooptiki.gr:5000/income_par
+
+
+###
+// Create a useradmin
+POST https://api.cashflow.cmtprooptiki.gr:5000/users
+Content-Type: application/json
+
+{
+    "name":"ilias",
+    "email":"admin3@gmail.com",
+    "password":"123456",
+    "confPassword":"123456",
+    "profileImage":null,
+    "role":"admin"
+
+}
