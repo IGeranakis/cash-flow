@@ -453,7 +453,7 @@ GET http://localhost:5000/paradotea
 
 ###
 //get single metrics
-GET http://localhost:5000/paradotea/11
+GET http://localhost:5000/paradotea/12
 ###
 
 
@@ -758,7 +758,7 @@ GET http://localhost:5000/getTim_From_Income
 
 ### 
 //Login user
-POST https://api.cashflow.cmtprooptiki.gr:4001/login
+POST https://api.cashflow.cmtprooptiki.gr:4002/login
 Content-Type: application/json
 
 {
@@ -768,12 +768,12 @@ Content-Type: application/json
 }
 
 ### //GET YPO by Id
-GET https://api.cashflow.cmtprooptiki.gr:5000/income_par
+GET https://api.cashflow.cmtprooptiki.gr:4002/ypoquery
 
 
 ###
 // Create a useradmin
-POST https://api.cashflow.cmtprooptiki.gr:5000/users
+POST https://api.cashflow.cmtprooptiki.gr:4002/users
 Content-Type: application/json
 
 {
@@ -785,3 +785,17 @@ Content-Type: application/json
     "role":"admin"
 
 }
+
+### 
+//Login user
+PATCH  https://api.cashflow.cmtprooptiki.gr:4002/budget/1
+Content-Type: application/json
+
+{
+    "ammount":153333,
+    "date": "2010-06-04" 
+  
+}
+
+### //GET YPO by Id
+GET https://api.cashflow.cmtprooptiki.gr:4002/paradotea/3
