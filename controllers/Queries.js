@@ -668,6 +668,7 @@ export const getGroupTableParadotea = async (req, res) => {
         SELECT 
             erga.name AS erga_name, 
             customers.name AS customer_name,
+            customers.logoImage,
             erga.status, 
             erga.ammount_total, 
             erga.sign_date, 
