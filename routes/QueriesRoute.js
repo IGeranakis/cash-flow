@@ -19,7 +19,8 @@ import {
     deleteYpoxreoseisWithTags,
     getTags_Has_YpoxreoseisByYpoxreoseisId,
     getIncomeTimogia,
-    getIncomeParadotea
+    getIncomeParadotea,
+    getGroupTableParadotea
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -53,7 +54,7 @@ router.get('/ypotags/:ypoxreoseis_id', verifyUser,adminOnly, getTags_Has_Ypoxreo
 // router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
 router.get('/income_tim',verifyUser,adminOnly,getIncomeTimogia)
 router.get('/income_par',verifyUser,adminOnly,getIncomeParadotea)
-
+router.get('/getGroupTableParadotea',verifyUser,adminOnly,getGroupTableParadotea)
 // router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);
 // router.post('/timologia',verifyUser,adminOnly,CreateTimologia);
 // router.patch('/timologia/:id',verifyUser,adminOnly,UpdateTimologia);

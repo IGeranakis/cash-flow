@@ -14,6 +14,7 @@ import Tags from "../models/TagsModel.js";
 import Ypoxreoseis from "../models/YpoxreoseisModel.js"
 import tags_has_ypoxreoseis from "../models/tags_has_ypoxreoseisModel.js";
 
+
 import {
     createIncome,
     updateIncome,
@@ -661,6 +662,75 @@ export const getIncomeTimogia = async (req, res) => {
     }
 };
 
+
+export const getGroupTableParadotea = async (req, res) => {
+    const query = `
+        SELECT 
+            erga.name AS erga_name, 
+            customers.name AS customer_name,
+            erga.status, 
+            erga.ammount_total, 
+            erga.sign_date, 
+            SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END) AS totalparadotea,
+            (erga.ammount_total - SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END)) AS difference
+        FROM 
+            erga
+        LEFT JOIN 
+            paradotea ON paradotea.erga_id = erga.id
+        LEFT JOIN 
+            customers ON customers.id = erga.customer_id
+        GROUP BY 
+            erga.id, 
+            customers.id
+    `;
+
+    try {
+        const results = await db.query(query, {
+            type: Sequelize.QueryTypes.SELECT // Specify the type of query
+        });
+
+        res.status(200).json(results);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+};
+
+
+// export const getGroupTableParadotea = async (req, res) => {
+//     try {
+//         const results = await Erga.findAll({
+//             attributes: [
+//                 ['name', 'erga_name'], // Alias for erga.name
+//                 [Sequelize.col('customer.name'), 'customer_name'], // Alias for customer.name
+//                 'status',
+//                 'ammount_total',
+//                 'sign_date',
+//                 // SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END) AS totalparadotea
+//                 [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END')), 'totalparadotea'],
+//                 // Difference: erga.ammount_total - totalparadotea
+//                 [Sequelize.literal('`erga`.`ammount_total` - SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END)'), 'difference']
+//             ],
+//             include: [
+//                 {
+//                     model: Customer,
+//                     attributes: ['name'] // Include customer name
+//                 },
+//                 {
+//                     model: Paradotea,
+//                     attributes: [] // No need to select any specific attributes from Paradotea, it's only for the join and aggregation
+//                 }
+//             ],
+//             group: [
+//                 'erga.id', // Group by erga.id (and name implicitly)
+//                 'customer.id' // Group by customer.id
+//             ]
+//         });
+
+//         res.status(200).json(results);
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// };
 
 
 
