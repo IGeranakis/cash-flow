@@ -665,24 +665,32 @@ export const getIncomeTimogia = async (req, res) => {
 
 export const getGroupTableParadotea = async (req, res) => {
     const query = `
-        SELECT 
-            erga.name AS erga_name, 
-            customers.name AS customer_name,
-            customers.logoImage,
-            erga.status, 
-            erga.ammount_total, 
-            erga.sign_date, 
-            SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END) AS totalparadotea,
-            (erga.ammount_total - SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END)) AS difference
-        FROM 
-            erga
-        LEFT JOIN 
-            paradotea ON paradotea.erga_id = erga.id
-        LEFT JOIN 
-            customers ON customers.id = erga.customer_id
-        GROUP BY 
-            erga.id, 
-            customers.id
+SELECT 
+    erga.name AS erga_name, 
+    customers.name AS customer_name,
+    customers.logoImage,
+    erga.status, 
+    erga.ammount_total, 
+    erga.sign_date,
+    SUM(CASE WHEN timologia.status_paid = 'yes' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) AS total_yes_timologia,
+    SUM(CASE WHEN timologia.status_paid = 'no' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) AS total_no_timologia,
+    SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands_no_tim,
+    -- New column: sum of total_no_timologia and apaitisis_no_tim
+    SUM(CASE WHEN timologia.status_paid = 'no' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) +
+    SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands,
+    SUM(CASE WHEN paradotea.delivery_date > CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS future_demands
+
+FROM 
+    erga
+LEFT JOIN 
+    paradotea ON paradotea.erga_id = erga.id
+LEFT JOIN 
+    customers ON customers.id = erga.customer_id
+LEFT JOIN 
+    timologia ON timologia.id = paradotea.timologia_id
+GROUP BY 
+    erga.id, 
+    customers.id
     `;
 
     try {
