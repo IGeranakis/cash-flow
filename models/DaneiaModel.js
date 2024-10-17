@@ -31,6 +31,14 @@ const Daneia = db.define('daneia',{
         validate: {
             isDate: true
         }
+    },
+    actual_payment_date:
+    {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
     }
 },{
     freezeTableName: true

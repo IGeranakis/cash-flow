@@ -12,7 +12,7 @@ export const getDaneia = async(req,res)=>{
     
     try{
         const response = await Daneia.findAll({
-            attributes:['id','name','ammount','status', 'payment_date']
+            attributes:['id','name','ammount','status', 'payment_date','actual_payment_date']
         });
         res.status(200).json(response);
     } catch(error){
@@ -25,7 +25,7 @@ export const getDaneia = async(req,res)=>{
 export const getDaneiaById = async(req,res)=>{
     try{
         const response = await Daneia.findOne({
-            attributes:['id','name','ammount','status', 'payment_date'],
+            attributes:['id','name','ammount','status', 'payment_date','actual_payment_date'],
             where:{
                 id:req.params.id
             }
@@ -43,14 +43,15 @@ export const getDaneiaById = async(req,res)=>{
 
 export const createDaneia = async(req,res)=>{
     
-    const {name,ammount,status, payment_date} = req.body;
+    const {name,ammount,status, payment_date,actual_payment_date} = req.body;
 
     try{
         await Daneia.create({
             name:name,
             ammount:ammount,
             status:status,
-            payment_date: payment_date
+            payment_date: payment_date,
+            actual_payment_date:actual_payment_date
 
         });
         res.status(201).json({msg:"Daneia created Succesfully"});
@@ -72,14 +73,15 @@ export const updateDaneia= async(req,res)=>{
     });
 
     if (!daneio) return res.status(404).json({msg:"Daneio not  found"});
-    const {name,ammount,status, payment_date} = req.body;
+    const {name,ammount,status, payment_date,actual_payment_date} = req.body;
     
     try{
         await Daneia.update({
             name:name,
             ammount:ammount,
             status:status,
-            payment_date:payment_date
+            payment_date:payment_date,
+            actual_payment_date:actual_payment_date
         },{
             where:{
                 id:daneio.id
