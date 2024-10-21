@@ -36,6 +36,25 @@ const timologia = db.define('timologia', {
             notEmpty: true
         }
     },
+    ////parakratiseis
+    ammount_parakratisi_eight:
+    {
+        type: DataTypes.DECIMAL(15, 2),
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: true,
+        validate:{
+            notEmpty: true
+        }
+    },
+    ammount_parakratisi_eforia:
+    {
+        type: DataTypes.DECIMAL(15, 2),
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: true,
+        validate:{
+            notEmpty: true
+        }
+    },
     actual_payment_date:
     {
         type: DataTypes.DATEONLY,
