@@ -7,7 +7,7 @@ import timologia from "../models/TimologiaModel.js";
 export const getTimologia = async(req,res)=>{
     try{
         const response = await timologia.findAll({
-            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number','status_paid']
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl','ammount_parakratisi_eight','ammount_parakratisi_eforia', 'comments', 'invoice_number','status_paid']
         });
         res.status(200).json(response);
     } catch(error){
@@ -18,7 +18,7 @@ export const getTimologia = async(req,res)=>{
 }
 export const CreateTimologia = async(req,res)=>
 {
-    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number,status_paid} = req.body
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl,ammount_parakratisi_eight,ammount_parakratisi_eforia, comments, invoice_number,status_paid} = req.body
 
     try
     {
@@ -28,6 +28,8 @@ export const CreateTimologia = async(req,res)=>
          ammount_tax_incl: ammount_tax_incl,
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
+         ammount_parakratisi_eight:ammount_parakratisi_eight,
+         ammount_parakratisi_eforia:ammount_parakratisi_eforia,
          comments: comments,
          invoice_number:invoice_number,
          status_paid:status_paid
@@ -46,7 +48,7 @@ export const UpdateTimologia = async(req,res)=>{
         }
     });
     if (!Timologia) return res.status(404).json({msg:"Timologia tideak ditek"});
-    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl, comments, invoice_number,status_paid} = req.body;
+    const {invoice_date, ammount_no_tax, ammount_tax_incl, actual_payment_date, ammount_of_income_tax_incl,ammount_parakratisi_eight,ammount_parakratisi_eforia, comments, invoice_number,status_paid} = req.body;
     try
     {
         await timologia.update({
@@ -55,6 +57,8 @@ export const UpdateTimologia = async(req,res)=>{
          ammount_tax_incl: ammount_tax_incl,
          actual_payment_date: actual_payment_date,
          ammount_of_income_tax_incl: ammount_of_income_tax_incl,
+         ammount_parakratisi_eight:ammount_parakratisi_eight,
+         ammount_parakratisi_eforia:ammount_parakratisi_eforia,
          comments: comments,
          invoice_number: invoice_number,
          status_paid:status_paid,
@@ -97,7 +101,7 @@ export const getTimologioById = async(req,res) =>
     try
     {
         const response = await timologia.findOne({
-            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number','status_paid'],
+            attributes:['id','invoice_date', 'ammount_no_tax', 'ammount_tax_incl','ammount_parakratisi_eight','ammount_parakratisi_eforia', 'actual_payment_date', 'ammount_of_income_tax_incl', 'comments', 'invoice_number','status_paid'],
             where:{
                 id:req.params.id
             }
