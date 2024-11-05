@@ -19,7 +19,7 @@ const Erga = db.define('erga',{
         type: DataTypes.STRING,
         allowNull: true, // Allow empty values
         validate: {
-            len: [3, 100]
+            len: [3, 500]
         }
     },
     color:{

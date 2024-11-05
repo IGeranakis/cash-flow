@@ -13,7 +13,7 @@ const Ypoxreoseis = db.define('ypoxreoseis',{
         type: DataTypes.STRING,
         allowNull: true, // Allow empty values
         validate: {
-            len: [3, 100]
+            len: [1, 200]
         }
     },
     invoice_date: {
