@@ -79,7 +79,7 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
         allowNull: true,
         validate:{
             notEmpty: false,
-            len: [0, 100]
+            len: [0, 500]
         }
     },
     timologia_id: {

@@ -79,7 +79,7 @@ const timologia = db.define('timologia', {
         allowNull: true,
         validate:{
             notEmpty: false,
-            len: [0, 100]
+            len: [0, 500]
         }
     },
     invoice_number:
@@ -88,7 +88,7 @@ const timologia = db.define('timologia', {
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
+            len: [1, 100]
         }
     },
     status_paid:

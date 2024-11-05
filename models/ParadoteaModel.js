@@ -17,7 +17,7 @@ const Paradotea = db.define('paradotea', {
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
+            len: [1, 100]
         }
     },
     title:
@@ -26,7 +26,7 @@ const Paradotea = db.define('paradotea', {
         allowNull: false,
         validate:{
             notEmpty: true,
-            len: [3, 100]
+            len: [1, 500]
         }
     },
     delivery_date:
@@ -103,7 +103,7 @@ const Paradotea = db.define('paradotea', {
         allowNull: true,
         validate:{
             notEmpty: false,
-            len: [0, 100]
+            len: [0, 500]
         }
     },
 
