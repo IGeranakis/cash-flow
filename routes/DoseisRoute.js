@@ -4,7 +4,8 @@ import {
     getDoseisById,
     createDoseis,
     updateDoseis,
-    deleteDoseis
+    deleteDoseis,
+    createMultiDoseis
 
 } from "../controllers/Doseis.js"
 
@@ -15,6 +16,7 @@ const router = express.Router();
 router.get('/doseis',verifyUser,adminOnly, getDoseis);
 router.get('/doseis/:id',verifyUser,adminOnly,getDoseisById);
 router.post('/doseis',verifyUser,adminOnly,createDoseis);
+router.post('/multidoseis',verifyUser,adminOnly,createMultiDoseis);
 router.patch('/doseis/:id',verifyUser,adminOnly,updateDoseis);
 router.delete('/doseis/:id',verifyUser,adminOnly,deleteDoseis);
 
