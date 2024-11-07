@@ -1,5 +1,7 @@
 import Doseis from "../models/DoseisModel.js";
 import Ypoxreoseis from "../models/YpoxreoseisModel.js";
+import db from "../config/Database.js";
+import {Op, Sequelize } from "sequelize";
 
 export const getDoseis = async(req,res)=>
     {
@@ -61,6 +63,26 @@ export const createDoseis = async(req,res)=>
     
         }
     }
+
+    export const createMultiDoseis = async (req, res) => {
+        const {paramAmmount,paramStatus,paramYpoxreoseisId, paramStartDate, paramEndDate, paramDay} = req.body;
+        const query = `
+        CALL multiDoseis (${paramAmmount}, '${paramStatus}',${paramYpoxreoseisId},'${paramStartDate}','${paramEndDate}',${paramDay});
+        `; 
+        // const query = `
+        // CALL multiDoseis (10, 'yes',19,'2025-01-01','2025-05-01',18);
+        // `;
+    
+        try {
+            const results = await db.query(query, {
+                type: Sequelize.QueryTypes.RAW // Specify the type of query
+            });
+    
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ msg: error.message });
+        }
+    };
 
     export const updateDoseis = async(req,res)=>
         {
