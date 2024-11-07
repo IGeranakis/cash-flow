@@ -55,6 +55,15 @@ const timologia = db.define('timologia', {
             notEmpty: true
         }
     },
+    ammount_loipa_exoda:
+    {
+        type: DataTypes.DECIMAL(15, 2),
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: true,
+        validate:{
+            notEmpty: true
+        }
+    },
     actual_payment_date:
     {
         type: DataTypes.DATEONLY,
