@@ -1,4 +1,5 @@
 import Ypoxreoseis from "../models/YpoxreoseisModel.js";
+import Doseis from "../models/DoseisModel.js";
 
 export const getYpoxreoseis = async(req,res)=>
     {
@@ -92,6 +93,7 @@ export const deleteYpoxreoseis = async(req,res)=>{
         });
         if (!ypoxreoseis) return res.status(404).json({msg:"Ypoxreoseis not found"});
      try{
+
             await Ypoxreoseis.destroy({
                 
           
@@ -99,6 +101,8 @@ export const deleteYpoxreoseis = async(req,res)=>{
                     id:ypoxreoseis.id
                 }
             });
+           
+
             res.status(200).json({msg:"Ypoxreoseis deleted"});
         
         } catch(error){
