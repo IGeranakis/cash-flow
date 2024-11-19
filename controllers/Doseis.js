@@ -107,12 +107,38 @@ export const createDoseis = async(req,res)=>
                         id:dosh.id
                     }
                 });
+
+                // Step 4: Calculate the sum of the 'ammount' column for the matching 'ypoxreoseis_id'
+                const sumResult = await Doseis.sum('ammount', {
+                    where: {
+                        ypoxreoseis_id: dosh.ypoxreoseis_id
+                    }
+                });
+ 
+                // Step 5: Update the ypoxreoseis table with the calculated sum
+                await Ypoxreoseis.update({
+                    total_owed_ammount: sumResult
+                }, {
+                    where: {
+                        id: dosh.ypoxreoseis_id
+                    }
+                });
+
+
+
+
                 res.status(200).json({msg:"Doseis  update Succesfully"});
             
             } catch(error){
                 res.status(400).json({msg:error.message});
             
             }
+
+            
+
+
+
+
         }
 
 

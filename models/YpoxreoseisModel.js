@@ -2,6 +2,7 @@ import { Sequelize } from "sequelize";
 import db from "../config/Database.js";
 import Erga from "./ErgaModel.js";
 const {DataTypes} = Sequelize;
+import Doseis from "./DoseisModel.js";
 
 const Ypoxreoseis = db.define('ypoxreoseis',{
     id: {
@@ -41,6 +42,8 @@ const Ypoxreoseis = db.define('ypoxreoseis',{
     freezeTableName: true
 });
 Ypoxreoseis.belongsTo(Erga, { foreignKey: 'erga_id', allowNull: true ,onDelete:'SET NULL' });
-
+Ypoxreoseis.hasMany(Doseis,{ foreignKey: 'ypoxreoseis_id' ,onDelete:'CASCADE',hooks: true});
+Doseis.belongsTo(Ypoxreoseis, { foreignKey: 'ypoxreoseis_id' ,onDelete:'CASCADE'});
+//Ypoxreoseis.hasMany(Doseis, {     foreignKey: 'ypoxreoseis_id',     onDelete: 'CASCADE'}) // This will ensure deletion of related Doseis when a Ypoxreoseis is deleted });
 
 export default Ypoxreoseis;

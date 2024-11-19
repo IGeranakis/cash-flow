@@ -41,7 +41,7 @@ const Doseis = db.define('doseis',{
 },{
     freezeTableName: true
 });
-Doseis.belongsTo(Ypoxreoseis, { foreignKey: 'ypoxreoseis_id' });
-
+//Doseis.belongsTo(Ypoxreoseis, { foreignKey: 'ypoxreoseis_id' ,onDelete:'CASCADE'});
+// Ypoxreoseis.hasMany(Doseis, { foreignKey: 'ypoxreoseis_id' },{onDelete:'CASCADE'});
 
 export default Doseis;
