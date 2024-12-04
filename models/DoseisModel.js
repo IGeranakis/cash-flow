@@ -37,6 +37,13 @@ const Doseis = db.define('doseis',{
         validate: {
             len: [1, 100]
         }
+    },
+    comment:{
+        type: DataTypes.STRING,
+        allowNull: true, // Allow empty values
+        validate: {
+            len: [1, 300]
+        }
     }
 },{
     freezeTableName: true

@@ -7,7 +7,7 @@ export const getDoseis = async(req,res)=>
     {
         try{
             const response = await Doseis.findAll({
-                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id'],
+                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id', 'comment'],
                 include: [{
                     model: Ypoxreoseis,
                     attributes: ['provider']
@@ -27,7 +27,7 @@ export const getDoseisById = async(req,res)=>
     {
         try{
             const response = await Doseis.findOne({
-                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id'],
+                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id', 'comment'],
                 include: [{
                     model: Ypoxreoseis,
                     attributes: ['provider']
@@ -47,14 +47,15 @@ export const getDoseisById = async(req,res)=>
 
 export const createDoseis = async(req,res)=>
     {
-        const {ammount, actual_payment_date, estimate_payment_date, status, ypoxreoseis_id} = req.body;
+        const {ammount, actual_payment_date, estimate_payment_date, status, ypoxreoseis_id, comment} = req.body;
         try{
             await Doseis.create({
                 ammount:ammount,
                 actual_payment_date:actual_payment_date,
                 estimate_payment_date:estimate_payment_date,
                 status:status,
-                ypoxreoseis_id:ypoxreoseis_id
+                ypoxreoseis_id:ypoxreoseis_id,
+                comment: comment
             });
             res.status(201).json({msg:"Doseis created Succesfully"});
     
@@ -93,7 +94,7 @@ export const createDoseis = async(req,res)=>
             });
         
             if (!dosh) return res.status(404).json({msg:"Doseis not  found"});
-            const {ammount,actual_payment_date,estimate_payment_date,status,ypoxreoseis_id} = req.body;
+            const {ammount,actual_payment_date,estimate_payment_date,status,ypoxreoseis_id, comment} = req.body;
             
             try{
                 await Doseis.update({
@@ -101,7 +102,8 @@ export const createDoseis = async(req,res)=>
                     actual_payment_date:actual_payment_date,
                     estimate_payment_date:estimate_payment_date,
                     status:status,
-                    ypoxreoseis_id:ypoxreoseis_id
+                    ypoxreoseis_id:ypoxreoseis_id,
+                    comment: comment
                 },{
                     where:{
                         id:dosh.id
