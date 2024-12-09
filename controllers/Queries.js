@@ -22,6 +22,7 @@ import {
     
 } from "../controllers/Income.js";
 import incomes from "../models/incomesModel.js";
+import Doseis from "../models/DoseisModel.js";
 // import { GREEK_GENERAL_CI } from "mysql/lib/protocol/constants/charsets.js";
 
 //Get a unique name list of Erga  that have paradotea
@@ -390,28 +391,46 @@ export const YpoxreoseisAndTagsQuery = async(req,res)=>
 
 
 export const findYpoxreoseisWithTags = async (req, res) => {
-
     try {
-        console.log("Fetching ypoxreoseis with tags...");
+        console.log("Fetching ypoxreoseis with tags and doseis...");
 
-        // Fetch all distinct Ypoxreoseis records along with associated tags
-        const ypoxreoseisWithTags = await tags_has_ypoxreoseis.findAll({
+        // Fetch all distinct Ypoxreoseis records along with associated tags and doseis count
+        const ypoxreoseisWithTagsAndDoseis = await tags_has_ypoxreoseis.findAll({
             include: [
                 {
                     model: Ypoxreoseis,
+                    as: 'ypoxreosei', // Use the correct alias as defined in the associations
                 },
                 {
                     model: Tags,
                     as: 'tag' // Alias for the Tags model to avoid confusion
                 }
             ],
+            attributes: {
+                include: [
+                    // Count the number of doseis connected to the ypoxreoseis
+                    [
+                        Sequelize.literal(`(
+                            SELECT COUNT(*)
+                            FROM doseis
+                            WHERE doseis.ypoxreoseis_id = ypoxreosei.id
+                        )`),
+                        'doseisCount'
+                    ]
+                ]
+            },
+            group: [
+                'tags_has_ypoxreoseis.id',
+                'ypoxreosei.id', // Update to match the correct alias
+                'tag.id'
+            ] // Group to avoid duplicate rows
         });
 
-        console.log("Ypoxreoseis with tags fetched successfully.");
+        console.log("Ypoxreoseis with tags and doseis fetched successfully.");
 
-        // Combine the data from ypoxreoseisWithTags
+        // Combine the data from ypoxreoseisWithTagsAndDoseis
         const combinedData = {};
-        ypoxreoseisWithTags.forEach(item => {
+        ypoxreoseisWithTagsAndDoseis.forEach(item => {
             const ypoxreoseisId = item.ypoxreosei.id;
             if (!combinedData[ypoxreoseisId]) {
                 combinedData[ypoxreoseisId] = {
@@ -423,7 +442,8 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                         ammount_vat: item.ypoxreosei.ammount_vat,
                         createdAt: item.ypoxreosei.createdAt,
                         updatedAt: item.ypoxreosei.updatedAt,
-                        erga_id: item.ypoxreosei.erga_id
+                        erga_id: item.ypoxreosei.erga_id,
+                        doseisCount: item.dataValues.doseisCount // Add the count of doseis
                     },
                     tags: [] // Initialize an empty array for tags
                 };
@@ -435,7 +455,7 @@ export const findYpoxreoseisWithTags = async (req, res) => {
 
         res.status(200).json(combinedArray); // Change status code to 200 for a successful fetch
     } catch (error) {
-        console.error("Error fetching ypoxreoseis with tags:", error);
+        console.error("Error fetching ypoxreoseis with tags and doseis:", error);
         res.status(500).json({ error: error.message });
     }
 };
