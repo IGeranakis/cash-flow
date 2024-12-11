@@ -52,24 +52,24 @@ const store = new sessionStore({
 });
 app.use('/uploads', express.static('uploads'));
 
-(async()=>{
-    await db.sync();
-    await Customer.sequelize.sync();
-    await Erga.sequelize.sync();
-    await Daneia.sequelize.sync();
-    await timologia.sequelize.sync();
-    await Paradotea.sequelize.sync();
-    await Users.sequelize.sync();
-    await incomes.sequelize.sync();
-    await Ekxorimena_Timologia.sequelize.sync();
-    await ErgaCategories.sequelize.sync();
-    await Ypoxreoseis.sequelize.sync();
-    await Doseis.sequelize.sync();
-    await Tags.sequelize.sync();
-    await tags_has_ypoxreoseis.sequelize.sync();
-    await Budget.sequelize.sync();
+// (async()=>{
+//     await db.sync();
+//     await Customer.sequelize.sync();
+//     await Erga.sequelize.sync();
+//     await Daneia.sequelize.sync();
+//     await timologia.sequelize.sync();
+//     await Paradotea.sequelize.sync();
+//     await Users.sequelize.sync();
+//     await incomes.sequelize.sync();
+//     await Ekxorimena_Timologia.sequelize.sync();
+//     await ErgaCategories.sequelize.sync();
+//     await Ypoxreoseis.sequelize.sync();
+//     await Doseis.sequelize.sync();
+//     await Tags.sequelize.sync();
+//     await tags_has_ypoxreoseis.sequelize.sync();
+//     await Budget.sequelize.sync();
     
-})();
+// })();
 
 
 
