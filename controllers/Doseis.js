@@ -1,25 +1,35 @@
 import Doseis from "../models/DoseisModel.js";
 import Ypoxreoseis from "../models/YpoxreoseisModel.js";
+import tags_has_ypoxreoseis from "../models/tags_has_ypoxreoseisModel.js";
 import db from "../config/Database.js";
 import {Op, Sequelize } from "sequelize";
+import Tags from "../models/TagsModel.js";
 
 export const getDoseis = async(req,res)=>
     {
-        try{
-            const response = await Doseis.findAll({
-                attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id', 'comment'],
-                include: [{
-                    model: Ypoxreoseis,
-                    attributes: ['provider']
-                   
-
-                    // required: true // This acts as the INNER JOIN condition
-                }]
-            });
-            res.status(200).json(response);
-        } catch(error){
-            res.status(500).json({msg:error.message});
-    
+        try {
+            const query = `
+                SELECT 
+                    doseis.id AS doseis_id, 
+                    doseis.ammount, 
+                    doseis.actual_payment_date, 
+                    doseis.estimate_payment_date, 
+                    doseis.status, 
+                    doseis.comment,
+                    ypoxreoseis.provider,
+                    tags_has_ypoxreoseis.id AS tag_relation_id,
+                    tags_has_ypoxreoseis.tags_id,
+                    GROUP_CONCAT(tags.name) AS tag_name
+                FROM doseis
+                LEFT JOIN ypoxreoseis ON doseis.ypoxreoseis_id = ypoxreoseis.id
+                LEFT JOIN tags_has_ypoxreoseis ON tags_has_ypoxreoseis.ypoxreoseis_id = ypoxreoseis.id
+                LEFT JOIN tags ON tags.id = tags_has_ypoxreoseis.tags_id
+                GROUP BY doseis.id, ypoxreoseis.id
+            `;
+            const [results] = await db.query(query);
+            res.status(200).json(results);
+        } catch (error) {
+            res.status(500).json({ msg: error.message });
         }
     }
 
