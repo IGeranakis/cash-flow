@@ -22,7 +22,6 @@ export const getErga = async(req,res)=>{
             include: [{
                 model: Customer,
                 attributes: ['name'],
-                // required: true // This acts as the INNER JOIN condition
             },{
                 model: ErgaCategories,
                 attributes: ['name'],

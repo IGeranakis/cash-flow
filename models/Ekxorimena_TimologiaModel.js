@@ -92,9 +92,5 @@ const Ekxorimena_Timologia = db.define('Ekxorimena_Timologia',{
 });
 Ekxorimena_Timologia.belongsTo(Timologia, { foreignKey: 'timologia_id', allowNull: true,onDelete:"CASCADE" ,unique: true  });
 
-// // Define a unique constraint separately
-// Ekxorimena_Timologia.addIndex(['timologia_id'], {
-//     unique: true
-// });
 
 export default Ekxorimena_Timologia;

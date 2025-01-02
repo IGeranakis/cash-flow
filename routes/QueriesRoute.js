@@ -51,14 +51,7 @@ router.delete('/ypoquery/:id',verifyUser,adminOnly,deleteYpoxreoseisWithTags)
 router.post('/ypoquery', verifyUser,adminOnly,YpoxreoseisAndTagsQuery)
 
 router.get('/ypotags/:ypoxreoseis_id', verifyUser,adminOnly, getTags_Has_YpoxreoseisByYpoxreoseisId )
-// router.get('/getTimologiaFromEk/:timologia_id', verifyUser,adminOnly, getTimologiaFromEk)
 router.get('/income_tim',verifyUser,adminOnly,getIncomeTimogia)
 router.get('/income_par',verifyUser,adminOnly,getIncomeParadotea)
 router.get('/getGroupTableParadotea',verifyUser,adminOnly,getGroupTableParadotea)
-// router.get('/timologia/:id',verifyUser,adminOnly,getTimologioById);
-// router.post('/timologia',verifyUser,adminOnly,CreateTimologia);
-// router.patch('/timologia/:id',verifyUser,adminOnly,UpdateTimologia);
-// router.delete('/timologia/:id',verifyUser,adminOnly,DeleteTimologio);
-
-
 export default router;

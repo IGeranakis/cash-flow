@@ -37,7 +37,6 @@ export const getUniqueNameErgaOfPar = async (req, res) => {
             }],
             group: ['erga.name']
         });
-        // res.status(200).json(response.map(entry => entry.erga.name));
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ msg: error.message });
@@ -54,7 +53,6 @@ export const getParErgColor = async (req, res) => {
             }],
             
         });
-        // res.status(200).json(response.map(entry => entry.erga.name));
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ msg: error.message });
@@ -146,35 +144,6 @@ export const getErgaforParadotea = async (req, res) => {
 }
 
 export const UpdateTimologia_idFromParadotea = async (req, res) => {
-    // const paradotea = await Paradotea.findOne({
-    //     where: {
-    //         id: req.params.id
-    //     }
-    // });
-
-    // if (!paradotea) return res.status(404).json({ msg: "paradotea not found" });
-
-    // try {
-    //     const { timologia_id } = req.body;
-
-    //     const updatedParadotea = await Paradotea.update(
-    //         {
-    //             timologia_id: timologia_id
-    //         },
-    //         {
-    //             where: {
-    //                 id: paradotea.id
-    //             }
-    //         }
-    //     );
-    //     //updateIncome(paradotea.id,timologia_id,null,res)
-
-    //     res.status(200).json({ msg: "Paradotea updated successfully" });
-
-    // } catch (error) {
-    //     res.status(400).json({ msg: error.message });
-    // }
-
   const { id } = req.params;
   const { timologia_id } = req.body;
 
@@ -723,49 +692,3 @@ GROUP BY
         res.status(500).json({ msg: error.message });
     }
 };
-
-
-// export const getGroupTableParadotea = async (req, res) => {
-//     try {
-//         const results = await Erga.findAll({
-//             attributes: [
-//                 ['name', 'erga_name'], // Alias for erga.name
-//                 [Sequelize.col('customer.name'), 'customer_name'], // Alias for customer.name
-//                 'status',
-//                 'ammount_total',
-//                 'sign_date',
-//                 // SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END) AS totalparadotea
-//                 [Sequelize.fn('SUM', Sequelize.literal('CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END')), 'totalparadotea'],
-//                 // Difference: erga.ammount_total - totalparadotea
-//                 [Sequelize.literal('`erga`.`ammount_total` - SUM(CASE WHEN paradotea.timologia_id IS NOT NULL THEN paradotea.ammount_total ELSE 0 END)'), 'difference']
-//             ],
-//             include: [
-//                 {
-//                     model: Customer,
-//                     attributes: ['name'] // Include customer name
-//                 },
-//                 {
-//                     model: Paradotea,
-//                     attributes: [] // No need to select any specific attributes from Paradotea, it's only for the join and aggregation
-//                 }
-//             ],
-//             group: [
-//                 'erga.id', // Group by erga.id (and name implicitly)
-//                 'customer.id' // Group by customer.id
-//             ]
-//         });
-
-//         res.status(200).json(results);
-//     } catch (error) {
-//         res.status(500).json({ msg: error.message });
-//     }
-// };
-
-
-
-
-
-
-
-
-

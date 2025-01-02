@@ -62,8 +62,6 @@ export const createIncome = async(paradotea_id,timologia_id,ekxorimena_timologia
 
     try{
         await incomes.create({
-            //paradotea_erga_id:paradotea_erga_id,
-            //paradotea_timologia_id:paradotea_timologia_id,
             paradotea_id:paradotea_id,
             timologia_id:timologia_id,
             ekxorimena_timologia_id:ekxorimena_timologia_id
@@ -106,8 +104,6 @@ export const updateIncome= async(paradotea_id,timologia_id,ekxorimena_timologia_
     }
     try{
         await incomes.update({
-            //paradotea_erga_id:paradotea_erga_id,
-            //paradotea_timologia_id:paradotea_timologia_id,
             paradotea_id:paradotea_id,
             timologia_id:timologia_id,
             ekxorimena_timologia_id:ekxorimena_timologia_id
@@ -125,43 +121,6 @@ export const updateIncome= async(paradotea_id,timologia_id,ekxorimena_timologia_
     }
 
 }
-
-
-
-
-
-
-
-// export const updateIncomeEkTimo= async(timologia_id,ekxorimena_timologia_id,res)=>{
-//     const income = await incomes.findOne({
-//         where:{
-//             timologia_id:timologia_id
-//         }
-//     });
-
-//     if (!income) return res.status(404).json({msg:"Income not found with this timologia ID"});
-    
-//     //CHECK IF EKXORIMENA TIMOLOGIA EXISTS WITH THE TIMOLOGIA ID WE UPDATE FROM PARADOTEA, IF NOT...NULL 
-   
-//     try{
-//         await incomes.update({
-//             //paradotea_erga_id:paradotea_erga_id,
-//             //paradotea_timologia_id:paradotea_timologia_id,
-//             ekxorimena_timologia_id:ekxorimena_timologia_id
-
-//         },{
-//             where:{
-//                 timologia_id:timologia_id
-//             }
-//         });
-//         res.status(200).json({msg:"Income  update Succesfully"});
-    
-//     } catch(error){
-//         res.status(400).json({msg:error.message});
-    
-//     }
-
-// }
 
 export const updateIncomeEkTimo = async (timologia_id, ekxorimena_timologia_id, res) => {
     try {

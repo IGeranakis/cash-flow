@@ -80,10 +80,6 @@ export const createDoseis = async(req,res)=>
         const query = `
         CALL multiDoseis (${paramAmmount}, '${paramStatus}',${paramYpoxreoseisId},'${paramStartDate}','${paramEndDate}',${paramDay});
         `; 
-        // const query = `
-        // CALL multiDoseis (10, 'yes',19,'2025-01-01','2025-05-01',18);
-        // `;
-    
         try {
             const results = await db.query(query, {
                 type: Sequelize.QueryTypes.RAW // Specify the type of query
