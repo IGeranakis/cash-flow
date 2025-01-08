@@ -23,6 +23,7 @@ import {
 } from "../controllers/Income.js";
 import incomes from "../models/incomesModel.js";
 import Doseis from "../models/DoseisModel.js";
+import ErgaCategories from "../models/ErgaCategoriesModel.js";
 // import { GREEK_GENERAL_CI } from "mysql/lib/protocol/constants/charsets.js";
 
 //Get a unique name list of Erga  that have paradotea
@@ -611,10 +612,17 @@ export const getIncomeParadotea = async (req, res) => {
             },
             include: [{
                 model: Paradotea,
-                
-                required: true, // Ensures INNER JOIN
-                
-                
+                required: true,
+                include: [{
+                    model: Erga,
+                    required: true,
+                    include: [{
+                        model: Customer,
+                        required: true,
+                    }]
+
+                // required: true,  Ensures INNER JOIN
+                }]
             }]
         });
 
@@ -628,23 +636,35 @@ export const getIncomeParadotea = async (req, res) => {
 
 export const getIncomeTimogia = async (req, res) => {
     try {
-        const response = await income.findAll({
-            where: {
-               
-                ekxorimena_timologia_id: { [Op.is]: null },
-                timologia_id: { [Op.not]: null }
-            },
+        const response = await incomes.findAll({
+            attributes: ['timologia_id', 'ekxorimena_timologia_id'],
             include: [{
                 model: timologia,
-               as:"timologia",
-                required: true, // Ensures INNER JOIN
-                where:{
-                    status_paid:"no"
-                }
-                
+                as: 'timologia',
+                required: true // Ensures INNER JOIN
+            },
+        {
+            model: Paradotea, // Include the Paradotea model inside Timologia
+            include: [{
+                model: Erga, // Include the Erga model inside Paradotea
+                attributes: ['id', 'name', 'color'], // Specify the attributes 
+                include: [{
+                    model: Customer,
+                    attributes: ['id', 'name']
+                }]
             }]
+        }],
+        where: {
+        timologia_id: {
+            [Op.not]: null // Check if timologia_id is not null
+        },
+        ekxorimena_timologia_id:
+        {
+            [Op.is]: null
+        }
+    }
         });
-
+ 
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ msg: error.message });
@@ -692,3 +712,43 @@ GROUP BY
         res.status(500).json({ msg: error.message });
     }
 };
+
+
+export const getEkxForEsoda = async (req, res) => {
+    try {
+        const response = await incomes.findAll({
+            attributes: ['ekxorimena_timologia_id'],
+            include: [{
+                model: Ekxorimena_Timologia,
+                required: true // Ensures INNER JOIN
+            },
+        {
+            model: Paradotea, // Include the Paradotea model inside Timologia
+            include: [{
+                model: Erga, // Include the Erga model inside Paradotea
+                attributes: ['id', 'name', 'color'], // Specify the attributes 
+                include: [{
+                    model: Customer,
+                    attributes: ['id', 'name']
+                }]
+            }]
+        },
+        {
+            model: timologia, // Include the Timologia model
+            as: 'timologia',
+            attributes: ['invoice_number'], // Specify the attributes from Timologia
+            required: true // Optional INNER JOIN or LEFT JOIN based on your use case
+        }],
+           
+            where: {
+                ekxorimena_timologia_id: {
+                    [Op.not]: null
+                }
+            }
+        });
+ 
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}

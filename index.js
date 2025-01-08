@@ -57,8 +57,8 @@ app.use('/uploads', express.static('uploads'));
     await Customer.sequelize.sync();
     await Erga.sequelize.sync();
     await Daneia.sequelize.sync();
-    await timologia.sequelize.sync();
     await Paradotea.sequelize.sync();
+    await timologia.sequelize.sync();
     await Users.sequelize.sync();
     await incomes.sequelize.sync();
     await Ekxorimena_Timologia.sequelize.sync();
@@ -94,8 +94,8 @@ app.use(UserRoute);
 app.use(AuthRoute);
 app.use(CustomerRoute);
 app.use(ErgaRoute);
-app.use(Timologia_Route)
 app.use(ParadoteaRoute);
+app.use(Timologia_Route)
 app.use(DaneiaRoute);
 app.use(Ek_timologiaRoute);
 app.use(IncomeRoute);

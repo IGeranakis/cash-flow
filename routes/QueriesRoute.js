@@ -20,7 +20,8 @@ import {
     getTags_Has_YpoxreoseisByYpoxreoseisId,
     getIncomeTimogia,
     getIncomeParadotea,
-    getGroupTableParadotea
+    getGroupTableParadotea,
+    getEkxForEsoda
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -54,4 +55,5 @@ router.get('/ypotags/:ypoxreoseis_id', verifyUser,adminOnly, getTags_Has_Ypoxreo
 router.get('/income_tim',verifyUser,adminOnly,getIncomeTimogia)
 router.get('/income_par',verifyUser,adminOnly,getIncomeParadotea)
 router.get('/getGroupTableParadotea',verifyUser,adminOnly,getGroupTableParadotea)
+router.get('/getekxforesoda', verifyUser,adminOnly, getEkxForEsoda)
 export default router;
