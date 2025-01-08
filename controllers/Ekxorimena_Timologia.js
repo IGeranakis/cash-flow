@@ -104,8 +104,6 @@ export const updateEkxorimena_Timologia = async(req,res)=>
         });
         const new_ek_timoId = Ekxorimeno_Timologio.id
         console.log(new_ek_timo)
-        // console.log("Timologisaa: ",new_ek_timoId)
-        // res.status(200).json({msg:"Ekxorimeno Timologio  update Successfylly"});
         updateIncomeEkTimo(timologia_id,new_ek_timoId,res)
     }
     catch(error)

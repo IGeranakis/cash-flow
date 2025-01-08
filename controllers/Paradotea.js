@@ -98,27 +98,6 @@ export const createParadotea = async(req,res)=>{
         });
         const paradoteaId=newParadotea.id
         createIncome(paradoteaId,timologia_id,null,res)
-        
-        // if(timologia_id!=null){
-        //     await incomes.create({
-        //         type:"timologio",
-        //         income_id:timologia_id,
-        //         name:"erga2"
-    
-        //     });
-        // }else{
-        //     const paradoteaId=newParadotea.id
-        //     await incomes.create({
-        //         type:"paradoteo",
-        //         income_id:paradoteaId,
-        //         name:"erga3"
-    
-        //     });
-        // }
-        
-        //res.status(201).json({msg:"Paradotea create successfully"});
-        
-
     } catch(error){
         res.status(400).json({msg:error.message});
 
@@ -162,32 +141,6 @@ export const updateParadotea= async(req,res)=>{
         const paradoteaId=paradotea.id
        console.log("PARADOTEA ID !!!!---->",paradoteaId);
         updateIncome(paradoteaId,timologia_id,null,res)
-
-        // if(timologia_id!=null){
-        //     const paradoteaId=newParadotea.id
-        //     await incomes.update({
-        //         type:"timologio",
-        //         income_id:timologia_id,
-        //         name:"erga2"
-    
-        //     },{   
-        //         where: {   
-        //             income_id: paradoteaId,   type: 'paradotea',   [Sequelize.Op.not]: Sequelize.literal(`
-        //                EXISTS (   
-        //                 SELECT 1  
-        //                  FROM (SELECT * FROM Incomes) AS temp  
-        //                   WHERE income_id = `+timologia_id+`  
-        //                   AND type = 'timologio'   )   `)  
-        //     }});
-        // }else{
-        //     const paradoteaId=newParadotea.id
-        //     await incomes.create({
-        //         type:"paradoteo",
-        //         income_id:paradoteaId,
-        //         name:"erga3"
-    
-        //     });
-        //}
     
     } catch(error){
         res.status(400).json({msg:error.message});
