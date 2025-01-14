@@ -681,11 +681,11 @@ SELECT
     erga.status, 
     erga.ammount_total, 
     erga.sign_date,
-    SUM(CASE WHEN timologia.status_paid = 'yes' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) AS total_yes_timologia,
-    SUM(CASE WHEN timologia.status_paid = 'no' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) AS total_no_timologia,
+    SUM(CASE WHEN timologia.status_paid = 'yes' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) AS total_yes_timologia,
+    SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight)  ELSE 0 END) AS total_no_timologia,
     SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands_no_tim,
     -- New column: sum of total_no_timologia and apaitisis_no_tim
-    SUM(CASE WHEN timologia.status_paid = 'no' THEN timologia.ammount_of_income_tax_incl ELSE 0 END) +
+    SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) +
     SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands,
     SUM(CASE WHEN paradotea.delivery_date > CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS future_demands
 
