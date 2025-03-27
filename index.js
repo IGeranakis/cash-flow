@@ -80,14 +80,22 @@ app.use(session({
     saveUninitialized:"true",
     store:store,
     cookie:{
-        secure:'auto'
+        secure:false,
+        httpOnly:true,
+        sameSite:"lax"
     }
 }))
 
 app.use(cors({
     credentials:true,
-    origin:'http://localhost:3000'
+    origin:'http://localhost:3000',
+    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow specific headers
+    preflightContinue: false,  // Set to false to handle OPTIONS in route
+    optionsSuccessStatus: 204,  // 204 status code for successful OPTIONS request
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE','PATCH'],
 }));
+
+
 
 app.use(express.json());
 app.use(UserRoute);

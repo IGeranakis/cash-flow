@@ -360,25 +360,96 @@ export const YpoxreoseisAndTagsQuery = async(req,res)=>
 
 
 
+// export const findYpoxreoseisWithTags = async (req, res) => {
+//     try {
+//         console.log("Fetching ypoxreoseis with tags and doseis...");
+
+//         // Fetch all distinct Ypoxreoseis records along with associated tags and doseis count
+//         const ypoxreoseisWithTagsAndDoseis = await tags_has_ypoxreoseis.findAll({
+//             include: [
+//                 {
+//                     model: Ypoxreoseis,
+//                     as: 'ypoxreosei', // Use the correct alias as defined in the associations
+//                 },
+//                 {
+//                     model: Tags,
+//                     as: 'tag' // Alias for the Tags model to avoid confusion
+//                 }
+//             ],
+//             attributes: {
+//                 include: [
+//                     // Count the number of doseis connected to the ypoxreoseis
+//                     [
+//                         Sequelize.literal(`(
+//                             SELECT COUNT(*)
+//                             FROM doseis
+//                             WHERE doseis.ypoxreoseis_id = ypoxreosei.id
+//                         )`),
+//                         'doseisCount'
+//                     ]
+//                 ]
+//             },
+//             group: [
+//                 'tags_has_ypoxreoseis.id',
+//                 'ypoxreosei.id', // Update to match the correct alias
+//                 'tag.id'
+//             ] // Group to avoid duplicate rows
+//         });
+
+//         console.log("Ypoxreoseis with tags and doseis fetched successfully.");
+
+//         // Combine the data from ypoxreoseisWithTagsAndDoseis
+//         const combinedData = {};
+//         ypoxreoseisWithTagsAndDoseis.forEach(item => {
+//             const ypoxreoseisId = item.ypoxreosei.id;
+//             if (!combinedData[ypoxreoseisId]) {
+//                 combinedData[ypoxreoseisId] = {
+//                     ypoxreoseis: {
+//                         id: item.ypoxreosei.id,
+//                         provider: item.ypoxreosei.provider,
+//                         invoice_date: item.ypoxreosei.invoice_date,
+//                         total_owed_ammount: item.ypoxreosei.total_owed_ammount,
+//                         ammount_vat: item.ypoxreosei.ammount_vat,
+//                         createdAt: item.ypoxreosei.createdAt,
+//                         updatedAt: item.ypoxreosei.updatedAt,
+//                         erga_id: item.ypoxreosei.erga_id,
+//                         doseisCount: item.dataValues.doseisCount // Add the count of doseis
+//                     },
+//                     tags: [] // Initialize an empty array for tags
+//                 };
+//             }
+//             combinedData[ypoxreoseisId].tags.push(item.tag.name);
+//         });
+
+//         const combinedArray = Object.values(combinedData);
+
+//         res.status(200).json(combinedArray); // Change status code to 200 for a successful fetch
+//     } catch (error) {
+//         console.error("Error fetching ypoxreoseis with tags and doseis:", error);
+//         res.status(500).json({ error: error.message });
+//     }
+// };
+
+
+
 export const findYpoxreoseisWithTags = async (req, res) => {
     try {
-        console.log("Fetching ypoxreoseis with tags and doseis...");
+        console.log("Fetching ypoxreoseis with tags, doseis count, and paid doseis sum...");
 
-        // Fetch all distinct Ypoxreoseis records along with associated tags and doseis count
         const ypoxreoseisWithTagsAndDoseis = await tags_has_ypoxreoseis.findAll({
             include: [
                 {
                     model: Ypoxreoseis,
-                    as: 'ypoxreosei', // Use the correct alias as defined in the associations
+                    as: 'ypoxreosei',
                 },
                 {
                     model: Tags,
-                    as: 'tag' // Alias for the Tags model to avoid confusion
+                    as: 'tag'
                 }
             ],
             attributes: {
                 include: [
-                    // Count the number of doseis connected to the ypoxreoseis
+                    // Count of all doseis
                     [
                         Sequelize.literal(`(
                             SELECT COUNT(*)
@@ -386,19 +457,39 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                             WHERE doseis.ypoxreoseis_id = ypoxreosei.id
                         )`),
                         'doseisCount'
+                    ],
+                    // Sum of amounts where status is 'yes'
+                    [
+                        Sequelize.literal(`(
+                            SELECT COALESCE(SUM(doseis.ammount), 0)
+                            FROM doseis
+                            WHERE doseis.ypoxreoseis_id = ypoxreosei.id
+                            AND doseis.status = 'yes'
+                        )`),
+                        'Paid_doseis_ammount'
+                    ],
+                    // Sum of amounts where status is 'no'
+                    [
+                        Sequelize.literal(`(
+                            SELECT COALESCE(SUM(doseis.ammount), 0)
+                            FROM doseis
+                            WHERE doseis.ypoxreoseis_id = ypoxreosei.id
+                            AND doseis.status = 'no'
+                        )`),
+                        'NotPaid_doseis_ammount'
                     ]
+
                 ]
             },
             group: [
                 'tags_has_ypoxreoseis.id',
-                'ypoxreosei.id', // Update to match the correct alias
+                'ypoxreosei.id',
                 'tag.id'
-            ] // Group to avoid duplicate rows
+            ]
         });
 
-        console.log("Ypoxreoseis with tags and doseis fetched successfully.");
+        console.log("Ypoxreoseis with tags, doseis count, and paid doseis sum fetched successfully.");
 
-        // Combine the data from ypoxreoseisWithTagsAndDoseis
         const combinedData = {};
         ypoxreoseisWithTagsAndDoseis.forEach(item => {
             const ypoxreoseisId = item.ypoxreosei.id;
@@ -413,22 +504,25 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                         createdAt: item.ypoxreosei.createdAt,
                         updatedAt: item.ypoxreosei.updatedAt,
                         erga_id: item.ypoxreosei.erga_id,
-                        doseisCount: item.dataValues.doseisCount // Add the count of doseis
+                        doseisCount: item.dataValues.doseisCount,
+                        Paid_doseis_ammount: item.dataValues.Paid_doseis_ammount,
+                        NotPaid_doseis_ammount:item.dataValues.NotPaid_doseis_ammount
                     },
-                    tags: [] // Initialize an empty array for tags
+                    tags: []
                 };
             }
             combinedData[ypoxreoseisId].tags.push(item.tag.name);
         });
 
         const combinedArray = Object.values(combinedData);
-
-        res.status(200).json(combinedArray); // Change status code to 200 for a successful fetch
+        res.status(200).json(combinedArray);
     } catch (error) {
         console.error("Error fetching ypoxreoseis with tags and doseis:", error);
         res.status(500).json({ error: error.message });
     }
 };
+
+
 
 export const findYpoxreoseisWithTagsId = async (req, res) => {
     try {
