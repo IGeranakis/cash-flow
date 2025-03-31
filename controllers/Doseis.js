@@ -5,6 +5,7 @@ import db from "../config/Database.js";
 import {Op, Sequelize } from "sequelize";
 import Tags from "../models/TagsModel.js";
 
+
 export const getDoseis = async(req,res)=>
     {
         try {
@@ -173,3 +174,59 @@ export const createDoseis = async(req,res)=>
             }
         
         }    
+
+        export const getDoseisByYpoId = async(req,res)=>
+            {
+                try{
+                    const query = `
+                        SELECT 
+                            doseis.id AS doseis_id, 
+                            doseis.ammount, 
+                            doseis.actual_payment_date, 
+                            doseis.estimate_payment_date, 
+                            doseis.status, 
+                            doseis.comment,
+                            ypoxreoseis.provider,
+                            tags_has_ypoxreoseis.id AS tag_relation_id,
+                            tags_has_ypoxreoseis.tags_id,
+                            GROUP_CONCAT(tags.name) AS tag_name
+                        FROM doseis
+                        LEFT JOIN ypoxreoseis ON doseis.ypoxreoseis_id = ypoxreoseis.id
+                        LEFT JOIN tags_has_ypoxreoseis ON tags_has_ypoxreoseis.ypoxreoseis_id = ypoxreoseis.id
+                        LEFT JOIN tags ON tags.id = tags_has_ypoxreoseis.tags_id
+                        WHERE ypoxreoseis.id = ${req.params.id}
+                        GROUP BY doseis.id, ypoxreoseis.id
+                    `;
+                    const [response] = await db.query(query);
+
+
+                //     const response = await Doseis.findAll({
+                //         attributes:['id','ammount', 'actual_payment_date', 'estimate_payment_date', 'status', 'ypoxreoseis_id', 'comment'],
+                //         include: [{
+                //             model: Ypoxreoseis,
+                //             attributes: ['provider'],
+                //             where:{
+                //                 id:req.params.id
+                //             },
+
+                //             // required: true // This acts as the INNER JOIN condition
+                //         },
+                //         {
+                //             model: Tags,
+                //             attributes: [],
+                           
+                //         },
+                //         {
+                //             model:tags_has_ypoxreoseis,
+                //             attributes:[]
+                //         }
+                // ],
+                        
+                //     });
+                    res.status(200).json(response);
+            
+                } catch (error){
+                    res.status(500).json({ msg:error.message });
+                }
+            }
+        
