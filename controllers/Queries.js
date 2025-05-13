@@ -433,7 +433,28 @@ export const YpoxreoseisAndTagsQuery = async(req,res)=>
 
 
 export const findYpoxreoseisWithTags = async (req, res) => {
+
+
     try {
+        // const now = new Date();
+        // const currentYear = now.getFullYear();
+        // const currentMonth = now.getMonth() + 1; // getMonth() is zero-based
+    
+        // // Create 'YYYY-MM-DD' for last day of current month
+        // // const lastDayOfMonth = new Date(currentYear, currentMonth, 0).toISOString().split('T')[0];
+        // const lastDayDate = new Date(currentYear, currentMonth, 0);
+        // const lastDayOfMonth = lastDayDate.toISOString().split('T')[0];
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth(); // No +1 here
+        
+        // This gets the last day of the current month
+        const lastDayDate = new Date(currentYear, currentMonth + 1, 0); // next month, day 0 = last day of current
+        const lastDayOfMonth = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(lastDayDate.getDate()).padStart(2, '0')}`;
+
+        console.log(lastDayOfMonth)
+
         console.log("Fetching ypoxreoseis with tags, doseis count, and paid doseis sum...");
 
         const ypoxreoseisWithTagsAndDoseis = await tags_has_ypoxreoseis.findAll({
@@ -465,6 +486,7 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                             FROM doseis
                             WHERE doseis.ypoxreoseis_id = ypoxreosei.id
                             AND doseis.status = 'yes'
+                            AND doseis.actual_payment_date <= '${lastDayOfMonth}'
                         )`),
                         'Paid_doseis_ammount'
                     ],
@@ -475,6 +497,7 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                             FROM doseis
                             WHERE doseis.ypoxreoseis_id = ypoxreosei.id
                             AND doseis.status = 'no'
+                            AND doseis.estimate_payment_date <= '${lastDayOfMonth}'
                         )`),
                         'NotPaid_doseis_ammount'
                     ]
