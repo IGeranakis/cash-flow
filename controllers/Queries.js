@@ -789,39 +789,111 @@ export const getIncomeTimogia = async (req, res) => {
 };
 
 
+// export const getGroupTableParadotea = async (req, res) => {
+//     const query = `
+// SELECT 
+//     erga.name AS erga_name, 
+//     customers.name AS customer_name,
+//     customers.logoImage,
+//     erga.status, 
+//     erga.ammount_total, 
+//     erga.sign_date,
+//     SUM(CASE WHEN timologia.status_paid = 'yes' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) AS total_yes_timologia,
+//     SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight)  ELSE 0 END) AS total_no_timologia,
+//     SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands_no_tim,
+//     -- New column: sum of total_no_timologia and apaitisis_no_tim
+//     SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) +
+//     SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands,
+//     SUM(CASE WHEN paradotea.delivery_date > CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS future_demands
+
+// FROM 
+//     erga
+// LEFT JOIN 
+//     paradotea ON paradotea.erga_id = erga.id
+// LEFT JOIN 
+//     customers ON customers.id = erga.customer_id
+// LEFT JOIN 
+//     timologia ON timologia.id = paradotea.timologia_id
+// GROUP BY 
+//     erga.id, 
+//     customers.id
+//     `;
+
+//     try {
+//         const results = await db.query(query, {
+//             type: Sequelize.QueryTypes.SELECT // Specify the type of query
+//         });
+
+//         res.status(200).json(results);
+//     } catch (error) {
+//         res.status(500).json({ msg: error.message });
+//     }
+// };
+
+
 export const getGroupTableParadotea = async (req, res) => {
     const query = `
-SELECT 
-    erga.name AS erga_name, 
-    customers.name AS customer_name,
-    customers.logoImage,
-    erga.status, 
-    erga.ammount_total, 
-    erga.sign_date,
-    SUM(CASE WHEN timologia.status_paid = 'yes' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) AS total_yes_timologia,
-    SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight)  ELSE 0 END) AS total_no_timologia,
-    SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands_no_tim,
-    -- New column: sum of total_no_timologia and apaitisis_no_tim
-    SUM(CASE WHEN timologia.status_paid = 'no' THEN (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) ELSE 0 END) +
-    SUM(CASE WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS demands,
-    SUM(CASE WHEN paradotea.delivery_date > CURRENT_DATE AND paradotea.timologia_id IS NULL THEN paradotea.ammount_total ELSE 0 END) AS future_demands
+    SELECT 
+        erga.name AS erga_name, 
+        customers.name AS customer_name,
+        customers.logoImage,
+        erga.status, 
+        erga.ammount_total, 
+        erga.sign_date,
 
-FROM 
-    erga
-LEFT JOIN 
-    paradotea ON paradotea.erga_id = erga.id
-LEFT JOIN 
-    customers ON customers.id = erga.customer_id
-LEFT JOIN 
-    timologia ON timologia.id = paradotea.timologia_id
-GROUP BY 
-    erga.id, 
-    customers.id
+        IFNULL(timologia_agg.total_yes_timologia, 0) AS total_yes_timologia,
+        IFNULL(timologia_agg.total_no_timologia, 0) AS total_no_timologia,
+
+        SUM(CASE 
+            WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL 
+            THEN paradotea.ammount_total 
+            ELSE 0 
+        END) AS demands_no_tim,
+
+        IFNULL(timologia_agg.total_no_timologia, 0) +
+        SUM(CASE 
+            WHEN paradotea.delivery_date < CURRENT_DATE AND paradotea.timologia_id IS NULL 
+            THEN paradotea.ammount_total 
+            ELSE 0 
+        END) AS demands,
+
+        SUM(CASE 
+            WHEN paradotea.delivery_date > CURRENT_DATE AND paradotea.timologia_id IS NULL 
+            THEN paradotea.ammount_total 
+            ELSE 0 
+        END) AS future_demands
+
+    FROM erga
+    LEFT JOIN customers ON customers.id = erga.customer_id
+    LEFT JOIN paradotea ON paradotea.erga_id = erga.id
+
+    LEFT JOIN (
+        SELECT 
+            sub.erga_id,
+            SUM(CASE WHEN sub.status_paid = 'yes' THEN sub.total ELSE 0 END) AS total_yes_timologia,
+            SUM(CASE WHEN sub.status_paid = 'no' THEN sub.total ELSE 0 END) AS total_no_timologia
+        FROM (
+            SELECT 
+                paradotea.erga_id,
+                timologia.status_paid,
+                (timologia.ammount_of_income_tax_incl + timologia.ammount_parakratisi_eight) AS total
+            FROM timologia
+            JOIN paradotea ON timologia.id = paradotea.timologia_id
+            GROUP BY paradotea.erga_id, timologia.id, timologia.status_paid, timologia.ammount_of_income_tax_incl, timologia.ammount_parakratisi_eight
+        ) AS sub
+        GROUP BY sub.erga_id
+    ) AS timologia_agg ON timologia_agg.erga_id = erga.id
+
+    GROUP BY 
+        erga.id, 
+        customers.id, 
+        timologia_agg.total_yes_timologia,
+        timologia_agg.total_no_timologia;
     `;
 
     try {
         const results = await db.query(query, {
-            type: Sequelize.QueryTypes.SELECT // Specify the type of query
+            type: Sequelize.QueryTypes.SELECT
         });
 
         res.status(200).json(results);
@@ -829,6 +901,7 @@ GROUP BY
         res.status(500).json({ msg: error.message });
     }
 };
+
 
 
 export const getEkxForEsoda = async (req, res) => {
