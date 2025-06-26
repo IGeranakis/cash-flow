@@ -942,3 +942,42 @@ export const getEkxForEsoda = async (req, res) => {
         res.status(500).json({ msg: error.message });
     }
 }
+
+
+export const getErgaDeliverablesGrouped = async (req, res) => {
+  try {
+    const data = await Paradotea.findAll({
+      attributes: ['id', 'title', 'ammount_total', 'erga_id'],
+      include: [{
+        model: Erga,
+        attributes: ['id', 'name']
+      }],
+      order: [[Erga, 'name', 'ASC']]
+    });
+
+    // Group by Erga.name manually in JS
+    const grouped = {};
+    data.forEach(item => {
+      const projectName = item.erga?.name || 'Χωρίς Όνομα';
+      if (!grouped[projectName]) {
+        grouped[projectName] = [];
+      }
+      grouped[projectName].push({
+        id: item.id,
+        title: item.title,
+        ammount_total: parseFloat(item.ammount_total || 0)
+      });
+    });
+
+    // Return grouped structure
+    const result = Object.entries(grouped).map(([projectName, deliverables]) => ({
+      name: projectName,
+      deliverables
+    }));
+
+    res.json(result);
+  } catch (err) {
+    console.error('Error loading deliverables by project:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

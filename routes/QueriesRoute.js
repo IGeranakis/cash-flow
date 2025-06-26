@@ -21,7 +21,8 @@ import {
     getIncomeTimogia,
     getIncomeParadotea,
     getGroupTableParadotea,
-    getEkxForEsoda
+    getEkxForEsoda,
+    getErgaDeliverablesGrouped
 } from "../controllers/Queries.js"
 
 import { verifyUser,adminOnly } from "../middleware/AuthUser.js";
@@ -56,4 +57,7 @@ router.get('/income_tim',verifyUser,adminOnly,getIncomeTimogia)
 router.get('/income_par',verifyUser,adminOnly,getIncomeParadotea)
 router.get('/getGroupTableParadotea',verifyUser,adminOnly,getGroupTableParadotea)
 router.get('/getekxforesoda', verifyUser,adminOnly, getEkxForEsoda)
+router.get('/erga-paradotea', verifyUser,adminOnly,getErgaDeliverablesGrouped);
+
+
 export default router;
