@@ -6,6 +6,10 @@ import { Sequelize } from "sequelize";
 import Erga from "../models/ErgaModel.js";
 import Customer from "../models/CustomerModel.js";
 import ErgaCategories from "../models/ErgaCategoriesModel.js";
+import incomes from "../models/incomesModel.js";
+import Ekxorimena_Timologia from "../models/Ekxorimena_TimologiaModel.js";
+import timologia from "../models/TimologiaModel.js";
+import Paradotea from "../models/ParadoteaModel.js";
 
 export const getErga = async(req,res)=>{
 
@@ -168,26 +172,61 @@ export const updateErga= async(req,res)=>{
 }
 
 
-export const deleteErga = async(req,res)=>{
+export const deleteErga = async (req, res) => {
+  const transaction = await db.transaction();
+
+  try {
     const erga = await Erga.findOne({
-        where:{
-            id:req.params.id
-        }
+      where: { id: req.params.id },
+      transaction,
     });
-    if (!erga) return res.status(404).json({msg:"erga not found"});
- try{
-        await Erga.destroy({
-            
-      
-            where:{
-                id:erga.id
-            }
-        });
-        res.status(200).json({msg:"Erga deleted"});
-    
-    } catch(error){
-        res.status(400).json({msg:error.message});
-    
+
+    if (!erga) {
+      await transaction.rollback();
+      return res.status(404).json({ msg: "Erga not found" });
     }
 
-}
+    const paradotea = await Paradotea.findAll({
+      where: { erga_id: req.params.id },
+      transaction,
+    });
+
+    const timologiaIds = paradotea
+      .map((p) => p.timologia_id)
+      .filter((id) => id !== null && id !== undefined);
+
+    await Paradotea.destroy({
+      where: { erga_id: req.params.id },
+      transaction,
+    });
+
+    if (timologiaIds.length > 0) {
+      await Ekxorimena_Timologia.destroy({
+        where: { timologia_id: timologiaIds },
+        transaction,
+      });
+
+      await incomes.destroy({
+        where: { timologia_id: timologiaIds },
+        transaction,
+      });
+
+      await timologia.destroy({
+        where: { id: timologiaIds },
+        transaction,
+      });
+    }
+
+    await Erga.destroy({
+      where: { id: erga.id },
+      transaction,
+    });
+
+    await transaction.commit();
+
+    res.status(200).json({ msg: "Erga deleted successfully" });
+  } catch (error) {
+    await transaction.rollback();
+    res.status(400).json({ msg: error.message });
+  }
+};
