@@ -14,7 +14,7 @@ export const getCustomer = async(req,res)=>{
             attributes:['id',
                         'logoImage',
                         'name','afm','doy','epagelma','phone','email','address','postal_code',
-                        'website','facebookUrl','twitterUrl','linkedInUrl','instagramUrl']
+                        'website','facebookUrl','twitterUrl','linkedInUrl','instagramUrl', 'customer_code']
         });
         res.status(200).json(response);
     } catch(error){
@@ -30,7 +30,7 @@ export const getCustomerById = async(req,res)=>{
             attributes:['id',
                         'logoImage',
                         'name','afm','doy','epagelma','phone','email','address','postal_code',
-                        'website','facebookUrl','twitterUrl','linkedInUrl','instagramUrl'],
+                        'website','facebookUrl','twitterUrl','linkedInUrl','instagramUrl', 'customer_code'],
             where:{
                 id:req.params.id
             }
@@ -48,7 +48,7 @@ export const getCustomerById = async(req,res)=>{
 
 export const createCustomer = async(req,res)=>{
     
-    const {name,afm,doy,epagelma,phone,email,address,postal_code,website,facebookUrl,twitterUrl,linkedInUrl,instagramUrl} = req.body;
+    const {name,afm,doy,epagelma,phone,email,address,postal_code,website,facebookUrl,twitterUrl,linkedInUrl,instagramUrl, customer_code} = req.body;
 
 
       // Handle the file upload if it exists
@@ -72,7 +72,8 @@ export const createCustomer = async(req,res)=>{
             facebookUrl:facebookUrl,
             twitterUrl:twitterUrl,
             linkedInUrl:linkedInUrl,
-            instagramUrl:instagramUrl
+            instagramUrl:instagramUrl,
+            customer_code: customer_code,
 
         });
         res.status(201).json({msg:"Customer created Succesfully"});
@@ -94,7 +95,7 @@ export const updateCustomer= async(req,res)=>{
     });
 
     if (!customer) return res.status(404).json({msg:"Customer not  found"});
-    const {name,afm,doy,epagelma,phone,email,address,postal_code,website,facebookUrl,twitterUrl,linkedInUrl,instagramUrl} = req.body;
+    const {name,afm,doy,epagelma,phone,email,address,postal_code,website,facebookUrl,twitterUrl,linkedInUrl,instagramUrl, customer_code} = req.body;
      // Handle the file upload if a new image is provided
      let logoImage = customer.logoImage;  // Keep existing image if not updated
      if (req.file) {
@@ -115,7 +116,8 @@ export const updateCustomer= async(req,res)=>{
             facebookUrl:facebookUrl,
             twitterUrl:twitterUrl,
             linkedInUrl:linkedInUrl,
-            instagramUrl:instagramUrl
+            instagramUrl:instagramUrl,
+            customer_code:customer_code
  
         },{
             where:{
