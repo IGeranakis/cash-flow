@@ -66,6 +66,10 @@ const Customer = db.define('customers', {
     postal_code: {
         type: DataTypes.INTEGER,
         allowNull: true // Assuming postal_code can be nullable
+    },
+    customer_code: {
+        type: DataTypes.STRING(500),
+        allowNull: true
     }
     
 },{

@@ -22,7 +22,7 @@ export const getErga = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id'],
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code'],
             include: [{
                 model: Customer,
                 attributes: ['name'],
@@ -50,7 +50,7 @@ export const getErgaById = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id'],
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code'],
             where:{
                 id:req.params.id
             }
@@ -72,7 +72,7 @@ export const createErga = async(req,res)=>{
         shortname,ammount,ammount_vat,
         ammount_total,
         estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
+        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id, erga_code
     } = req.body;
 
     // Handle the file upload if it exists
@@ -100,7 +100,8 @@ export const createErga = async(req,res)=>{
             estimate_payment_date:estimate_payment_date,
             estimate_payment_date_2:estimate_payment_date_2,
             estimate_payment_date_3:estimate_payment_date_3,
-            erga_cat_id
+            erga_cat_id,
+            erga_code: erga_code
 
 
         });
@@ -129,7 +130,7 @@ export const updateErga= async(req,res)=>{
         shortname,ammount,ammount_vat,
         ammount_total,
         estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id
+        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id, erga_code
     } = req.body;
 
     // Handle the file upload if a new image is provided
@@ -156,7 +157,8 @@ export const updateErga= async(req,res)=>{
             estimate_payment_date:estimate_payment_date,
             estimate_payment_date_2:estimate_payment_date_2,
             estimate_payment_date_3:estimate_payment_date_3,
-            erga_cat_id
+            erga_cat_id,
+            erga_code: erga_code
         },{
             where:{
                 id:erga.id
