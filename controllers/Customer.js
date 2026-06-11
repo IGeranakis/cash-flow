@@ -6,19 +6,12 @@ import { Sequelize } from "sequelize";
 import Erga from "../models/ErgaModel.js";
 import Customer from "../models/CustomerModel.js";
 
-const https = require('https');
-
 function notifyTracker(customer) {
-  const body = JSON.stringify(customer);
-  const req = https.request({
-    hostname: 'n8n.cmtprooptiki.gr',
-    path: '/webhook/cashflow-customer-sync',
+  fetch('https://n8n.cmtprooptiki.gr/webhook/cashflow-customer-sync', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) },
-  });
-  req.on('error', () => {}); // fire-and-forget, don't crash on failure
-  req.write(body);
-  req.end();
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(customer),
+  }).catch(() => {}); // fire-and-forget
 }
 
 export const getCustomer = async(req,res)=>{
