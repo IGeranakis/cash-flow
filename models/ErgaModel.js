@@ -22,6 +22,11 @@ const Erga = db.define('erga',{
             len: [3, 500]
         }
     },
+    description:
+    {
+        type: DataTypes.STRING,
+        allowNull:true
+    },
     color:{
         type: DataTypes.STRING,
         allowNull: false, // Allow empty values
