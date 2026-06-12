@@ -5,7 +5,7 @@ export const getYpoxreoseis = async(req,res)=>
     {
         try{
             const response = await Ypoxreoseis.findAll({
-                attributes:['id','provider','invoice_date','total_owed_ammount', 'ammount_vat', 'erga_id']
+                attributes:['id','provider','invoice_date','total_owed_ammount', 'ammount_vat', 'erga_id', 'iban']
             });
             res.status(200).json(response);
         } catch(error){
@@ -18,7 +18,7 @@ export const getYpoxreoseis = async(req,res)=>
 export const getYpoxreoseisById = async(req,res)=>{
         try{
             const response = await Ypoxreoseis.findOne({
-                attributes:['id','provider','invoice_date','total_owed_ammount', 'ammount_vat', 'erga_id'],
+                attributes:['id','provider','invoice_date','total_owed_ammount', 'ammount_vat', 'erga_id', 'iban'],
                 where:{
                     id:req.params.id
                 }
@@ -33,7 +33,7 @@ export const getYpoxreoseisById = async(req,res)=>{
 
 export const createYpoxreoseis = async(req,res)=>{
     
-        const {provider, invoice_date, total_owed_ammount, ammount_vat, erga_id} = req.body;
+        const {provider, invoice_date, total_owed_ammount, ammount_vat, erga_id, iban} = req.body;
     
         try{
             await Ypoxreoseis.create({
@@ -41,7 +41,8 @@ export const createYpoxreoseis = async(req,res)=>{
                 invoice_date:invoice_date,
                 total_owed_ammount:total_owed_ammount,
                 ammount_vat:ammount_vat,
-                erga_id:erga_id
+                erga_id:erga_id,
+                iban:iban
     
             });
             res.status(201).json({msg:"Ypoxreoseis created Succesfully"});
@@ -62,7 +63,7 @@ export const updateYpoxreoseis= async(req,res)=>{
         });
     
         if (!ypoxreoseis) return res.status(404).json({msg:"Ypoxreoseis not  found"});
-        const {provider, invoice_date, total_owed_ammount, ammount_vat, erga_id} = req.body;
+        const {provider, invoice_date, total_owed_ammount, ammount_vat, erga_id,iban} = req.body;
         
         try{
             await Ypoxreoseis.update({
@@ -70,7 +71,8 @@ export const updateYpoxreoseis= async(req,res)=>{
                 invoice_date:invoice_date,
                 total_owed_ammount:total_owed_ammount,
                 ammount_vat:ammount_vat,
-                erga_id:erga_id
+                erga_id:erga_id,
+                iban:iban
             },{
                 where:{
                     id:ypoxreoseis.id
