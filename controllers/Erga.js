@@ -11,6 +11,14 @@ import Ekxorimena_Timologia from "../models/Ekxorimena_TimologiaModel.js";
 import timologia from "../models/TimologiaModel.js";
 import Paradotea from "../models/ParadoteaModel.js";
 
+function notifyTracker(ergo) {
+  fetch('https://n8n.cmtprooptiki.gr/webhook/cashflow-project-sync', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(ergo),
+  }).catch(() => {});
+}
+
 export const getErga = async(req,res)=>{
 
     
@@ -63,114 +71,57 @@ export const getErgaById = async(req,res)=>{
     
 }
 
+export const createErga = async(req, res) => {
+  const {name, color, sign_ammount_no_tax, sign_date, status, estimate_start_date,
+    project_manager, customer_id, shortname, ammount, ammount_vat, ammount_total,
+    estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3,
+    erga_cat_id, erga_code} = req.body;
 
-export const createErga = async(req,res)=>{
-    
-    const {name,color,sign_ammount_no_tax,sign_date,
-        status,estimate_start_date,
-        project_manager,customer_id,
-        shortname,ammount,ammount_vat,
-        ammount_total,
-        estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id, erga_code
-    } = req.body;
+  let logoImage = 'uploads\\nologo.png';
+  if (req.file) logoImage = req.file.path;
 
-    // Handle the file upload if it exists
-    let logoImage = 'uploads\\nologo.png';
-    if (req.file) {
-        logoImage = req.file.path;  // Save the path of the uploaded image
-    }
-
-
-    try{
-        await Erga.create({
-            logoImage:logoImage,
-            name:name,
-            color:color,
-            sign_ammount_no_tax:sign_ammount_no_tax,
-            sign_date:sign_date,
-            status:status,
-            estimate_start_date:estimate_start_date,
-            project_manager:project_manager,
-            customer_id:customer_id,
-            shortname: shortname,
-            ammount:ammount,
-            ammount_vat:ammount_vat,
-            ammount_total:ammount_total,
-            estimate_payment_date:estimate_payment_date,
-            estimate_payment_date_2:estimate_payment_date_2,
-            estimate_payment_date_3:estimate_payment_date_3,
-            erga_cat_id,
-            erga_code: erga_code
-
-
-        });
-        res.status(201).json({msg:"erga complete"});
-
-    } catch(error){
-        res.status(400).json({msg:error.message});
-
-    }
-
-
-}
-
-
-export const updateErga= async(req,res)=>{
-    const erga = await Erga.findOne({
-        where:{
-            id:req.params.id
-        }
+  try {
+    const newErga = await Erga.create({   // ← capture result
+      logoImage, name, color, sign_ammount_no_tax, sign_date, status,
+      estimate_start_date, project_manager, customer_id, shortname,
+      ammount, ammount_vat, ammount_total, estimate_payment_date,
+      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,
     });
 
-    if (!erga) return res.status(404).json({msg:"erga not  found"});
-    const {name,color,sign_ammount_no_tax,sign_date,
-        status,estimate_start_date,
-        project_manager,customer_id,
-        shortname,ammount,ammount_vat,
-        ammount_total,
-        estimate_payment_date,
-        estimate_payment_date_2,estimate_payment_date_3,erga_cat_id, erga_code
-    } = req.body;
+    notifyTracker(newErga);   // ← add this
 
-    // Handle the file upload if a new image is provided
-    let logoImage = erga.logoImage;  // Keep existing image if not updated
-    if (req.file) {
-        logoImage = req.file.path;  // Update the path with the new file
-    }
+    res.status(201).json({msg: "erga complete"});
+  } catch(error) {
+    res.status(400).json({msg: error.message});
+  }
+}
 
-    try{
-        await Erga.update({
-            logoImage: logoImage,
-            name:name,
-            color:color,
-            sign_ammount_no_tax:sign_ammount_no_tax,
-            sign_date:sign_date,
-            status:status,
-            estimate_start_date:estimate_start_date,
-            project_manager:project_manager,
-            customer_id:customer_id,
-            shortname: shortname,
-            ammount:ammount,
-            ammount_vat:ammount_vat,
-            ammount_total:ammount_total,
-            estimate_payment_date:estimate_payment_date,
-            estimate_payment_date_2:estimate_payment_date_2,
-            estimate_payment_date_3:estimate_payment_date_3,
-            erga_cat_id,
-            erga_code: erga_code
-        },{
-            where:{
-                id:erga.id
-            }
-        });
-        res.status(200).json({msg:"Erga  update Succesfykky"});
-    
-    } catch(error){
-        res.status(400).json({msg:error.message});
-    
-    }
+export const updateErga = async(req, res) => {
+  const erga = await Erga.findOne({ where: { id: req.params.id } });
+  if (!erga) return res.status(404).json({msg: "erga not found"});
 
+  const {name, color, sign_ammount_no_tax, sign_date, status, estimate_start_date,
+    project_manager, customer_id, shortname, ammount, ammount_vat, ammount_total,
+    estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3,
+    erga_cat_id, erga_code} = req.body;
+
+  let logoImage = erga.logoImage;
+  if (req.file) logoImage = req.file.path;
+
+  try {
+    await Erga.update({
+      logoImage, name, color, sign_ammount_no_tax, sign_date, status,
+      estimate_start_date, project_manager, customer_id, shortname,
+      ammount, ammount_vat, ammount_total, estimate_payment_date,
+      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,
+    }, { where: { id: erga.id } });
+
+    notifyTracker({ id: erga.id, name, erga_code, sign_date, ammount_total, status, customer_id });   // ← add this
+
+    res.status(200).json({msg: "Erga update Successfully"});
+  } catch(error) {
+    res.status(400).json({msg: error.message});
+  }
 }
 
 
