@@ -129,6 +129,13 @@ const Erga = db.define('erga',{
     erga_code:{
         type: DataTypes.STRING(500),
         allowNull: true 
+    },
+    end_date:{
+        type: DataTypes.DATEONLY,
+        allowNull: true,
+        validate: {
+            isDate: true
+        }
     }
 
     

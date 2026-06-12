@@ -30,7 +30,7 @@ export const getErga = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code'],
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code', 'end_date'],
             include: [{
                 model: Customer,
                 attributes: ['name'],
@@ -58,7 +58,7 @@ export const getErgaById = async(req,res)=>{
             'shortname','ammount','ammount_vat',
             'ammount_total',
             'estimate_payment_date',
-            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code'],
+            'estimate_payment_date_2','estimate_payment_date_3','erga_cat_id', 'erga_code','end_date'],
             where:{
                 id:req.params.id
             }
@@ -75,7 +75,7 @@ export const createErga = async(req, res) => {
   const {name, color, sign_ammount_no_tax, sign_date, status, estimate_start_date,
     project_manager, customer_id, shortname, ammount, ammount_vat, ammount_total,
     estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3,
-    erga_cat_id, erga_code} = req.body;
+    erga_cat_id, erga_code, end_date} = req.body;
 
   let logoImage = 'uploads\\nologo.png';
   if (req.file) logoImage = req.file.path;
@@ -85,7 +85,7 @@ export const createErga = async(req, res) => {
       logoImage, name, color, sign_ammount_no_tax, sign_date, status,
       estimate_start_date, project_manager, customer_id, shortname,
       ammount, ammount_vat, ammount_total, estimate_payment_date,
-      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,
+      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,end_date,
     });
 
     notifyTracker(newErga);   // ← add this
@@ -103,7 +103,7 @@ export const updateErga = async(req, res) => {
   const {name, color, sign_ammount_no_tax, sign_date, status, estimate_start_date,
     project_manager, customer_id, shortname, ammount, ammount_vat, ammount_total,
     estimate_payment_date, estimate_payment_date_2, estimate_payment_date_3,
-    erga_cat_id, erga_code} = req.body;
+    erga_cat_id, erga_code, end_date} = req.body;
 
   let logoImage = erga.logoImage;
   if (req.file) logoImage = req.file.path;
@@ -113,7 +113,7 @@ export const updateErga = async(req, res) => {
       logoImage, name, color, sign_ammount_no_tax, sign_date, status,
       estimate_start_date, project_manager, customer_id, shortname,
       ammount, ammount_vat, ammount_total, estimate_payment_date,
-      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,
+      estimate_payment_date_2, estimate_payment_date_3, erga_cat_id, erga_code,end_date,
     }, { where: { id: erga.id } });
 
     notifyTracker({ id: erga.id, name, erga_code, sign_date, ammount_total, status, customer_id });   // ← add this
