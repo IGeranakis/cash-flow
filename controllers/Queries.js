@@ -326,7 +326,7 @@ export const getParadoteoAndErgoByTimologio = async (req,res) =>
 
 export const YpoxreoseisAndTagsQuery = async(req,res)=>
 {
-    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id } = req.body;
+    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id, iban } = req.body;
 
     console.log('Received data:', req.body);
 
@@ -337,7 +337,8 @@ export const YpoxreoseisAndTagsQuery = async(req,res)=>
             erga_id:erga_id,
             invoice_date:invoice_date,
             total_owed_ammount:total_owed_ammount,
-            ammount_vat:ammount_vat
+            ammount_vat:ammount_vat,
+            iban:iban,
         });
 
         // console.log(provider)
@@ -527,6 +528,7 @@ export const findYpoxreoseisWithTags = async (req, res) => {
                         createdAt: item.ypoxreosei.createdAt,
                         updatedAt: item.ypoxreosei.updatedAt,
                         erga_id: item.ypoxreosei.erga_id,
+                        iban:item.ypoxreosei.iban,
                         doseisCount: item.dataValues.doseisCount,
                         Paid_doseis_ammount: item.dataValues.Paid_doseis_ammount,
                         NotPaid_doseis_ammount:item.dataValues.NotPaid_doseis_ammount
@@ -582,7 +584,8 @@ export const findYpoxreoseisWithTagsId = async (req, res) => {
                         ammount_vat: item.ypoxreosei.ammount_vat,
                         createdAt: item.ypoxreosei.createdAt,
                         updatedAt: item.ypoxreosei.updatedAt,
-                        erga_id: item.ypoxreosei.erga_id
+                        erga_id: item.ypoxreosei.erga_id,
+                        iban: item.ypoxreosei.iban,
                     },
                     tags: [] // Initialize an empty array for tags
                 };
@@ -608,7 +611,7 @@ export const updateYpoxreoseisWithTags = async(req,res)=>
 {
     
     const { id } = req.params; // Retrieve the id from route parameters
-    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id } = req.body;
+    const { provider, erga_id, invoice_date, total_owed_ammount, ammount_vat, tags_id, iban } = req.body;
 
     try {
         // Check if the record with the specified id exists
@@ -621,6 +624,7 @@ export const updateYpoxreoseisWithTags = async(req,res)=>
             ypoxreoseis.invoice_date = invoice_date;
             ypoxreoseis.total_owed_ammount = total_owed_ammount;
             ypoxreoseis.ammount_vat = ammount_vat;
+            ypoxreoseis.iban = iban
 
             await ypoxreoseis.save();
 

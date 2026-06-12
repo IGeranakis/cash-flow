@@ -37,6 +37,11 @@ const Ypoxreoseis = db.define('ypoxreoseis',{
         validate: {
             isNumeric: true
         }
+    },
+    iban:
+    {
+        type: DataTypes.STRING(1000),
+        allowNull: true,
     }
 },{
     freezeTableName: true

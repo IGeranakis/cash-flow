@@ -18,6 +18,7 @@ export const getDoseis = async(req,res)=>
                     doseis.status, 
                     doseis.comment,
                     ypoxreoseis.provider,
+                    ypoxreoseis.iban,
                     tags_has_ypoxreoseis.id AS tag_relation_id,
                     tags_has_ypoxreoseis.tags_id,
                     GROUP_CONCAT(tags.name) AS tag_name
